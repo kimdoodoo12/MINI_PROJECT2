@@ -16,126 +16,128 @@ INSERT INTO menu (menu_name, menu_price) VALUES
 ('치킨버거', 6500),
 ('프리미엄버거', 10000);
 
+
+
+
 CREATE TABLE product (
     product_no INT AUTO_INCREMENT PRIMARY KEY,
     product_name VARCHAR(50) NOT NULL,
-    product_qty INT NOT NULL,
     product_price INT NOT NULL
 );
 
-INSERT INTO product
-(product_name, product_qty, product_price)
-VALUES
-('햄버거빵', 500, 500),
-('소고기패티', 300, 1200),
-('불고기패티', 300, 1000),
-('치즈', 300, 300),
-('양상추', 500, 200),
-('토마토', 300, 300),
-('피클', 500, 100),
-('베이컨', 300, 500),
-('새우패티', 300, 1300),
-('치킨패티', 300, 1100),
-('양파', 500, 150),
-('스파이시소스', 300, 200);
+INSERT INTO product (product_name, product_price) VALUES
+('햄버거빵', 500),
+('소고기패티', 1200),
+('불고기패티', 1000),
+('치즈', 300),
+('양상추', 200),
+('토마토', 300),
+('피클', 100),
+('베이컨', 500),
+('새우패티', 1300),
+('치킨패티', 1100),
+('양파', 150),
+('스파이시소스', 200);
+
+
 
 
 CREATE TABLE recipe (
-    menu_id INT NOT NULL,
+    menu_no INT NOT NULL,
     product_no INT NOT NULL,
     recipe_order INT NOT NULL,
-    PRIMARY KEY (menu_id, recipe_order),
-    FOREIGN KEY (menu_id) REFERENCES menu(menu_id),
-    FOREIGN KEY (product_no) REFERENCES product(product_no)
-);INSERT INTO recipe (menu_id, product_no, recipe_order) VALUES
--- 치즈버거
-(1,1,1),
-(1,4,2),
-(1,2,3),
-(1,5,4),
-(1,1,5),
 
--- 불고기버거
-(2,1,1),
-(2,3,2),
-(2,11,3),
-(2,5,4),
-(2,1,5),
+    PRIMARY KEY (menu_no, recipe_order),
 
--- 더블불고기버거
-(3,1,1),
-(3,3,2),
-(3,4,3),
-(3,3,4),
-(3,11,5),
-(3,5,6),
-(3,7,7),
-(3,1,8),
+    CONSTRAINT fk_recipe_menu
+        FOREIGN KEY (menu_no)
+        REFERENCES menu(menu_id),
 
--- 새우버거
-(4,1,1),
-(4,5,2),
-(4,9,3),
-(4,7,4),
-(4,1,5),
+    CONSTRAINT fk_recipe_product
+        FOREIGN KEY (product_no)
+        REFERENCES product(product_no)
+);
 
--- 베이컨치즈버거
-(5,1,1),
-(5,8,2),
-(5,4,3),
-(5,2,4),
-(5,6,5),
-(5,5,6),
-(5,1,7),
+INSERT INTO recipe (menu_no, product_no, recipe_order) VALUES
+(1, 1, 1),
+(1, 4, 2),
+(1, 2, 3),
+(1, 5, 4),
+(1, 1, 5),
 
--- 클래식버거
-(6,1,1),
-(6,5,2),
-(6,6,3),
-(6,7,4),
-(6,11,5),
-(6,2,6),
-(6,1,7),
+(2, 1, 1),
+(2, 3, 2),
+(2, 11, 3),
+(2, 5, 4),
+(2, 1, 5),
 
--- 더블치즈버거
-(7,1,1),
-(7,4,2),
-(7,2,3),
-(7,4,4),
-(7,2,5),
-(7,5,6),
-(7,7,7),
-(7,1,8),
+(3, 1, 1),
+(3, 3, 2),
+(3, 4, 3),
+(3, 3, 4),
+(3, 11, 5),
+(3, 5, 6),
+(3, 7, 7),
+(3, 1, 8),
 
--- 스파이시버거
-(8,1,1),
-(8,12,2),
-(8,10,3),
-(8,11,4),
-(8,5,5),
-(8,12,6),
-(8,1,7),
+(4, 1, 1),
+(4, 5, 2),
+(4, 9, 3),
+(4, 7, 4),
+(4, 1, 5),
 
--- 치킨버거
-(9,1,1),
-(9,5,2),
-(9,10,3),
-(9,6,4),
-(9,7,5),
-(9,1,6),
+(5, 1, 1),
+(5, 8, 2),
+(5, 4, 3),
+(5, 2, 4),
+(5, 6, 5),
+(5, 5, 6),
+(5, 1, 7),
 
--- 프리미엄버거
-(10,1,1),
-(10,4,2),
-(10,2,3),
-(10,8,4),
-(10,4,5),
-(10,2,6),
-(10,6,7),
-(10,11,8),
-(10,5,9),
-(10,7,10),
-(10,1,11);
+(6, 1, 1),
+(6, 5, 2),
+(6, 6, 3),
+(6, 7, 4),
+(6, 11, 5),
+(6, 2, 6),
+(6, 1, 7),
+
+(7, 1, 1),
+(7, 4, 2),
+(7, 2, 3),
+(7, 4, 4),
+(7, 2, 5),
+(7, 5, 6),
+(7, 7, 7),
+(7, 1, 8),
+
+(8, 1, 1),
+(8, 12, 2),
+(8, 10, 3),
+(8, 11, 4),
+(8, 5, 5),
+(8, 12, 6),
+(8, 1, 7),
+
+(9, 1, 1),
+(9, 5, 2),
+(9, 10, 3),
+(9, 6, 4),
+(9, 7, 5),
+(9, 1, 6),
+
+(10, 1, 1),
+(10, 4, 2),
+(10, 2, 3),
+(10, 8, 4),
+(10, 4, 5),
+(10, 2, 6),
+(10, 6, 7),
+(10, 11, 8),
+(10, 5, 9),
+(10, 7, 10),
+(10, 1, 11);
+
 
 
 CREATE TABLE GameLog (
@@ -162,6 +164,7 @@ VALUES
 
 
 
+
 CREATE TABLE GameState (
     gameState_id INT PRIMARY KEY,
     current_day INT,
@@ -173,19 +176,21 @@ CREATE TABLE GameState (
 INSERT INTO GameState
 (gameState_id, current_day, current_gold, restaurant_state, gameState_date)
 VALUES
-(1, 7, 135000, TRUE, '2026-08-20 10:00:00');
+(1, 7, 100000, TRUE, '2026-08-20 10:00:00');
 
-CREATE TABLE customer (
+
+
+
+CREATE TABLE CustomerLog (
     customer_no INT AUTO_INCREMENT PRIMARY KEY,
     menu_id INT,
     entered_at TIME,
     customer_state VARCHAR(10),
     customerLog_day INT,
-    current_gold INT,
-    FOREIGN KEY (menu_id) REFERENCES menu(menu_id)
+    current_gold INT
 );
 
-INSERT INTO customer
+INSERT INTO CustomerLog
 (customer_no, menu_id, entered_at, customer_state, customerLog_day, current_gold)
 VALUES
 (1, 2, '10:00:00', 'served', 3, 5000),
@@ -201,26 +206,28 @@ VALUES
 
 
 
-CREATE TABLE cook (
+CREATE TABLE Cook (
     cook_id INT AUTO_INCREMENT PRIMARY KEY,
     menu_id INT,
-    cook_state BOOLEAN NOT NULL,
-    FOREIGN KEY (menu_id) REFERENCES menu(menu_id)
+    cook_state VARCHAR(10) NOT NULL
 );
 
-INSERT INTO cook
+INSERT INTO Cook
 (cook_id, menu_id, cook_state)
 VALUES
-(1, 2, TRUE),
-(2, 5, FALSE),
-(3, 1, TRUE),
-(4, 8, TRUE),
-(5, 10, FALSE),
-(6, 3, TRUE),
-(7, 7, TRUE),
-(8, 9, FALSE),
-(9, 4, TRUE),
-(10, 6, TRUE);
+(1, 2, 'SERVED'),
+(2, 5, 'SERVED'),
+(3, 1, 'DISPOSE'),
+(4, 8, 'SERVED'),
+(5, 10, 'SERVED'),
+(6, 3, 'SERVED'),
+(7, 7, 'READY'),
+(8, 9, 'READY'),
+(9, 4, 'READY'),
+(10, 6, 'READY');
+
+
+
 
 -- 재고 로그 테이블 생성
 CREATE TABLE productLog (
@@ -229,6 +236,7 @@ CREATE TABLE productLog (
     product_qty INT NOT NULL,
     product_condition VARCHAR(20) NOT NULL,
     productLog_price INT NOT NULL,
+    customerLog_day INT NOT NULL,
 
     CONSTRAINT fk_productLog_product
         FOREIGN KEY (product_id)
@@ -237,15 +245,18 @@ CREATE TABLE productLog (
 
 -- 재고 로그 데이터 삽입
 INSERT INTO productLog
-(productLog_no, product_id, product_qty, product_condition, productLog_price)
+(productLog_no, product_id, product_qty, product_condition, productLog_price, customerLog_day)
 VALUES
-(1, 1, 200, '발주', 20000),
-(2, 2, 100, '발주', 15000),
-(3, 3, 100, '발주', 30000),
-(4, 5, 150, '발주', 75000),
-(5, 7, 50, '발주', 25000),
-(6, 8, 30, '폐기', 0),
-(7, 9, 100, '발주', 10000),
-(8, 10, 80, '발주', 12000),
-(9, 4, 40, '폐기', 0),
-(10, 6, 120, '발주', 60000);
+(1, 1, 200, '발주', 20000, 1),
+(2, 2, -100, '사용', 0, 1),
+(3, 3, 100, '발주', 30000, 1),
+(4, 5, 150, '발주', 75000, 1),
+(5, 7, 50, '발주', 25000, 2),
+(6, 8, -30, '사용', 0, 2),
+(7, 9, -100, '사용', 0, 2),
+(8, 10, 80, '발주', 12000, 2),
+(9, 4, 40, '사용', 0, 3),
+(10, 6, 120, '발주', 60000, 3);
+
+
+
