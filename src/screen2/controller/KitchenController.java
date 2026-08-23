@@ -19,7 +19,11 @@ public class KitchenController {
         return productList;
     }
 
-    public void takeRecipe(int menuChoice) {
-        kd.takeRecipe(menuChoice);
+    public ArrayList<Integer> takeRecipe(int menuChoice) {
+        return kd.takeRecipe(menuChoice);
+    }
+
+    public boolean checkRecipe(ArrayList<Integer> productList, ArrayList<Integer> recipeList) {
+        return productList.equals(recipeList);
     }
 }

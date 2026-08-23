@@ -60,7 +60,13 @@ public class KitchenProductView1 {
                     // 재료로그추가 메소드 추가
                     ArrayList<Integer> productList = kc.addProductList(productChoice);// 재료list에 담기
                     if(productChoice == 0){
-                        kc.takeRecipe(menuChoice);  // db에서 해당 메뉴번호 레시피 가져오기
+                        ArrayList<Integer> recipeList = kc.takeRecipe(menuChoice);// db에서 해당 메뉴번호 레시피 가져오기
+                        boolean result = kc.checkRecipe(productList, recipeList);
+                        if(result){
+                            System.out.println("요리가 완성되었습니다.");
+                        } else {
+                            System.out.println("재료가 맞지 않습니다.");
+                        }
                     }
                 }
             }
@@ -69,4 +75,5 @@ public class KitchenProductView1 {
         }
 
     }
+
 }
