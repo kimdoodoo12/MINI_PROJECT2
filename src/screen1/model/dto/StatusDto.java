@@ -7,17 +7,19 @@ public class StatusDto {
     private int totalCustomer;
     private int servedCustomer;
 
-    public StatusDto(int day, int sales, int productExpense, int totalCustomer, int ServedCustomer) {
+    public StatusDto(int day, int sales, int productExpense, int totalCustomer, int servedCustomer) {
         this.day = day;
         this.sales = sales;
         this.productExpense = productExpense;
+        this.totalCustomer = totalCustomer;
+        this.servedCustomer = servedCustomer;
     }
 
     public int getDay() {
         return day;
     }
 
-    public int getSalse() {
+    public int getSales() {
         return sales;
     }
 

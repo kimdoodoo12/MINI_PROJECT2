@@ -33,22 +33,24 @@ public class StatusController {
     // 총 방문 손님 가져오기
     public int getTotalCustomer(int day) {
         int result = stad.getTotalCustomer(day);
+        System.out.println("컨트롤러 총 방문손님 :" + result);
         return result;
     }
 
     // 서빙된 손님 가져오기
     public int getServedCustomer(int day) {
         int result = stad.getServed(day);
+        System.out.println("컨트롤러 서빙손님 :" + result);
         return result;
     }
 
     // 컨트롤러에서 전부 모아서 뷰에게 전달.
     public StatusDto clacDailyStatus() {
-        int day = stad.getDay();
-        int sales = stad.getSales(day);
-        int expense = stad.getExpense(day);
-        int totalCustomer = stad.getTotalCustomer(day);
-        int servedCustomer = stad.getServed(day);
+        int day = getDay();
+        int sales = getSales(day);
+        int expense = getExpense(day);
+        int totalCustomer = getTotalCustomer(day);
+        int servedCustomer = getServedCustomer(day);
 
         return new StatusDto(day, sales, expense, totalCustomer, servedCustomer);
     }
