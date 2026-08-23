@@ -1,11 +1,19 @@
 package screen1.model.dao;
 
-import java.net.Socket;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class StatusDao extends IBaseDao {
+    private StatusDao() {
+    }
+
+    private static final StatusDao instance = new StatusDao();
+
+    public static StatusDao getInstance() {
+        return instance;
+    }
+
     // 현재 일차 가져오기
     public int getDay() {
         int result = 0;

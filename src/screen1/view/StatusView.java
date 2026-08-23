@@ -1,9 +1,15 @@
 package screen1.view;
 
+import java.util.ArrayList;
+
+import screen1.controller.MenuController;
 import screen1.controller.StatusController;
+import screen1.model.dto.MenuStatusDto;
 import screen1.model.dto.StatusDto;
 
 public class StatusView {
+    private StatusView() {
+    }
 
     private static final StatusView instance = new StatusView();
 
@@ -11,7 +17,8 @@ public class StatusView {
         return instance;
     }
 
-    private StatusController stac = new StatusController();
+    private StatusController stac = StatusController.getInstance();
+    private MenuController menuc = MenuController.getInstance();
 
     public static int day = 0;
 
@@ -26,15 +33,25 @@ public class StatusView {
 
     public void printDailySatus() {
         StatusDto stadto = stac.clacDailyStatus();
+        int day = stadto.getDay();
 
-        System.out.println("일차 : " + stadto.getDay());
+        System.out.println("일차 : " + day);
         System.out.println("매출 : " + stadto.getSales());
         System.out.println("지출 : " + stadto.getExpense());
         System.out.println("순이익 : " + stadto.getNetProfit());
         System.out.println("총 방문손님 : " + stadto.getTotalCustomer());
         System.out.println("식사 완료 손님 : " + stadto.getServedCustomer());
         System.out.println("놓친 손님 : " + stadto.getLeftCustomer());
+        printDailyMenuSales(day);
 
+    }
+
+    public void printDailyMenuSales(int day) {
+        ArrayList<MenuStatusDto> menuList = menuc.getMenuSales(day);
+        for (MenuStatusDto list : menuList) {
+            System.out.println("팔린 메뉴 : %s" + list.getMenuName());
+            System.out.printf("메뉴 개수" + list.getCount());
+        }
     }
 
 }

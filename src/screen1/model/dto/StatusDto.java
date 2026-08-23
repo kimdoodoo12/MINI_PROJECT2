@@ -7,6 +7,9 @@ public class StatusDto {
     private int totalCustomer;
     private int servedCustomer;
 
+    public StatusDto() {
+    }
+
     public StatusDto(int day, int sales, int productExpense, int totalCustomer, int servedCustomer) {
         this.day = day;
         this.sales = sales;

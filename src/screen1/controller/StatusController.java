@@ -1,10 +1,21 @@
 package screen1.controller;
 
+import java.io.ObjectInputFilter.Status;
+
 import screen1.model.dao.StatusDao;
 import screen1.model.dto.StatusDto;
 
 public class StatusController {
-    StatusDao stad = new StatusDao();
+    private StatusController() {
+    }
+
+    private static final StatusController instance = new StatusController();
+
+    public static StatusController getInstance() {
+        return instance;
+    }
+
+    private StatusDao stad = StatusDao.getInstance();
 
     // [0] 게임 정보 로직
 
