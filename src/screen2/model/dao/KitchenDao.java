@@ -6,4 +6,8 @@ public class KitchenDao extends IBaseDao{
     public static KitchenDao getInstance() {
         return instance;
     }
+
+    public void takeRecipe(int menuChoice) {
+
+    }
 }
