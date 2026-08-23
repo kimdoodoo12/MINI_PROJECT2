@@ -31,6 +31,9 @@ public class StatusView {
         System.out.println("매출 : " + stadto.getSalse());
         System.out.println("지출 : " + stadto.getExpense());
         System.out.println("순이익 : " + stadto.getNetProfit());
+        System.out.println("총 방문손님 : " + stadto.getTotalCustomer());
+        System.out.println("식사 완료 손님 : " + stadto.getServedCustomer());
+        System.out.println("놓친 손님 : " + stadto.getLeftCustomer());
 
     }
 

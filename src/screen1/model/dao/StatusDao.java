@@ -57,4 +57,38 @@ public class StatusDao extends IBaseDao {
         }
         return result;
     }
+
+    // 총 방문 손님
+    public int getTotalCustomer(int day) {
+        int result = 0;
+        String sql = "SELECT SUM(CUSTOMER_NUM) TOTAL_CUSTOMER FROM CUSTOMERLOG WHERE CUSTOMERLOG_DAY = ? AND CUSTOMER_STATE = 'SERVED' OR CUSTOMER_STATE = 'LEFT'";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, day);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                result = rs.getInt("TOTAL_CUSTOMER");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return result;
+    }
+
+    // 식사완료 손님
+    public int getServed(int day) {
+        int result = 0;
+        String sql = "SELECT SUM(SERVED_CUSTOMER) TOTAL_SERVED FROM CUSTOMERLOG WHERE CUSTOMERLOG_DAY = ? AND CUSTOMER_STATE = 'SERVED'";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, day);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                result = rs.getInt("TOTAL_SERVED");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return result;
+    }
 }

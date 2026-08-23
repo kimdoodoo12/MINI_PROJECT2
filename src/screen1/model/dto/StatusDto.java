@@ -4,8 +4,10 @@ public class StatusDto {
     private int day;
     private int sales;
     private int productExpense;
+    private int totalCustomer;
+    private int servedCustomer;
 
-    public StatusDto(int day, int sales, int productExpense) {
+    public StatusDto(int day, int sales, int productExpense, int totalCustomer, int ServedCustomer) {
         this.day = day;
         this.sales = sales;
         this.productExpense = productExpense;
@@ -25,6 +27,18 @@ public class StatusDto {
 
     public int getNetProfit() {
         return sales - productExpense;
+    }
+
+    public int getTotalCustomer() {
+        return totalCustomer;
+    }
+
+    public int getServedCustomer() {
+        return servedCustomer;
+    }
+
+    public int getLeftCustomer() {
+        return totalCustomer - servedCustomer;
     }
 
 }
