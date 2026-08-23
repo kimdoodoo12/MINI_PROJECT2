@@ -20,9 +20,9 @@ public class MenuStatusDao extends IBaseDao {
     // 팔린 메뉴 이름, 수량 가져오기
     public ArrayList<MenuStatusDto> getMenuSales(int day) {
         ArrayList<MenuStatusDto> list = new ArrayList<>();
-        String sql = "SELECT MENU_NAME, COUNT(*) COUNT"
+        String sql = "SELECT MENU_NAME, COUNT(*) COUNT "
                 + "FROM CUSTOMERLOG C1 JOIN MENU M1 ON C1.MENU_ID = M1.MENU_ID "
-                + "WHERE C1.CUSTOMERLOG_DAY = ? AND C1.CUSTOMER_STATE = 'SERVED'"
+                + "WHERE C1.CUSTOMERLOG_DAY = ? AND C1.CUSTOMER_STATE = 'SERVED' "
                 + "GROUP BY M1.menu_id;";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);

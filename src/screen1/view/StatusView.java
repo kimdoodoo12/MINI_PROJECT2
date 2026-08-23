@@ -49,8 +49,8 @@ public class StatusView {
     public void printDailyMenuSales(int day) {
         ArrayList<MenuStatusDto> menuList = menuc.getMenuSales(day);
         for (MenuStatusDto list : menuList) {
-            System.out.println("팔린 메뉴 : %s" + list.getMenuName());
-            System.out.printf("메뉴 개수" + list.getCount());
+            System.out.printf("팔린 메뉴 : " + list.getMenuName());
+            System.out.println(" 메뉴 개수 : " + list.getCount());
         }
     }
 
