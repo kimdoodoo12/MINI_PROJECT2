@@ -26,4 +26,8 @@ public class KitchenController {
     public boolean checkRecipe(ArrayList<Integer> productList, ArrayList<Integer> recipeList) {
         return productList.equals(recipeList);
     }
+
+    public void addCookTable(int menuChoice, String state) {
+        kd.addCookTable(menuChoice, state);
+    }
 }

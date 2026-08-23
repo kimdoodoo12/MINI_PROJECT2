@@ -27,4 +27,8 @@ public class KitchenDao extends IBaseDao{
         }
         return recipeList;
     }
+
+    public void addCookTable(int menuChoice, String state) {
+
+    }
 }
