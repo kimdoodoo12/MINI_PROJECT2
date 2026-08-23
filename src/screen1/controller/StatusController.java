@@ -27,7 +27,7 @@ public class StatusController {
     public StatusDto clacDailyStatus() {
         int day = stad.getDay();
         int sales = stad.getSales(day);
-        int expens = stad.getExpense(day);
-        return new StatusDto(getDay(), getDay(), getDay());
+        int expense = stad.getExpense(day);
+        return new StatusDto(day, sales, expense);
     }
 }

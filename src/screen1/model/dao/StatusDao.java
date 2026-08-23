@@ -13,7 +13,7 @@ public class StatusDao extends IBaseDao {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                result = rs.getInt("cuurent_day");
+                result = rs.getInt("current_day");
             }
 
         } catch (SQLException e) {
@@ -25,16 +25,17 @@ public class StatusDao extends IBaseDao {
     // 총 매출(손님이 계산한 돈)
     public int getSales(int day) {
         int result = 0;
-        String sql = "SELECT SUM(CURRENT_GOLD) FROM CUSTOMERLOG WHERE CUSTOMERLOG_DAY = ? AND CUSTOMER_STATE = 'SERVED'";
+        String sql = "SELECT SUM(CURRENT_GOLD) TOTALGOLD FROM CUSTOMERLOG WHERE CUSTOMERLOG_DAY = ? AND CUSTOMER_STATE = 'SERVED'";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, day);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                result = rs.getInt("current_gold");
+                result = rs.getInt("TOTALGOLD");
             }
 
         } catch (SQLException e) {
+            System.out.printf("매출 : %d\n", result);
             System.out.println(e);
         }
         return result;
@@ -43,13 +44,13 @@ public class StatusDao extends IBaseDao {
     // 전날 지출 (재고 지출)
     public int getExpense(int day) {
         int result = 0;
-        String sql = "SELECT SUM(PRODUCTLOG_PRICE) FROM PRODUCTLOG WHER CUSTOMERLOG_DAY = ? AND PRODUCT_CONDITION = '발주'";
+        String sql = "SELECT SUM(PRODUCTLOG_PRICE) FROM PRODUCTLOG WHERE CUSTOMERLOG_DAY = ? AND PRODUCT_CONDITION = '발주'";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, day);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                result = rs.getInt("productLog_price");
+                result = rs.getInt("SUM(PRODUCTLOG_PRICE)");
             }
         } catch (SQLException e) {
             System.out.println(e);

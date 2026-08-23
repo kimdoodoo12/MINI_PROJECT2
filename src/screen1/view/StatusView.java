@@ -27,9 +27,10 @@ public class StatusView {
     public void printDailySatus() {
         StatusDto stadto = stac.clacDailyStatus();
 
-        System.out.println(stadto.getDay());
-        System.out.println(stadto.getExpense());
-        System.out.println(stadto.getNetProfit());
+        System.out.println("일차 : " + stadto.getDay());
+        System.out.println("매출 : " + stadto.getSalse());
+        System.out.println("지출 : " + stadto.getExpense());
+        System.out.println("순이익 : " + stadto.getNetProfit());
 
     }
 
