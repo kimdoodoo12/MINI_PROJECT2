@@ -1,6 +1,7 @@
 package screen1.controller;
 
 import screen1.model.dao.StatusDao;
+import screen1.model.dto.StatusDto;
 
 public class StatusController {
     StatusDao stad = new StatusDao();
@@ -21,5 +22,12 @@ public class StatusController {
     public int getExpense(int day) {
         int result = stad.getExpense(day);
         return result;
+    }
+
+    public StatusDto clacDailyStatus() {
+        int day = stad.getDay();
+        int sales = stad.getSales(day);
+        int expens = stad.getExpense(day);
+        return new StatusDto(getDay(), getDay(), getDay());
     }
 }

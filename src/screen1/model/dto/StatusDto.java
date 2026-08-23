@@ -8,7 +8,7 @@ public class StatusDto {
     public StatusDto(int day, int sales, int productExpense) {
         this.day = day;
         this.sales = sales;
-        this.productExpense = sales;
+        this.productExpense = productExpense;
     }
 
     public int getDay() {
@@ -19,8 +19,12 @@ public class StatusDto {
         return sales;
     }
 
-    public int getProductExpense() {
+    public int getExpense() {
         return productExpense;
+    }
+
+    public int getNetProfit() {
+        return sales - productExpense;
     }
 
 }
