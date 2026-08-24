@@ -29,12 +29,20 @@ public class ProductStatusController {
             int used = used2.getUsed();
             for (ProductStatusDto remain2 : remainList) {
                 if (used2.getProductName().equals(remain2.getProductName())) {
+                    System.out.println("조건 걸림");
                     remain = remain2.getRemain();
                 }
-                ProductStatusDto productStatusDto = new ProductStatusDto(pName, used, remain);
-                result.add(productStatusDto);
+
             }
+            ProductStatusDto productStatusDto = new ProductStatusDto(pName, used, remain);
+            System.out.println("컨트롤러 출력");
+            System.out.println(pName);
+            System.out.println(used);
+            System.out.println(remain);
+            System.out.println(productStatusDto);
+            result.add(productStatusDto);
         }
+        System.out.println("컨트롤러 객체 " + result);
         return result;
 
     }

@@ -37,8 +37,9 @@ public class StatusView {
     public void printDailySatus() {
         StatusDto stadto = stac.clacDailyStatus();
         int day = stadto.getDay();
-
+        printline();
         System.out.println("일차 : " + day);
+        printline();
         System.out.println("매출 : " + stadto.getSales());
         System.out.println("지출 : " + stadto.getExpense());
         System.out.println("순이익 : " + stadto.getNetProfit());
@@ -60,6 +61,7 @@ public class StatusView {
 
     public void printDailyProductStatus(int day) {
         ArrayList<ProductStatusDto> productList = productc.getProductStatus(day);
+        System.out.println(productc.getProductStatus(day));
         for (ProductStatusDto list : productList) {
             System.out.println("재고명 : " + list.getProductName());
             System.out.println("사용량 : " + list.getUsed());

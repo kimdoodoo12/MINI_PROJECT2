@@ -8,7 +8,7 @@ public class ProductStatusDto {
     public ProductStatusDto() {
     }
 
-    public ProductStatusDto(String productName, int used, int remail) {
+    public ProductStatusDto(String productName, int used, int remain) {
         this.productName = productName;
         this.used = used;
         this.remain = remain;
@@ -36,6 +36,11 @@ public class ProductStatusDto {
 
     public void setRemain(int remain) {
         this.remain = remain;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductStatusDto [productName=" + productName + ", used=" + used + ", remain=" + remain + "]";
     }
 
 }
