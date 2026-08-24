@@ -183,8 +183,8 @@ INSERT INTO GameState
 VALUES
 (1, 7, 100000, TRUE, '2026-08-20 10:00:00');
 
-
-
+UPDATE GameState set current_gold += 40000
+select * from GameState;
 
 CREATE TABLE CustomerLog (
     customer_no INT AUTO_INCREMENT PRIMARY KEY,
