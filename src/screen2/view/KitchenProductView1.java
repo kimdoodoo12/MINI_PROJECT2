@@ -40,9 +40,20 @@ public class KitchenProductView1 {
 
     private void findAllRecipes() {
         Map<String, ArrayList<String>> allRecipes = kc.findAllRecipes();
-        allRecipes.keySet().forEach((menuName)->{
-            System.out.println(menuName + " -> " + allRecipes.get(menuName));
-        });
+        for (String menuName : allRecipes.keySet()) {
+            System.out.println("[" + menuName + "]");
+            ArrayList<String> list = allRecipes.get(menuName); // 해당 menu의 재료가 담긴 list
+            String result = "";
+            for (int i = 0; i < list.size(); i++) {
+                result += list.get(i);
+                if (i < list.size()-1){ // 마지막은 -> 빼기
+                    result += " -> ";
+                }
+            }
+            System.out.println(result);
+
+        }
+        System.out.println("=================================================================");
     }
 
     private void cook() {
