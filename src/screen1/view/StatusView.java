@@ -3,8 +3,10 @@ package screen1.view;
 import java.util.ArrayList;
 
 import screen1.controller.MenuController;
+import screen1.controller.ProductStatusController;
 import screen1.controller.StatusController;
 import screen1.model.dto.MenuStatusDto;
+import screen1.model.dto.ProductStatusDto;
 import screen1.model.dto.StatusDto;
 
 public class StatusView {
@@ -19,6 +21,7 @@ public class StatusView {
 
     private StatusController stac = StatusController.getInstance();
     private MenuController menuc = MenuController.getInstance();
+    private ProductStatusController productc = ProductStatusController.getInstance();
 
     public static int day = 0;
 
@@ -43,6 +46,7 @@ public class StatusView {
         System.out.println("식사 완료 손님 : " + stadto.getServedCustomer());
         System.out.println("놓친 손님 : " + stadto.getLeftCustomer());
         printDailyMenuSales(day);
+        printDailyProductStatus(day);
 
     }
 
@@ -51,6 +55,15 @@ public class StatusView {
         for (MenuStatusDto list : menuList) {
             System.out.printf("팔린 메뉴 : " + list.getMenuName());
             System.out.println(" 메뉴 개수 : " + list.getCount());
+        }
+    }
+
+    public void printDailyProductStatus(int day) {
+        ArrayList<ProductStatusDto> productList = productc.getProductStatus(day);
+        for (ProductStatusDto list : productList) {
+            System.out.println("재고명 : " + list.getProductName());
+            System.out.println("사용량 : " + list.getUsed());
+            System.out.println("잔여량 : " + list.getRemain());
         }
     }
 
