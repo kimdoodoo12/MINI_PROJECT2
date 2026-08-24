@@ -58,8 +58,12 @@ public class HallController {
 
     public boolean checkBill(int customer_no, int price){
         boolean result1 = cd.checkBill(customer_no, price);
-        boolean result2 = cd.addGold(price);
+        boolean result2 = addGold(price);
         return result1 && result2;
+    }
+    public boolean addGold(int price){
+        boolean result = cd.addGold(price);
+        return result;
     }
 
     public boolean setCook(int menu_id, boolean isServed){
