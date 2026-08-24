@@ -1,9 +1,6 @@
 DROP DATABASE IF EXISTS MINI2;
-
 CREATE DATABASE MINI2;
-
 USE MINI2;
-
 
 CREATE TABLE menu (
     menu_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -192,25 +189,25 @@ VALUES
 CREATE TABLE CustomerLog (
     customer_no INT AUTO_INCREMENT PRIMARY KEY,
     menu_id INT,
-    entered_at TIME,
-    customer_state VARCHAR(10),
+    timer Int,
+    customer_state VARCHAR(10) DEFAULT 'waiting',
     customerLog_day INT,
-    current_gold INT
-);
+    current_gold INT DEFAULT 0
+    );
 
-INSERT INTO CustomerLog
-(customer_no, menu_id, entered_at, customer_state, customerLog_day, current_gold)
-VALUES
-(1, 2, '10:00:00', 'served', 3, 5000),
-(2, 5, '10:00:07', 'waiting', 3, 0),
-(3, 1, '10:00:15', 'served', 3, 7000),
-(4, 8, '10:00:21', 'served', 3, 9000),
-(5, 4, '10:00:30', 'left', 3, 0),
-(6, 10, '10:00:37', 'waiting', 3, 0),
-(7, 3, '10:00:43', 'served', 3, 4500),
-(8, 7, '10:00:51', 'served', 3, 8000),
-(9, 9, '10:01:02', 'waiting', 3, 0),
-(10, 6, '10:01:10', 'served', 3, 6000);
+-- INSERT INTO CustomerLog
+-- (customer_no, menu_id, customer_state, customerLog_day, current_gold)
+-- VALUES
+-- (1, 2, 'served', 3, 5000),
+-- (2, 5,'waiting', 3, 0),
+-- (3, 1, 'served', 3, 7000),
+-- (4, 8, 'served', 3, 9000),
+-- (5, 4, 'left', 3, 0),
+-- (6, 10, 'waiting', 3, 0),
+-- (7, 3, 'served', 3, 4500),
+-- (8, 7, 'served', 3, 8000),
+-- (9, 9, 'waiting', 3, 0),
+-- (10, 6, 'served', 3, 6000);
 
 
 
@@ -234,8 +231,8 @@ VALUES
 (9, 4, 'READY'),
 (10, 6, 'READY');
 
-
-
+SELECT * from customerlog;
+select * from cook;
 
 -- 재고 로그 테이블 생성
 CREATE TABLE productLog (
@@ -264,7 +261,6 @@ VALUES
 (7, 9, -100, '사용', 0, 2),
 (8, 10, 80, '발주', 12000, 2),
 (9, 4, 40, '사용', 0, 3),
-
 (10, 6, 120, '발주', 60000, 3);
 
 
