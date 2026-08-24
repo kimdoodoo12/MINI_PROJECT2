@@ -3,6 +3,7 @@ package screen2.controller;
 import java.util.ArrayList;
 
 import screen2.model.dao.ProductDAO;
+import screen2.model.dto.CountProductDTO;
 import screen2.model.dto.ProductDTO;
 import screen2.model.dto.ProductLogDTO;
 import screen2.view.ProductView;
@@ -25,7 +26,7 @@ public class ProductController{
 
     }
 
-    // 재고 가격 조회 함수
+    // 재료 가격 조회 함수
     public ArrayList<ProductDTO> findProductLog(){
 
         ArrayList<ProductDTO> result = pd.findProductLog();
@@ -47,9 +48,37 @@ public class ProductController{
 
         Boolean result = pd.buyProductLog();
 
-        
         return result;
 
     }
+
+    // 일차 조회 함수
+    public int currentDay(){
+
+        int result = pd.currentDay();
+
+        return result;        
+    }
+
+    // 영업 시작하기 함수
+    public boolean startDay(){
+
+        boolean result = pd.startDay();
+
+        return result;
+
+    }
+
+    // 재고 확인 함수
+    public ArrayList<CountProductDTO> countProductLog(){
+
+        ArrayList<CountProductDTO> result = pd.countProductLog();
+
+        return result;
+    }
+
+
+
+
 
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import screen2.controller.ProductController;
+import screen2.model.dto.CountProductDTO;
 import screen2.model.dto.ProductDTO;
 import screen2.model.dto.ProductLogDTO;
 
@@ -19,19 +20,23 @@ public class ProductView {
 
     public void run(){
 
+        int currentDay = currentDay();
+
+        int currentGold = currentGold();
+
         while(true){
 
             System.out.println("======================================================================");
-            System.out.println("        [ DAY 1 - 종료 재고 보충  ]  | 자금 : 150,000 원                 ");
+            System.out.printf("        [ DAY %d - 종료 재고 보충  ]  | 자금 : %,d 원                 ", currentDay-1 , currentGold);
             System.out.println("======================================================================");
 
-            System.out.println("1. 재고보충  2. 재고 확인  3. 2일차 영업 시작하기  4. 종료");
+            System.out.printf("1. 재고보충  2. 재고 확인  3. %d일차 영업 시작하기  4. 종료", currentDay);
 
             String ch = scan.next();
 
             if(ch == "1"){addProductLog_order();}
             else if(ch == "2"){}
-            else if(ch == "3"){}
+            else if(ch == "3"){startDay();}
             else if(ch == "4"){}
             else{break;}
 
@@ -92,7 +97,7 @@ public class ProductView {
 
     }
 
-    // 재고 가격 조회 함수
+    // 재료 가격 조회 함수
     public ArrayList<ProductDTO> findProductLog(){
 
         ArrayList<ProductDTO> result = pc.findProductLog();
@@ -113,10 +118,34 @@ public class ProductView {
 
         Boolean result = pc.buyProductLog();
 
-        
-        
     }
 
+    // 일차 조회 함수
+    public int currentDay(){
+
+        int result = pc.currentDay();
+
+        return result;        
+    }
+
+    // 영업 시작하기 함수
+    public void startDay(){
+
+        boolean result = pc.startDay();
+
+        if(result == false){System.out.println("영업 시작 실패");}
+    }
+
+    // 재고 확인 함수
+    public void countProductLog(){
+
+        ArrayList<CountProductDTO> result = pc.countProductLog();
+
+        for(CountProductDTO countProductDTO : result){
+            System.out.printf("%d %s %d", countProductDTO.getProduct_id(), countProductDTO.getProduct_name(), countProductDTO.getProduct_totalQty());
+        }
+        
+    }
 
 
 } // class END
