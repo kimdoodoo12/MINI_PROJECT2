@@ -28,7 +28,19 @@ public class KitchenDao extends IBaseDao{
         return recipeList;
     }
 
-    public void addCookTable(int menuChoice, String state) {
-
+    public boolean addCookTable(int menuChoice, String state) {
+        String sql = "Insert into cook (menu_id, cook_state) values (?, ?)";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, menuChoice);
+            ps.setString(2, state);
+            int result = ps.executeUpdate();
+            if(result == 1){
+                return true;
+            }
+        } catch (SQLException e) {
+            System.out.println("예외 발생 : " + e);
+        }
+        return false;
     }
 }
