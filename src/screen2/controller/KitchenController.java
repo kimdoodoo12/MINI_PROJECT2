@@ -30,4 +30,8 @@ public class KitchenController {
     public void addCookTable(int menuChoice, String state) {
         kd.addCookTable(menuChoice, state);
     }
+
+    public void addProductLogUsed(int productChoice) {
+        kd.addProductLogUsed(productChoice);
+    }
 }
