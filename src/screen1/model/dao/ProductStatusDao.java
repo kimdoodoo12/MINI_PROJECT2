@@ -24,7 +24,7 @@ public class ProductStatusDao extends IBaseDao {
         try {
             String sql = "SELECT PRODUCT_NAME, SUM(-PRODUCT_QTY) AS USED"
                     + " FROM PRODUCTLOG PL1 JOIN PRODUCT P1 ON PL1.PRODUCT_ID = P1.PRODUCT_NO"
-                    + " WHERE PL1.CUSTOMERLOG_DAY = ? AND PL1.PRODUCT_CONDITION = '사용'"
+                    + " WHERE PL1.CUSTOMERLOG_DAY = ? AND PL1.PRODUCT_CONDITION = 'ORDER'"
                     + " GROUP BY P1.PRODUCT_NAME";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, day);

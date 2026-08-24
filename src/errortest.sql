@@ -31,3 +31,10 @@ WHERE L.PRODUCT_CONDITION = '사용'
 GROUP BY P.PRODUCT_NAME;
 
 UPDATE productlog SET product_qty = 50 WHERE product_id = 4 AND product_condition = '발주';
+
+insert into productLog (product_id, product_qty, product_condition, productLog_price, customerLog_day) 
+    values (2 ,1,'USE',0,(select current_day from GameState where gameState_id = 1));
+
+    SELECT CURRENT_GOLD FROM GAMESTATE WHERE GAMESTATE_ID = 1;
+
+    SELECT SUM(CURRENT_GOLD) TOTAL_GOLD FROM CUSTOMERLOG WHERE CUSTOMER_STATE = 'SERVED';

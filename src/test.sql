@@ -195,21 +195,21 @@ CREATE TABLE CustomerLog (
     current_gold INT DEFAULT 0
     );
 
--- INSERT INTO CustomerLog
--- (customer_no, menu_id, customer_state, customerLog_day, current_gold)
--- VALUES
--- (1, 2, 'served', 3, 5000),
--- (2, 5,'waiting', 3, 0),
--- (3, 1, 'served', 3, 7000),
--- (4, 8, 'served', 3, 9000),
--- (5, 4, 'left', 3, 0),
--- (6, 10, 'waiting', 3, 0),
--- (7, 3, 'served', 3, 4500),
--- (8, 7, 'served', 3, 8000),
--- (9, 9, 'waiting', 3, 0),
--- (10, 6, 'served', 3, 6000);
+INSERT INTO CustomerLog
+(customer_no, menu_id, customer_state, customerLog_day, current_gold)
+VALUES
+(1, 2, 'served', 3, 5000),
+(2, 5,'waiting', 3, 0),
+(3, 1, 'served', 3, 7000),
+(4, 8, 'served', 3, 9000),
+(5, 4, 'left', 3, 0),
+(6, 10, 'waiting', 3, 0),
+(7, 3, 'served', 3, 4500),
+(8, 7, 'served', 3, 8000),
+(9, 9, 'waiting', 3, 0),
+(10, 6, 'served', 3, 6000);
 
-
+delete from productlog;
 
 CREATE TABLE Cook (
     cook_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -252,33 +252,33 @@ CREATE TABLE productLog (
 INSERT INTO productLog
 (productLog_no, product_id, product_qty, product_condition, productLog_price, customerLog_day)
 VALUES
-(1, 1, 200, '발주', 20000, 1),
-(2, 2, -100, '사용', 0, 1),
-(3, 3, 100, '발주', 30000, 1),
-(4, 5, 150, '발주', 75000, 1),
-(5, 7, 50, '발주', 25000, 2),
-(6, 8, -30, '사용', 0, 2),
-(7, 9, -100, '사용', 0, 2),
-(8, 10, 80, '발주', 12000, 2),
-(9, 4, 40, '사용', 0, 3),
-(10, 6, 120, '발주', 60000, 3);
+(1, 1, 200, 'ORDER', 20000, 1),
+(2, 2, -100, 'USE', 0, 1),
+(3, 3, 100, 'ORDER', 30000, 1),
+(4, 5, 150, 'ORDER', 75000, 1),
+(5, 7, 50, 'ORDER', 25000, 2),
+(6, 8, -30, 'USE', 0, 2),
+(7, 9, -100, 'USE', 0, 2),
+(8, 10, 80, 'ORDER', 12000, 2),
+(9, 4, 40, 'USE', 0, 3),
+(10, 6, 120, 'ORDER', 60000, 3);
 
 DELETE FROM PRODUCTLOG;
 
     INSERT INTO productLog
 (product_id, product_qty, product_condition, productLog_price, customerLog_day)
 VALUES
-(1,  150, '발주', 150 * 500,  0),   -- 햄버거빵    150개
-(2,  150, '발주', 150 * 1200, 0),   -- 소고기패티  150개
-(3,  150, '발주', 150 * 1000, 0),   -- 불고기패티  150개
-(4,  150, '발주', 150 * 300,  0),   -- 치즈        150개
-(5,  150, '발주', 150 * 200,  0),   -- 양상추      150개
-(6,  150, '발주', 150 * 300,  0),   -- 토마토      150개
-(7,  150, '발주', 150 * 100,  0),   -- 피클        150개
-(8,  150, '발주', 150 * 500,  0),   -- 베이컨      150개
-(9,  150, '발주', 150 * 1300, 0),   -- 새우패티    150개
-(10, 150, '발주', 150 * 1100, 0),   -- 치킨패티    150개
-(11, 150, '발주', 150 * 150,  0),   -- 양파        150개
-(12, 150, '발주', 150 * 200,  0);   -- 스파이시소스 150개
+(1,  150, 'ORDER', 150 * 500,  0),   -- 햄버거빵    150개
+(2,  150, 'ORDER', 150 * 1200, 0),   -- 소고기패티  150개
+(3,  150, 'ORDER', 150 * 1000, 0),   -- 불고기패티  150개
+(4,  150, 'ORDER', 150 * 300,  0),   -- 치즈        150개
+(5,  150, 'ORDER', 150 * 200,  0),   -- 양상추      150개
+(6,  150, 'ORDER', 150 * 300,  0),   -- 토마토      150개
+(7,  150, 'ORDER', 150 * 100,  0),   -- 피클        150개
+(8,  150, 'ORDER', 150 * 500,  0),   -- 베이컨      150개
+(9,  150, 'ORDER', 150 * 1300, 0),   -- 새우패티    150개
+(10, 150, 'ORDER', 150 * 1100, 0),   -- 치킨패티    150개
+(11, 150, 'ORDER', 150 * 150,  0),   -- 양파        150개
+(12, 150, 'ORDER', 150 * 200,  0);   -- 스파이시소스 150개
 
 
