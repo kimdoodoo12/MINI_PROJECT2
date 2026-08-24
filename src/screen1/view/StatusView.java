@@ -27,10 +27,25 @@ public class StatusView {
 
     public void printline() {
         String result = "";
-        for (int i = 0; i <= 67; i++) {
+        for (int i = 0; i <= 73; i++) {
             result += "=";
         }
-        result += "\n";
+        System.out.println(result);
+    }
+
+    public void printline2() {
+        String result = "";
+        for (int i = 0; i <= 73; i++) {
+            result += "─";
+        }
+        System.out.println(result);
+    }
+
+    public void printline3() {
+        String result = "";
+        for (int i = 0; i <= 73; i++) {
+            result += "-";
+        }
         System.out.println(result);
     }
 
@@ -38,34 +53,47 @@ public class StatusView {
         StatusDto stadto = stac.clacDailyStatus();
         int day = stadto.getDay();
         printline();
-        System.out.println("일차 : " + day);
+        System.out.printf("\t\t [ DAY %1d - DAILY REPORT & STATS  ]\n", day);
         printline();
-        System.out.println("매출 : " + stadto.getSales());
-        System.out.println("지출 : " + stadto.getExpense());
-        System.out.println("순이익 : " + stadto.getNetProfit());
-        System.out.println("총 방문손님 : " + stadto.getTotalCustomer());
-        System.out.println("식사 완료 손님 : " + stadto.getServedCustomer());
-        System.out.println("놓친 손님 : " + stadto.getLeftCustomer());
+        System.out.println();
+        System.out.println(" ■ [ 영업 총평 및 매출 요약 ]");
+        printline2();
+        System.out.printf(" - 총 매출액\t\t :  + %,7d 원\n", stadto.getSales());
+        System.out.printf("- 재고 지출\t\t :  + %,7d 원\n", stadto.getExpense());
+        System.out.printf("- 일일 순이익\t\t :  + %,7d 원\n", stadto.getNetProfit());
+        printline2();
+        System.out.printf(" - 총 방문손님\t\t : %10d 명\n", stadto.getTotalCustomer());
+        System.out.printf(" - 식사 완료 손님\t : %10d 명\n", stadto.getServedCustomer());
+        System.out.printf(" - 놓친 손님\t\t : %10d 명\n", stadto.getLeftCustomer());
+        System.out.println();
+        System.out.println(" ■ [ 인기 메뉴 및 재고 소모 현황 ]");
+        printline2();
         printDailyMenuSales(day);
+        printline2();
         printDailyProductStatus(day);
-
+        System.out.println();
+        System.out.println();
+        printline();
     }
 
     public void printDailyMenuSales(int day) {
         ArrayList<MenuStatusDto> menuList = menuc.getMenuSales(day);
         for (MenuStatusDto list : menuList) {
-            System.out.printf("팔린 메뉴 : " + list.getMenuName());
-            System.out.println(" 메뉴 개수 : " + list.getCount());
+            System.out.printf(" - %-10s\t     판매:  %2d개\n", list.getMenuName(), list.getCount());
         }
     }
 
     public void printDailyProductStatus(int day) {
         ArrayList<ProductStatusDto> productList = productc.getProductStatus(day);
-        System.out.println(productc.getProductStatus(day));
+        // System.out.println(productc.getProductStatus(day));
         for (ProductStatusDto list : productList) {
-            System.out.println("재고명 : " + list.getProductName());
-            System.out.println("사용량 : " + list.getUsed());
-            System.out.println("잔여량 : " + list.getRemain());
+            String judge = productc.judgeProduct(list.getRemain(), list.getUsed());
+            System.out.printf(" - %-5s    |   소모 재고:  %2d개   |   잔여재고 :  %2d개 (%s)\n",
+                    list.getProductName(),
+                    list.getUsed(),
+                    list.getRemain(),
+                    judge);
+
         }
     }
 

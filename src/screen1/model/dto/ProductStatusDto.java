@@ -4,6 +4,7 @@ public class ProductStatusDto {
     private String productName;
     private int used;
     private int remain;
+    private double avgUsed;
 
     public ProductStatusDto() {
     }

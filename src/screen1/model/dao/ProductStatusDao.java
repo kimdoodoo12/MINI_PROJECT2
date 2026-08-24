@@ -39,14 +39,14 @@ public class ProductStatusDao extends IBaseDao {
         } catch (SQLException e) {
             System.out.println(e);
         }
-        System.out.println("사용량 + 재고명 " + list.toString());
+        // System.out.println("사용량 + 재고명 " + list.toString());
         return list;
     }
 
     // 재고명 + 잔여량
     public ArrayList<ProductStatusDto> getRemain(int day) {
         ArrayList<ProductStatusDto> list = new ArrayList<>();
-        System.out.println("컨트롤러 실행");
+        // System.out.println("컨트롤러 실행");
         try {
             String sql = "SELECT PRODUCT_NAME, SUM(PRODUCT_QTY) AS REMAIN "
                     + "FROM PRODUCTLOG PL1 JOIN PRODUCT P1 ON PL1.PRODUCT_ID = P1.PRODUCT_NO "
@@ -63,7 +63,7 @@ public class ProductStatusDao extends IBaseDao {
         } catch (SQLException e) {
             System.out.println(e);
         }
-        System.out.println("잔여량 + 재고명 " + list.toString());
+        // System.out.println("잔여량 + 재고명 " + list.toString());
         return list;
     }
 }

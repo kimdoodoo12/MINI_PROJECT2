@@ -44,7 +44,7 @@ public class StatusDao extends IBaseDao {
             }
 
         } catch (SQLException e) {
-            System.out.printf("매출 : %d\n", result);
+            // System.out.printf("매출 : %d\n", result);
             System.out.println(e);
         }
         return result;
@@ -81,7 +81,7 @@ public class StatusDao extends IBaseDao {
         } catch (SQLException e) {
             System.out.println(e);
         }
-        System.out.println("총 방문 손님" + result);
+        // System.out.println("총 방문 손님" + result);
         return result;
     }
 
@@ -99,7 +99,7 @@ public class StatusDao extends IBaseDao {
         } catch (SQLException e) {
             System.out.println(e);
         }
-        System.out.println("식사 완료 손님" + result);
+        // System.out.println("식사 완료 손님" + result);
         return result;
     }
 }

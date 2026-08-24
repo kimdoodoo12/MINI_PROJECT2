@@ -44,14 +44,14 @@ public class StatusController {
     // 총 방문 손님 가져오기
     public int getTotalCustomer(int day) {
         int result = stad.getTotalCustomer(day);
-        System.out.println("컨트롤러 총 방문손님 :" + result);
+        // System.out.println("컨트롤러 총 방문손님 :" + result);
         return result;
     }
 
     // 서빙된 손님 가져오기
     public int getServedCustomer(int day) {
         int result = stad.getServed(day);
-        System.out.println("컨트롤러 서빙손님 :" + result);
+        // System.out.println("컨트롤러 서빙손님 :" + result);
         return result;
     }
 

@@ -38,7 +38,7 @@ public class MenuStatusDao extends IBaseDao {
         } catch (SQLException e) {
             System.out.println(e);
         }
-        System.out.println(list);
+        // System.out.println(list);
         return list;
     }
 }
