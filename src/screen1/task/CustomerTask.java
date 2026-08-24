@@ -19,17 +19,21 @@ public class CustomerTask implements Runnable{
             while(time > 0){
                 // DB에 들어간 customer 상태를 직접 조회 (로컬 customer 객체는 갱신되지 않음)
                 String state = hc.getState(customer.getCustomer_no());
-                if ("served".equals(state))
-                    break;
+                if ("served".equals(state)){
+                    HallController.isChange = true;
+                    break;                    
+                }
                 Thread.sleep(1000);
+
+                    
                 time--;
 
             }
-            
 
             // 시간이 다 됐을 때
             if (time <= 0){
                 hc.setLeft(customer.getCustomer_no());
+                HallController.isChange = true;
             }
 
         }catch(Exception e){

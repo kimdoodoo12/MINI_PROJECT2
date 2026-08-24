@@ -22,6 +22,7 @@ public class HallController {
     private CookDao ckd = CookDao.getInstance();
     private MenuDao md = MenuDao.getInstance();
 
+    public static boolean isChange;
 
     // 쓰레드 풀 자리 5개 생성
     ThreadPoolExecutor customerPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(5);
@@ -149,6 +150,7 @@ public class HallController {
                         if (result3){
                             // 성공하면 쓰레드풀에 등록
                             customerPool.submit(customer);
+                            isChange = true;
                         }
                     } else {
                         // 풀이 꽉 찼을 때도 쉬지 않고 도는 대시시간없이 도는 것을 막기 위한 sleep
