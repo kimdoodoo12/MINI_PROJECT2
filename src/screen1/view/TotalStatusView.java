@@ -74,11 +74,10 @@ public class TotalStatusView {
         System.out.printf(" - 총 발주 수량\t\t :  %,7d 개\n", totalproc.getTotalOrder());
         System.out.printf(" - 총 소모 수량\t\t :  %,7d 개\n", totalproc.getTotalUsed());
         System.out.printf(" - 총 잔여 수량\t\t :  %,7d 개\n", totalproc.getTotalRemain());
+        System.out.println();
         System.out.println(" ■ [ 누적 인기 메뉴 ]");
         printline2();
         printFinalMenuSales();
-        // printline2();
-        // printDailyProductStatus(day);
         System.out.println();
         System.out.println();
         printline();

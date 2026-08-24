@@ -34,7 +34,7 @@ public class TotalProductStatusDao extends IBaseDao {
     public int getTotalUsed() {
         int result = 0;
         String sql = "SELECT SUM(-PRODUCT_QTY) Total FROM PRODUCTLOG"
-                + " WHERE PRODUCT_CONDITION = 'USED'";
+                + " WHERE PRODUCT_CONDITION = 'USE'";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
