@@ -1,9 +1,11 @@
 package screen2.view;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import screen2.controller.ProductController;
 import screen2.model.dto.ProductDTO;
+import screen2.model.dto.ProductLogDTO;
 
 public class ProductView {
 
@@ -27,7 +29,7 @@ public class ProductView {
 
             String ch = scan.next();
 
-            if(ch == "1"){}
+            if(ch == "1"){addProductLog_order();}
             else if(ch == "2"){}
             else if(ch == "3"){}
             else if(ch == "4"){}
@@ -69,7 +71,7 @@ public class ProductView {
 
     }
 
-
+    // 재고 발주 로그 추가 함수
     public void addProductLog_order(){
 
         System.out.println("1. 햄버거빵  2. 소고기패티  3. 불고기패티  4. 치즈  5. 양상추  6. 토마토");
@@ -81,13 +83,38 @@ public class ProductView {
         System.out.println("발주할 재료의 수량을 입력하세요");
         int productCount = scan.nextInt();
 
-        ProductDTO productDTO = new ProductDTO(productNumber, productCount);
+        ProductLogDTO productLogDTO = new ProductLogDTO(productNumber, productCount);
 
-        boolean result = pc.addProductLog_order(productDTO);
+        boolean result = pc.addProductLog_order(productLogDTO);
 
         if (result) {System.out.println("발주 성공");}
         else {System.out.println("발주 실패");}
 
+    }
+
+    // 재고 가격 조회 함수
+    public ArrayList<ProductDTO> findProductLog(){
+
+        ArrayList<ProductDTO> result = pc.findProductLog();
+        
+        return result;
+    }
+
+    // 자본 금액 조회 함수
+    public int currentGold(){
+
+        int result = pc.currentGold();
+
+        return result;
+    }
+
+    // 재료 발주 금액 자본 차감 함수
+    public void buyProductLog(){
+
+        Boolean result = pc.buyProductLog();
+
+        
+        
     }
 
 
