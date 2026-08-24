@@ -3,8 +3,6 @@ package screen1.view;
 import java.util.ArrayList;
 
 import screen1.controller.HallController;
-import screen1.model.dao.CustomerDao;
-import screen1.model.dao.MenuDao;
 import screen1.model.dto.CustomerDto;
 
 public class HallGameView2 {
@@ -13,13 +11,11 @@ public class HallGameView2 {
     public static HallGameView2 getInstance( ){ return instance; } // 3.
 
     private HallController hc = HallController.getInstance();
-    private CustomerDao cd = CustomerDao.getInstance();
-    private MenuDao md = MenuDao.getInstance();
 
     public void run(){
 
         hc.startService();
-        while (cd.isOpen()){
+        while (hc.isOpen()){
             showCustomer();
             try{
                 Thread.sleep(1000);
@@ -30,7 +26,7 @@ public class HallGameView2 {
     }
 
     public void showCustomer(){
-        ArrayList<CustomerDto> customers = cd.findAllCustomer();
+        ArrayList<CustomerDto> customers = hc.findAllCustomer();
 
         System.out.println("========================================");
         System.out.println("        [ 홀 현황 - 대기 손님 목록 ]");
@@ -42,7 +38,7 @@ public class HallGameView2 {
             System.out.printf("%-8s %-8s %-10s %-6s%n", "손님번호", "메뉴ID", "예상금액", "일차");
             System.out.println("----------------------------------------");
             for (CustomerDto customer : customers){
-                int price = md.getPrice(customer.getMenu_id());
+                int price = hc.getPrice(customer.getMenu_id());
                 System.out.printf("%-8d %-8d %-10d %-6d%n",
                     customer.getCustomer_no(),
                     customer.getMenu_id(),

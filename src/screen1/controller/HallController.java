@@ -37,9 +37,9 @@ public class HallController {
                 if (customer.getMenu_id() == cook.getMenu_id()){
                     
                     // 완성 요리의 요리 상태를 바꿈
-                    boolean result = ckd.setCook(cook.getCook_id(), true);
+                    boolean result = setCook(cook.getCook_id(), true);
                     // 손님들의 상태와 수익을 바꿈
-                    boolean result2 = cd.checkBill(customer.getCustomer_no(), getPrice(cook.getMenu_id()));
+                    boolean result2 = checkBill(customer.getCustomer_no(), getPrice(cook.getMenu_id()));
                     
                     if (result && result2){return true;}
                 }
@@ -53,6 +53,16 @@ public class HallController {
         }
 
         return false;
+    }
+
+    public boolean checkBill(int customer_no, int price){
+        boolean result = cd.checkBill(customer_no, price);
+        return result;
+    }
+
+    public boolean setCook(int menu_id, boolean isServed){
+        boolean result = ckd.setCook(menu_id, isServed);
+        return result;
     }
     
     public ArrayList<CustomerDto> findAllCustomer(){
@@ -92,6 +102,11 @@ public class HallController {
         return result;
     }
 
+    public boolean isOpen(){
+        boolean result = cd.isOpen();
+        return result;
+    }
+
     // 서비스가 시작됐을 때 손님이 들어오는 함수
     public void startService(){
 
@@ -99,7 +114,7 @@ public class HallController {
         Runnable serveRunnable = new Runnable() {
             @Override
             public void run() {
-                while (cd.isOpen()){
+                while (isOpen()){
                     boolean result2 = cookServe();
 
                     if (result2){/* 서빙 완료 메시지 */ }
@@ -119,7 +134,7 @@ public class HallController {
                 Random random = new Random();
 
                 // 손님들을 무한으로 생성시키는 반복문 start
-                while(cd.isOpen()){
+                while(isOpen()){
 
                     // 사용중인 쓰레드가 최대 쓰레드풀보다 작은 경우에만 실행
                     if (customerPool.getActiveCount() < 5){
