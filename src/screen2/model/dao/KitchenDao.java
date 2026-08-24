@@ -61,7 +61,7 @@ public class KitchenDao extends IBaseDao{
     }
 
     public Map<String, ArrayList<String >> findAllRecipes() {
-        Map<String, ArrayList<String>> map = new LinkedHashMap<>(); // 그냥 HashMap은 순서  보장하지않는다!!!
+        Map<String, ArrayList<String>> map = new LinkedHashMap<>(); // 그냥 HashMap은 순서를 보장하지않는다!!!
         String sql = "select m.menu_name , p.product_name from recipe r join menu m on r.menu_no = m.menu_id " +
                 "join product p on r.product_no = p.product_no order by r.menu_no , r.recipe_order";
         try {
