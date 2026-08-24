@@ -17,6 +17,8 @@ public class CustomerDao extends IBaseDao{
     public boolean createCustomer(CustomerDto customerDto){
         try{
             String sqlCustomer = "INSERT INTO CustomerLog (menu_id , customerLog_day) VALUES ( ? , ? )";
+
+            // *** GameStateDao쪽 역할, 리팩토링할 경우 customerDto객체 생성할 때 생성자에 넣어야함 ***
             String sqlGameDay = "SELECT current_day FROM GameState;";
 
             
@@ -85,7 +87,7 @@ public class CustomerDao extends IBaseDao{
         return false;
     }
 
-    // 식당영업상태를 DB에서 갖고오기 (GameState쪽 DAO 역할)
+    //*** 식당영업상태를 DB에서 갖고오기 (GameState쪽 DAO 역할) ***
     public boolean isOpen(){
         try{
         String sql = "SELECT restaurant_state FROM GameState";
@@ -143,6 +145,23 @@ public class CustomerDao extends IBaseDao{
                 return true;                
             }
 
+        }catch(SQLException e){System.out.println(e);}
+
+        return false;
+    }
+
+    // ** GameStateDao쪽 역할**
+    public boolean addGold(int price){
+
+        try{
+            String sql = "UPDATE GameState set current_gold = current_gold + ? ";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, price);
+            int reuslt = ps.executeUpdate();
+
+            if (reuslt == 1){
+                return true;
+            }
         }catch(SQLException e){System.out.println(e);}
 
         return false;

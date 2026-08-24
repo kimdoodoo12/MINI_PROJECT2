@@ -15,12 +15,11 @@ public class HallGameView2 {
     public void run(){
 
         hc.startService();
+        HallController.isChange = true;
         while (hc.isOpen()){
-            showCustomer();
-            try{
-                Thread.sleep(1000);
-            }catch(InterruptedException e){
-                System.out.println(e);
+            if(HallController.isChange == true){
+                showCustomer();
+                HallController.isChange = false;
             }
         }
     }
