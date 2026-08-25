@@ -34,7 +34,7 @@ public class ProductView {
 
             // 터미널에 보일 화면 출력
             System.out.println("======================================================================");
-            System.out.printf("        [ DAY %d - 종료 재고 보충  ]  | 자금 : %,d 원                 \n", currentDay-1 , currentGold);
+            System.out.printf("              [ DAY %d - 재고 보충  ]  | 자금 : %,d 원                 \n", currentDay , currentGold);
             System.out.println("======================================================================");
 
             System.out.printf("1. 재고보충  2. 재고확인  3. %d일차 영업 시작하기  4. 종료\n", currentDay);

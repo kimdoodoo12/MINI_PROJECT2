@@ -8,7 +8,7 @@ public class IBaseDao {
     // 1. 연동 정보
     private String url = "jdbc:mysql://127.0.0.1:3306/MINI2";
     private String user = "root";
-    private String pwd = "1234";
+    private String pwd = "991231";
 
     // 2. 연동 인터페이스 , protected : 상속 관계이면 다른 패키지도 접근 허용
     protected Connection conn;
