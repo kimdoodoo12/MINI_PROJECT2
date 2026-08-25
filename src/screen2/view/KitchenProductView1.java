@@ -65,6 +65,13 @@ public class KitchenProductView1 {
             int menuChoice = sc.nextInt();
             System.out.println("=================================================================");
             if (menuChoice >= 1 && menuChoice <= 10){
+                // 만들 메뉴 입력시 sql조회해서 영업중인 확인
+                boolean isOpen1 = kc.checkRestaurantState();
+                if (!isOpen1){
+                    System.out.println("** 영업이 종료 되었습니다 **");
+                    // 재고 발주 파트로 넘어가는 메소드 추가!!
+                }
+
                 ArrayList<Integer> productList = new ArrayList<>();
                 System.out.println("[재료 선택]");
                 System.out.println("1.햄버거빵 2.소고기패티 3.불고기패티 4.치즈 5.양상추 6.토마토");
@@ -73,15 +80,21 @@ public class KitchenProductView1 {
                 while (true){
                     System.out.print(">> 순서대로 번호 입력(0 입력시 완료) : ");
                     int productChoice = sc.nextInt();
-                    boolean result = kc.checkProductQty(productChoice); // 입력받을때마다 재고 확인
+
+                    // 재료번호 0~12 입력하지 않을때 예외발생
                     if (productChoice < 0 || productChoice > 12){
                         System.out.println("잘못된 재료 선택(0~12)");
                         continue;
                     }
-                    if (productChoice >= 1 && productChoice <= 12) {
-                        kc.addProductLogUsed(productChoice);// ** 재료로그추가 메소드 추가 **
-                        productList = kc.addProductList(productChoice);// 재료 list에 담기
-                    } else if (productChoice == 0){
+
+                    // 재료번호 0번 입력시
+                    if(productChoice == 0){
+                        // 만들 메뉴 입력시 sql조회해서 영업중인 확인
+                        boolean isOpen2 = kc.checkRestaurantState();
+                        if (!isOpen2){
+                            System.out.println("** 영업이 종료 되었습니다 **");
+                            // 재고 발주 파트로 넘어가는 메소드 추가!!
+                        }
                         ArrayList<Integer> recipeList = kc.takeRecipe(menuChoice);// db에서 해당 메뉴번호 레시피 가져오기
                         boolean result = kc.checkRecipe(productList, recipeList);
                         if(result){
@@ -92,12 +105,20 @@ public class KitchenProductView1 {
                         }
                         break;
                     }
+
+                    // 재료번호 1~12 입력시
+                    boolean result = kc.checkProductQty(productChoice);  // 입력받을때마다 재고 확인
+                    if(!result){
+                        System.out.println("** 재고 부족 **");
+                        continue;
+                    }
+
+                    kc.addProductLogUsed(productChoice);
+                    productList = kc.addProductList(productChoice);
                 }
             } else {
                 System.out.println("잘못된 메뉴 선택(1~10)");
             }
         }
-
     }
-
 }

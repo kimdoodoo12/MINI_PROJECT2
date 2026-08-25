@@ -105,4 +105,19 @@ public class KitchenDao extends IBaseDao{
         }
         return false;
     }
+
+    // 영업 중인지 확인 메소드
+    public boolean checkRestaurantState() {
+        String sql = "select restaurant_state from gamestate where gamestate_id = 1";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                return rs.getBoolean("restaurant_state");
+            }
+        } catch (SQLException e) {
+            System.out.println("영업 종료 : " + e);
+        }
+        return false;
+    }
 }
