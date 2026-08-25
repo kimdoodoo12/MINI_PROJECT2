@@ -36,7 +36,7 @@ public class ProductView {
 
             if(ch == 1){addProductLog_order();}
             else if(ch == 2){countProductLog();}
-            else if(ch == 3){startDay();}
+            else if(ch == 3){startDay(); return;}
             else if(ch == 4){}
             else{break;}
 

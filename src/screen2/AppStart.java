@@ -11,6 +11,7 @@ public class AppStart {
 
             if (ProductView.getInstance().checkState()){KitchenView.getInstance().run();}
             else{ProductView.getInstance().run();}
+            
         }
     
     }

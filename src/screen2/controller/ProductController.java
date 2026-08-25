@@ -95,6 +95,8 @@ public class ProductController{
 
         boolean result = pd.checkState();
 
+        return result;
+
     }
 
 

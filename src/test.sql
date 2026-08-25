@@ -181,7 +181,7 @@ CREATE TABLE GameState (
 INSERT INTO GameState
 (gameState_id, current_day, current_gold, restaurant_state, gameState_date)
 VALUES
-(1, 7, 100000, TRUE, '2026-08-20 10:00:00');
+(1, 7, 100000, FALSE, '2026-08-20 10:00:00');
 
 
 CREATE TABLE CustomerLog (
