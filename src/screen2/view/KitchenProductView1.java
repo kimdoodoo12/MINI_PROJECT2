@@ -21,6 +21,10 @@ public class KitchenProductView1 {
                 System.out.print(">> 선택 : ");
                 String ch = sc.next();
                 System.out.println("=================================================================");
+                boolean isOpen = kc.checkRestaurantState();
+                if (!isOpen){
+                    return;
+                }
             switch (ch){
                 case "1":
                     cook(); // 음식 조리
@@ -96,7 +100,7 @@ public class KitchenProductView1 {
                         boolean isOpen2 = kc.checkRestaurantState();
                         if (!isOpen2){
                             System.out.println("** 영업이 종료 되었습니다 **");
-                            // 재고 발주 파트로 넘어가는 메소드 추가!!
+                            return;
                         }
                         ArrayList<Integer> recipeList = kc.takeRecipe(menuChoice);// db에서 해당 메뉴번호 레시피 가져오기
                         boolean result = kc.checkRecipe(productList, recipeList);
