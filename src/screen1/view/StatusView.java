@@ -2,8 +2,6 @@ package screen1.view;
 
 import java.util.ArrayList;
 
-import screen1.controller.MenuController;
-import screen1.controller.ProductStatusController;
 import screen1.controller.StatusController;
 import screen1.model.dto.MenuStatusDto;
 import screen1.model.dto.ProductStatusDto;
@@ -20,8 +18,6 @@ public class StatusView {
     }
 
     private StatusController stac = StatusController.getInstance();
-    private MenuController menuc = MenuController.getInstance();
-    private ProductStatusController productc = ProductStatusController.getInstance();
 
     public static int day = 0;
 
@@ -77,17 +73,17 @@ public class StatusView {
     }
 
     public void printDailyMenuSales(int day) {
-        ArrayList<MenuStatusDto> menuList = menuc.getMenuSales(day);
+        ArrayList<MenuStatusDto> menuList = stac.getMenuSales(day);
         for (MenuStatusDto list : menuList) {
             System.out.printf(" - %-10s\t     판매:  %2d개\n", list.getMenuName(), list.getCount());
         }
     }
 
     public void printDailyProductStatus(int day) {
-        ArrayList<ProductStatusDto> productList = productc.getProductStatus(day);
+        ArrayList<ProductStatusDto> productList = stac.getProductStatus(day);
         // System.out.println(productc.getProductStatus(day));
         for (ProductStatusDto list : productList) {
-            String judge = productc.judgeProduct(list.getRemain(), list.getUsed());
+            String judge = stac.judgeProduct(list.getRemain(), list.getUsed());
             System.out.printf(" - %-5s    |   소모 재고:  %2d개   |   잔여재고 :  %2d개 (%s)\n",
                     list.getProductName(),
                     list.getUsed(),

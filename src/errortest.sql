@@ -41,3 +41,5 @@ insert into productLog (product_id, product_qty, product_condition, productLog_p
 
     SELECT SUM(-PRODUCT_QTY) Total FROM PRODUCTLOG
             WHERE PRODUCT_CONDITION = 'USED';
+
+    UPDATE gamestate SET restaurant_state = FALSE WHERE gameState_id =1; 

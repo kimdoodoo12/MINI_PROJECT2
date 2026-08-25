@@ -2,8 +2,6 @@ package screen1.view;
 
 import java.util.ArrayList;
 
-import screen1.controller.TotalMenuStatusController;
-import screen1.controller.TotalProductStatusController;
 import screen1.controller.TotalStatusController;
 import screen1.model.dto.TotalMenuStatusDto;
 import screen1.model.dto.TotalStatusDto;
@@ -19,8 +17,6 @@ public class TotalStatusView {
     }
 
     private TotalStatusController totalstac = TotalStatusController.getInstance();
-    private TotalMenuStatusController totalmMenuc = TotalMenuStatusController.getInstance();
-    private TotalProductStatusController totalproc = TotalProductStatusController.getInstance();
 
     public static int day = 0;
 
@@ -71,9 +67,9 @@ public class TotalStatusView {
         System.out.println();
         System.out.println(" ■ [ 재고 총계 ]");
         printline2();
-        System.out.printf(" - 총 발주 수량\t\t :  %,7d 개\n", totalproc.getTotalOrder());
-        System.out.printf(" - 총 소모 수량\t\t :  %,7d 개\n", totalproc.getTotalUsed());
-        System.out.printf(" - 총 잔여 수량\t\t :  %,7d 개\n", totalproc.getTotalRemain());
+        System.out.printf(" - 총 발주 수량\t\t :  %,7d 개\n", totalstac.getTotalOrder());
+        System.out.printf(" - 총 소모 수량\t\t :  %,7d 개\n", totalstac.getTotalUsed());
+        System.out.printf(" - 총 잔여 수량\t\t :  %,7d 개\n", totalstac.getTotalRemain());
         System.out.println();
         System.out.println(" ■ [ 누적 인기 메뉴 ]");
         printline2();
@@ -84,7 +80,7 @@ public class TotalStatusView {
     }
 
     public void printFinalMenuSales() {
-        ArrayList<TotalMenuStatusDto> menuList = totalmMenuc.getMenuSales();
+        ArrayList<TotalMenuStatusDto> menuList = totalstac.getMenuSales();
         int i = 0;
         for (TotalMenuStatusDto list : menuList) {
             i++;

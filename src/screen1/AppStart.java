@@ -1,6 +1,5 @@
 package screen1;
 
-import screen1.view.HallGameView2;
 import screen1.view.StatusView;
 import screen1.view.TotalStatusView;
 
