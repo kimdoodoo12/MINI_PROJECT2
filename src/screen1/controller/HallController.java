@@ -7,6 +7,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 import screen1.model.dao.CookDao;
 import screen1.model.dao.CustomerDao;
+import screen1.model.dao.GameStateDao;
 import screen1.model.dao.MenuDao;
 import screen1.model.dto.CookDto;
 import screen1.model.dto.CustomerDto;
@@ -26,9 +27,10 @@ public class HallController {
     private CustomerDao cd = CustomerDao.getInstance();
     private CookDao ckd = CookDao.getInstance();
     private MenuDao md = MenuDao.getInstance();
+    private GameStateDao gd = GameStateDao.getInstance();
 
     public static boolean isChange;
-    
+
     // 쓰레드 풀 자리 5개 생성
     ThreadPoolExecutor customerPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(5);
 
@@ -63,12 +65,13 @@ public class HallController {
         return false;
     }
 
-    public boolean checkBill(int customer_no, int price){
+    public boolean checkBill(int customer_no, int price) {
         boolean result1 = cd.checkBill(customer_no, price);
         boolean result2 = addGold(price);
         return result1 && result2;
     }
-    public boolean addGold(int price){
+
+    public boolean addGold(int price) {
         boolean result = cd.addGold(price);
         return result;
     }
@@ -134,8 +137,7 @@ public class HallController {
                     if (result2) {
                         /* 서빙 완료 메시지 */
                         System.out.println("서빙 완료");
-                    }
-                    else {
+                    } else {
                         /* 요리없음 메시지 */
                     }
 
@@ -156,8 +158,6 @@ public class HallController {
 
                 // 손님들을 무한으로 생성시키는 반복문 start
                 while (isOpen()) {
-                    System.out.println(isOpen());
-                    System.out.println(customerPool.getActiveCount());
                     // 사용중인 쓰레드가 최대 쓰레드풀보다 작은 경우에만 실행
                     if (customerPool.getActiveCount() < 5) {
                         try {
@@ -194,46 +194,51 @@ public class HallController {
         new Thread(customerRunnable).start();
     }
 
-
-    public void gameStart(){
-        Runnable gamerunnable = new Runnable(){
+    public void gameStart() {
+        Runnable gamerunnable = new Runnable() {
             private int time = 40;
+
             @Override
-            public void run(){
-                while(time >= 0){
-                    try{
+            public void run() {
+                while (time >= 0) {
+                    try {
                         Thread.sleep(1000);
-                        time--;                    
-                    }catch(Exception e){System.out.println(e);}                    
+                        time--;
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    }
                 }
                 // 게임시간이 다 되면 정산시간
                 changeGameState();
+                // false
                 minusGold();
                 setEverythingOff();
             };
         };
         // 쓰레드가 끝나면 요리테이블 및 손님테이블 모두 폐기처리 및 left처리
         // *** 그러나 게임 Controller가 HallController을 불러야한다. 단일책임 원칙 위반 ***
-    
+
         new Thread(gamerunnable).start();
     }
-    public void setEverythingOff(){
+
+    public void setEverythingOff() {
         ArrayList<CookDto> cookDtos = findAllCook();
         ArrayList<CustomerDto> customerDtos = findAllCustomer();
-        for(CookDto cookDto: cookDtos){
+        for (CookDto cookDto : cookDtos) {
             setCook(cookDto.getCook_id(), false);
         }
-        for(CustomerDto customerDto: customerDtos){
+        for (CustomerDto customerDto : customerDtos) {
             setLeft(customerDto.getCustomer_no());
         }
         return;
     }
 
-    public void changeGameState(){
-        
+    public void changeGameState() {
+        gd.changeGameState();
+
     }
 
-    public void minusGold(){
-        
+    public void minusGold() {
+        gd.minusGold();
     }
 }

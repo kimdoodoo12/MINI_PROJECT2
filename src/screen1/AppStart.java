@@ -5,7 +5,7 @@ import screen1.view.StatusView;
 import screen1.view.TotalStatusView;
 
 public class AppStart {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         // HallGameView2.getInstance().run();
         StatusView test = StatusView.getinstance();
         test.printDailySatus();

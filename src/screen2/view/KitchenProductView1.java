@@ -47,19 +47,20 @@ public class KitchenProductView1 {
             System.out.println("=================================================================");
             if (menuChoice >= 1 && menuChoice <= 10){
                 ArrayList<Integer> productList = new ArrayList<>();
+                System.out.println("[재료 선택]");
+                System.out.println("1.햄버거빵 2.소고기패티 3.불고기패티 4.치즈 5.양상추 6.토마토");
+                System.out.println("7.피클 8.베이컨 9.새우패티 10.치킨패티 11.양파 12.스파이시소스 0.완료");
+
                 while (true){
-                    System.out.println("=============== [재료 선택] ================");
-                    System.out.println("1.햄버거빵 2.소고기패티 3.불고기패티 4.치즈 5.양상추 6.토마토");
-                    System.out.println("7.피클 8.베이컨 9.새우패티 10.치킨패티 11.양파 12.스파이시소스 0.완료");
-                    System.out.print(">> 순서대로 번호 입력 : ");
+                    System.out.print(">> 순서대로 번호 입력(0 입력시 완료) : ");
                     int productChoice = sc.nextInt();
                     if (productChoice < 0 || productChoice > 12){
                         System.out.println("잘못된 재료 선택(0~12)");
                         continue;
                     }
                     if (productChoice >= 1 && productChoice <= 12) {
-                        // ** 재료로그추가 메소드 추가 **
-                        productList = kc.addProductList(productChoice);// 재료list에 담기
+                        kc.addProductLogUsed(productChoice);// ** 재료로그추가 메소드 추가 **
+                        productList = kc.addProductList(productChoice);// 재료 list에 담기
                     } else if (productChoice == 0){
                         ArrayList<Integer> recipeList = kc.takeRecipe(menuChoice);// db에서 해당 메뉴번호 레시피 가져오기
                         boolean result = kc.checkRecipe(productList, recipeList);
@@ -73,7 +74,7 @@ public class KitchenProductView1 {
                             kc.addCookTable(menuChoice, "READY");
 >>>>>>> Stashed changes
                         } else {
-                            System.out.println("재료가 맞지 않습니다.");
+                            System.out.println("** 재료가 맞지 않습니다 **");
                         }
 
                         break;

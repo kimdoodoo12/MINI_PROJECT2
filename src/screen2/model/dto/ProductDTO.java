@@ -2,31 +2,49 @@ package screen2.model.dto;
 
 public class ProductDTO {
 
-    int 재료번호;
-    int 수량;
+    int product_no;
+    String product_name;
+    int product_price;
+    
+    public ProductDTO(){}
 
-    public ProductDTO(int 재료번호, int 수량) {
-        this.재료번호 = 재료번호;
-        this.수량 = 수량;
+    public ProductDTO(int product_no, int product_price) {
+        this.product_no = product_no;
+        this.product_price = product_price;
     }
 
-    public int get재료번호() {
-        return 재료번호;
+    public int getProduct_no() {
+        return product_no;
     }
-    public void set재료번호(int 재료번호) {
-        this.재료번호 = 재료번호;
+
+    public void setProduct_no(int product_no) {
+        this.product_no = product_no;
     }
-    public int get수량() {
-        return 수량;
+
+    public String getProduct_name() {
+        return product_name;
     }
-    public void set수량(int 수량) {
-        this.수량 = 수량;
+
+    public void setProduct_name(String product_name) {
+        this.product_name = product_name;
+    }
+
+    public int getProduct_price() {
+        return product_price;
+    }
+
+    public void setProduct_price(int product_price) {
+        this.product_price = product_price;
     }
 
     @Override
     public String toString() {
-        return "ProductDTO [재료번호=" + 재료번호 + ", 수량=" + 수량 + "]";
+        return "ProductDTO [product_no=" + product_no + ", product_name=" + product_name + ", product_price="
+                + product_price + "]";
     }
 
+    
+
+    
     
 }
