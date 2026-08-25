@@ -90,7 +90,12 @@ public class ProductController{
         return result;
     }
 
+    // 영업 상태 확인 함수
+    public boolean checkState(){
 
+        boolean result = pd.checkState();
+
+    }
 
 
 

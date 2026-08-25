@@ -351,7 +351,39 @@ public class ProductDAO extends IBaseDao {
     }
 
 
+    // 영업 상태 확인 함수
+    public boolean checkState(){
 
+        boolean gameState = true;
+
+        try{
+            // 2-1. SQL 작성한다.
+            String sql = "select * from GameState";  
+
+            // 2-2. SQL 기재한다.
+            PreparedStatement ps = conn.prepareStatement(sql);  // *예외 발생
+
+            // 2-3. ?매개변수 대입한다. <생략>
+
+            // 2-4. 기재된 SQL 실행  ,  executeQuery() 는 select(조회) 문에서 사용
+            ResultSet rs = ps.executeQuery();  // 
+
+            // 2-5. SQL 결과( select 조회 결과는 항상 테이블로 반환한다. ) 즉, 레코드 하나씩 타입변환
+            // rs.next() : 다음 레코드(행) 이동 , 마지막 레코드까지 하나씩 이동 반복
+            while (rs.next()) { 
+
+                gameState = rs.getBoolean("restaurant_state");
+
+            }
+
+        }catch(SQLException e){ System.out.println(e);}
+      
+        if(gameState == true){
+            return true;
+        }
+        else{ return false;}
+
+    }
 
 
 

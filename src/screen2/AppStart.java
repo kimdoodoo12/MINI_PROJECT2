@@ -6,6 +6,13 @@ import screen2.view.ProductView;
 
 public class AppStart {
     public static void main(String[] args) {
-        ProductView.getInstance().run();
+
+        while(true){
+
+            if (ProductView.getInstance().checkState()){KitchenProductView1.getInstance().run();}
+            else{ProductView.getInstance().run();}
+        }
+    
     }
+    
 }
