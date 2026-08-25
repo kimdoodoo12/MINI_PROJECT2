@@ -1,7 +1,7 @@
 package screen2;
 
 import screen2.controller.ProductController;
-import screen2.view.KitchenProductView1;
+import screen2.view.KitchenView;
 import screen2.view.ProductView;
 
 public class AppStart {
@@ -9,7 +9,7 @@ public class AppStart {
 
         while(true){
 
-            if (ProductView.getInstance().checkState()){KitchenProductView1.getInstance().run();}
+            if (ProductView.getInstance().checkState()){KitchenView.getInstance().run();}
             else{ProductView.getInstance().run();}
         }
     

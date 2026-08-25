@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
 
-public class KitchenProductView1 {
-    private static final KitchenProductView1 instance = new KitchenProductView1();
-    private KitchenProductView1(){}
-    public static KitchenProductView1 getInstance() {
+public class KitchenView {
+    private static final KitchenView instance = new KitchenView();
+    private KitchenView(){}
+    public static KitchenView getInstance() {
         return instance;
     }
     private KitchenController kc = KitchenController.getInstance();
