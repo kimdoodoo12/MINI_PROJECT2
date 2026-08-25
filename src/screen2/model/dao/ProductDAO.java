@@ -52,10 +52,13 @@ public class ProductDAO extends IBaseDao {
             int result = ps.executeUpdate();  // 실행 후 처리된 레코드 수 반환
 
             // 재료 발주 금액 자본 차감 함수
-            buyProductLog();            
+                      
 
             // 1-5. SQL 결과
-            if(result == 1){ return true;}
+            if(result == 1){
+                boolean a = buyProductLog();
+                return a;
+            }
 
         }catch( SQLException e){ System.out.println(e);}
 
@@ -159,13 +162,14 @@ public class ProductDAO extends IBaseDao {
 
             // 2-5. SQL 결과( select 조회 결과는 항상 테이블로 반환한다. ) 즉, 레코드 하나씩 타입변환
             // rs.next() : 다음 레코드(행) 이동 , 마지막 레코드까지 하나씩 이동 반복
-                
+            if(rs.next()){
             // 2-6. 현재 레코드 필드(속성/정보)들을 --> DTO 변환
-            productLogDTO.setProduct_id(rs.getInt("product_id")); // rs.get타입("가져올 속성명")
-            productLogDTO.setProduct_qty(rs.getInt("product_qty"));
-            productLogDTO.setProduct_condition(rs.getString("product_condition"));
-            productLogDTO.setProductLog_price(rs.getInt("productLog_price"));
-            productLogDTO.setCustomerLog_day(rs.getInt("customerLog_day"));
+                productLogDTO.setProduct_id(rs.getInt("product_id")); // rs.get타입("가져올 속성명")
+                productLogDTO.setProduct_qty(rs.getInt("product_qty"));
+                productLogDTO.setProduct_condition(rs.getString("product_condition"));
+                productLogDTO.setProductLog_price(rs.getInt("productLog_price"));
+                productLogDTO.setCustomerLog_day(rs.getInt("customerLog_day"));
+            }
 
         }catch(SQLException e){ System.out.println(e);}
 
@@ -195,6 +199,10 @@ public class ProductDAO extends IBaseDao {
             System.out.println(e);
         }
 
+        System.out.println("현재 골드 : " + currentGold);
+        System.out.println("구매 금액 : " + productLogDTO.getProductLog_price());
+        System.out.println("차감 후 골드 : " + (currentGold - productLogDTO.getProductLog_price()));
+        
         return false;
         
     }
@@ -242,7 +250,7 @@ public class ProductDAO extends IBaseDao {
 
         try{
             // 1-1. SQL 작성  ,  값에 와일드카드(?) 이용한 매개변수 대입
-            String sql = "update GameState set restaruant_state = ?";
+            String sql = "update GameState set restaurant_state = ?";
 
             // 1-2. 연동된  데이터베이스에 SQL 기재
             // conn 멤버변수는 BaseDao 에게 물려받음

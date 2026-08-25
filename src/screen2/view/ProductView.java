@@ -20,24 +20,24 @@ public class ProductView {
 
     public void run(){
 
-        int currentDay = currentDay();
-
-        int currentGold = currentGold();
-
         while(true){
 
+            int currentDay = currentDay();
+
+            int currentGold = currentGold();
+
             System.out.println("======================================================================");
-            System.out.printf("        [ DAY %d - 종료 재고 보충  ]  | 자금 : %,d 원                 ", currentDay-1 , currentGold);
+            System.out.printf("        [ DAY %d - 종료 재고 보충  ]  | 자금 : %,d 원                 \n", currentDay-1 , currentGold);
             System.out.println("======================================================================");
 
-            System.out.printf("1. 재고보충  2. 재고 확인  3. %d일차 영업 시작하기  4. 종료", currentDay);
+            System.out.printf("1. 재고보충  2. 재고 확인  3. %d일차 영업 시작하기  4. 종료\n", currentDay);
 
-            String ch = scan.next();
+            int ch = scan.nextInt();
 
-            if(ch == "1"){addProductLog_order();}
-            else if(ch == "2"){countProductLog();}
-            else if(ch == "3"){startDay();}
-            else if(ch == "4"){}
+            if(ch == 1){addProductLog_order();}
+            else if(ch == 2){countProductLog();}
+            else if(ch == 3){startDay();}
+            else if(ch == 4){}
             else{break;}
 
         }
@@ -142,7 +142,7 @@ public class ProductView {
         ArrayList<CountProductDTO> result = pc.countProductLog();
 
         for(CountProductDTO countProductDTO : result){
-            System.out.printf("%d %s %d", countProductDTO.getProduct_id(), countProductDTO.getProduct_name(), countProductDTO.getProduct_totalQty());
+            System.out.printf("%-3d %s %d\n", countProductDTO.getProduct_id(), countProductDTO.getProduct_name(), countProductDTO.getProduct_totalQty());
         }
 
     }

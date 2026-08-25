@@ -207,7 +207,6 @@ VALUES
 (9, 9, 'waiting', 3, 0),
 (10, 6, 'served', 3, 6000);
 
-delete from productlog;
 
 CREATE TABLE Cook (
     cook_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -229,8 +228,6 @@ VALUES
 (9, 4, 'READY'),
 (10, 6, 'READY');
 
-SELECT * from customerlog;
-select * from cook;
 
 -- 재고 로그 테이블 생성
 CREATE TABLE productLog (
@@ -261,22 +258,5 @@ VALUES
 (9, 4, 40, 'USE', 0, 3),
 (10, 6, 120, 'ORDER', 60000, 3);
 
-DELETE FROM PRODUCTLOG;
-
-    INSERT INTO productLog
-(product_id, product_qty, product_condition, productLog_price, customerLog_day)
-VALUES
-(1,  150, 'ORDER', 150 * 500,  0),   -- 햄버거빵    150개
-(2,  150, 'ORDER', 150 * 1200, 0),   -- 소고기패티  150개
-(3,  150, 'ORDER', 150 * 1000, 0),   -- 불고기패티  150개
-(4,  150, 'ORDER', 150 * 300,  0),   -- 치즈        150개
-(5,  150, 'ORDER', 150 * 200,  0),   -- 양상추      150개
-(6,  150, 'ORDER', 150 * 300,  0),   -- 토마토      150개
-(7,  150, 'ORDER', 150 * 100,  0),   -- 피클        150개
-(8,  150, 'ORDER', 150 * 500,  0),   -- 베이컨      150개
-(9,  150, 'ORDER', 150 * 1300, 0),   -- 새우패티    150개
-(10, 150, 'ORDER', 150 * 1100, 0),   -- 치킨패티    150개
-(11, 150, 'ORDER', 150 * 150,  0),   -- 양파        150개
-(12, 150, 'ORDER', 150 * 200,  0);   -- 스파이시소스 150개
 
 

@@ -20,9 +20,22 @@ public class ProductController{
     // 재고 발주 로그 추가 함수
     public boolean addProductLog_order(ProductLogDTO productLogDTO){
         
+        int currentGold = pd.currentGold();
+
+        ArrayList<ProductDTO> productDTO = pd.findProductLog();
+
+        for(int i = 0 ; i <= productDTO.size()-1 ; i++){
+            if (productDTO.get(i).getProduct_no() == productLogDTO.getProduct_id()) {
+                if (currentGold < productDTO.get(i).getProduct_price()*productLogDTO.getProduct_qty()) {
+                    System.out.println("해당 재료를 수량에 맞게 주문하기에 자금이 부족합니다.");
+                    return false;
+                }
+            }
+        }
+
         boolean result = pd.addProductLog_order(productLogDTO);
 
-        return true;
+        return result;
 
     }
 
