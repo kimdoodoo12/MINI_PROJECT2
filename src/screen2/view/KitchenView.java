@@ -22,7 +22,7 @@ public class KitchenView {
         int currentDay = pd.currentDay();
         int currentGold = pd.currentGold();
         System.out.println("======================================================================");
-        System.out.printf("        [ DAY %d - 영업 시작  ]  | 자금 : %,d 원                 \n", currentDay-1 , currentGold);
+        System.out.printf("        [ DAY %d - 영업 시작  ]  | 자금 : %,d 원                 \n", currentDay , currentGold);
         System.out.println("======================================================================");
         while (true){
             boolean isOpen = kc.checkRestaurantState();
