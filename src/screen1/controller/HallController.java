@@ -230,7 +230,7 @@ public class HallController {
     }
 
     public void changeGameState(){
-        
+
     }
 
     public void minusGold(){
