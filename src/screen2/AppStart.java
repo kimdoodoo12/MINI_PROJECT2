@@ -9,7 +9,10 @@ public class AppStart {
 
         while(true){
 
-            if (ProductView.getInstance().checkState()){KitchenView.getInstance().run();}
+            // GameState 게임상태가 True(ON) 이면 Kitchen 프로그램 실행.
+            if (ProductController.getInstance().checkState()){KitchenView.getInstance().run();}
+
+            // GameState 게임상태가 flase(OFF) 이면 product 프로그램 실행.
             else{ProductView.getInstance().run();}
             
         }

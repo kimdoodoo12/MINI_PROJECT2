@@ -18,63 +18,50 @@ public class ProductView {
 
     Scanner scan = new Scanner(System.in);
 
+    // Product 메인 run 함수
     public void run(){
+
+        // 일차 증가 
+        pc.addDay();
 
         while(true){
 
-            int currentDay = currentDay();
+            // 현재 일차 조회
+            int currentDay = pc.currentDay();
 
-            int currentGold = currentGold();
+            // 현재 자금 조회
+            int currentGold = pc.currentGold();
 
+            // 터미널에 보일 화면 출력
             System.out.println("======================================================================");
             System.out.printf("        [ DAY %d - 종료 재고 보충  ]  | 자금 : %,d 원                 \n", currentDay-1 , currentGold);
             System.out.println("======================================================================");
 
-            System.out.printf("1. 재고보충  2. 재고 확인  3. %d일차 영업 시작하기  4. 종료\n", currentDay);
+            System.out.printf("1. 재고보충  2. 재고확인  3. %d일차 영업 시작하기  4. 종료\n", currentDay);
 
             int ch = scan.nextInt();
 
+            // 1번 선택 시 재고보충 함수 실행
             if(ch == 1){addProductLog_order();}
+
+            // 2번 선택 시 재고확인 함수 실행
             else if(ch == 2){countProductLog();}
+
+            // 3번 선택 시 영업시작 함수 실행
+            // 영업시작함수 = GameState 를 true 로 변환 후 무한반복문 탈출  
+            // ==>>  main 함수로 이동
             else if(ch == 3){startDay(); return;}
+
+            // 4번 선택 시 아직 미정
             else if(ch == 4){}
+
+            // 이외의 번호 입력 시 다시 반복문 무한루프 실행
             else{break;}
 
         }
 
-    /* 
-        ===== [ DAY 01 ]  [ RESTAURANT Kitchen ]  |  자금 : 150,000 원 ====
-
-        [ 재고 현황 ]  
-
-        번호  재료명      수량    상태 
-        1    김치        6개 
-        2    돼지고기     4개 
-        3    두부        5개 
-        ... 
-        6    대파        0개   [소진] 
-        
-        * 소진 재료: 대파  (보충은 영업 종료 후 가능합니다)
-        ======================================================================
-                [ DAY 1 - 종료 재고 보충  ]  | 자금 : 150,000 원                   
-        ======================================================================
-        재고보충 2. 재고 확인 3. 2일차 영업 시작하기 4. 종료
-        선택> 1
-        보충할 재료:
-        선택> 1
-        보충할 수량 : 
-        선택> 6
-        보충 완료
-        소지금액 130,000원
-        ======================================================================
-                [ DAY 1 - 종료 재고 보충  ]  | 자금 : 130,000 원                   
-        ======================================================================
-        재고보충 2. 재고 확인 3. 2일차 영업 시작하기 4. 종료
-        선택>
-
-    */
-
     }
+
 
     // 재고 발주 로그 추가 함수
     public void addProductLog_order(){
@@ -97,36 +84,6 @@ public class ProductView {
 
     }
 
-    // 재료 가격 조회 함수
-    public ArrayList<ProductDTO> findProductLog(){
-
-        ArrayList<ProductDTO> result = pc.findProductLog();
-        
-        return result;
-    }
-
-    // 자본 금액 조회 함수
-    public int currentGold(){
-
-        int result = pc.currentGold();
-
-        return result;
-    }
-
-    // 재료 발주 금액 자본 차감 함수
-    public void buyProductLog(){
-
-        Boolean result = pc.buyProductLog();
-
-    }
-
-    // 일차 조회 함수
-    public int currentDay(){
-
-        int result = pc.currentDay();
-
-        return result;        
-    }
 
     // 영업 시작하기 함수
     public void startDay(){
@@ -134,27 +91,25 @@ public class ProductView {
         boolean result = pc.startDay();
 
         if(result == false){System.out.println("영업 시작 실패");}
+
     }
+
 
     // 재고 확인 함수
     public void countProductLog(){
 
         ArrayList<CountProductDTO> result = pc.countProductLog();
 
+        System.out.println("|no | name    | qty    ");
+
         for(CountProductDTO countProductDTO : result){
+
             System.out.printf("%-3d %s %d\n", countProductDTO.getProduct_id(), countProductDTO.getProduct_name(), countProductDTO.getProduct_totalQty());
+        
         }
 
     }
 
-    // 영업 상태 확인 함수
-    public boolean checkState(){
-
-        boolean result = pc.checkState();
-
-        return result;
-
-    }
 
 
 } // class END
