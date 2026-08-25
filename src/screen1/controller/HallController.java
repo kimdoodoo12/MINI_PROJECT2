@@ -28,7 +28,7 @@ public class HallController {
     private MenuDao md = MenuDao.getInstance();
 
     public static boolean isChange;
-
+    
     // 쓰레드 풀 자리 5개 생성
     ThreadPoolExecutor customerPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(5);
 
@@ -73,8 +73,8 @@ public class HallController {
         return result;
     }
 
-    public boolean setCook(int menu_id, boolean isServed) {
-        boolean result = ckd.setCook(menu_id, isServed);
+    public boolean setCook(int cook_id, boolean isServed) {
+        boolean result = ckd.setCook(cook_id, isServed);
         return result;
     }
 
@@ -132,8 +132,12 @@ public class HallController {
                     boolean result2 = cookServe();
 
                     if (result2) {
-                        /* 서빙 완료 메시지 */ } else {
-                        /* 폐기처리 메시지 */}
+                        /* 서빙 완료 메시지 */
+                        System.out.println("서빙 완료");
+                    }
+                    else {
+                        /* 요리없음 메시지 */
+                    }
 
                     try {
                         Thread.sleep(1000);
@@ -188,6 +192,49 @@ public class HallController {
         // 두 쓰레드 각각 시작
         new Thread(serveRunnable).start();
         new Thread(customerRunnable).start();
+    }
+
+
+    public void gameStart(){
+        Runnable gamerunnable = new Runnable(){
+            private int time = 40;
+            @Override
+            public void run(){
+                while(time >= 0){
+                    try{
+                        Thread.sleep(1000);
+                        time--;                    
+                    }catch(Exception e){System.out.println(e);}                    
+                }
+                // 게임시간이 다 되면 정산시간
+                changeGameState();
+                minusGold();
+                setEverythingOff();
+            };
+        };
+        // 쓰레드가 끝나면 요리테이블 및 손님테이블 모두 폐기처리 및 left처리
+        // *** 그러나 게임 Controller가 HallController을 불러야한다. 단일책임 원칙 위반 ***
+    
+        new Thread(gamerunnable).start();
+    }
+    public void setEverythingOff(){
+        ArrayList<CookDto> cookDtos = findAllCook();
+        ArrayList<CustomerDto> customerDtos = findAllCustomer();
+        for(CookDto cookDto: cookDtos){
+            setCook(cookDto.getCook_id(), false);
+        }
+        for(CustomerDto customerDto: customerDtos){
+            setLeft(customerDto.getCustomer_no());
+        }
+        return;
+    }
+
+    public void changeGameState(){
+
+    }
+
+    public void minusGold(){
+        
     }
 }
 

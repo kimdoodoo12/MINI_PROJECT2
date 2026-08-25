@@ -1,6 +1,11 @@
 package screen1.controller;
 
+import java.util.ArrayList;
+
+import screen1.model.dao.TotalMenuStatusDao;
+import screen1.model.dao.TotalProductStatusDao;
 import screen1.model.dao.TotalStatusDao;
+import screen1.model.dto.TotalMenuStatusDto;
 import screen1.model.dto.TotalStatusDto;
 
 public class TotalStatusController {
@@ -14,6 +19,8 @@ public class TotalStatusController {
     }
 
     private TotalStatusDao totalStad = TotalStatusDao.getInstance();
+    private TotalMenuStatusDao totalMenud = TotalMenuStatusDao.getInstance();
+    private TotalProductStatusDao totalprod = TotalProductStatusDao.getInstance();
 
     // [0] 게임 정보 로직
 
@@ -71,5 +78,26 @@ public class TotalStatusController {
         int totalServed = getServedCustomer();
 
         return new TotalStatusDto(finalDay, finalGold, totalSales, totalExpense, totalCustomer, totalServed);
+    }
+
+    // 전체 팔린 메뉴 중 TOP3 메뉴 가져오기
+    public ArrayList<TotalMenuStatusDto> getMenuSales() {
+        ArrayList<TotalMenuStatusDto> result = totalMenud.getTotalMenuSales();
+        return result;
+    }
+
+    // 총 발주량 가져오기
+    public int getTotalOrder() {
+        return totalprod.getTotalOrder();
+    }
+
+    // 총 사용량 가져오기
+    public int getTotalUsed() {
+        return totalprod.getTotalUsed();
+    }
+
+    // 총 잔여량 가져오기
+    public int getTotalRemain() {
+        return totalprod.getTotalRemain();
     }
 }

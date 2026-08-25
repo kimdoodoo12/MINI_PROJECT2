@@ -207,7 +207,6 @@ VALUES
 (9, 9, 'waiting', 3, 0),
 (10, 6, 'served', 3, 6000);
 
-delete from productlog;
 
 CREATE TABLE Cook (
     cook_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -261,9 +260,8 @@ VALUES
 (9, 4, 40, 'USE', 0, 3),
 (10, 6, 120, 'ORDER', 60000, 3);
 
-DELETE FROM PRODUCTLOG;
 
-    INSERT INTO productLog
+INSERT INTO productLog
 (product_id, product_qty, product_condition, productLog_price, customerLog_day)
 VALUES
 (1,  150, 'ORDER', 150 * 500,  0),   -- 햄버거빵    150개
