@@ -7,6 +7,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 import screen1.model.dao.CookDao;
 import screen1.model.dao.CustomerDao;
+import screen1.model.dao.GameStateDao;
 import screen1.model.dao.MenuDao;
 import screen1.model.dto.CookDto;
 import screen1.model.dto.CustomerDto;
@@ -26,9 +27,10 @@ public class HallController {
     private CustomerDao cd = CustomerDao.getInstance();
     private CookDao ckd = CookDao.getInstance();
     private MenuDao md = MenuDao.getInstance();
+    private GameStateDao gd = GameStateDao.getInstance();
 
     public static boolean isChange;
-    
+
     // 쓰레드 풀 자리 5개 생성
     ThreadPoolExecutor customerPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(5);
 
@@ -63,12 +65,13 @@ public class HallController {
         return false;
     }
 
-    public boolean checkBill(int customer_no, int price){
+    public boolean checkBill(int customer_no, int price) {
         boolean result1 = cd.checkBill(customer_no, price);
         boolean result2 = addGold(price);
         return result1 && result2;
     }
-    public boolean addGold(int price){
+
+    public boolean addGold(int price) {
         boolean result = cd.addGold(price);
         return result;
     }
@@ -134,8 +137,7 @@ public class HallController {
                     if (result2) {
                         /* 서빙 완료 메시지 */
                         System.out.println("서빙 완료");
-                    }
-                    else {
+                    } else {
                         /* 요리없음 메시지 */
                     }
 
@@ -156,8 +158,6 @@ public class HallController {
 
                 // 손님들을 무한으로 생성시키는 반복문 start
                 while (isOpen()) {
-                    System.out.println(isOpen());
-                    System.out.println(customerPool.getActiveCount());
                     // 사용중인 쓰레드가 최대 쓰레드풀보다 작은 경우에만 실행
                     if (customerPool.getActiveCount() < 5) {
                         try {
@@ -194,139 +194,51 @@ public class HallController {
         new Thread(customerRunnable).start();
     }
 
-
-    public void gameStart(){
-        Runnable gamerunnable = new Runnable(){
+    public void gameStart() {
+        Runnable gamerunnable = new Runnable() {
             private int time = 40;
+
             @Override
-            public void run(){
-                while(time >= 0){
-                    try{
+            public void run() {
+                while (time >= 0) {
+                    try {
                         Thread.sleep(1000);
-                        time--;                    
-                    }catch(Exception e){System.out.println(e);}                    
+                        time--;
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    }
                 }
                 // 게임시간이 다 되면 정산시간
                 changeGameState();
+                // false
                 minusGold();
                 setEverythingOff();
             };
         };
         // 쓰레드가 끝나면 요리테이블 및 손님테이블 모두 폐기처리 및 left처리
         // *** 그러나 게임 Controller가 HallController을 불러야한다. 단일책임 원칙 위반 ***
-    
+
         new Thread(gamerunnable).start();
     }
-    public void setEverythingOff(){
+
+    public void setEverythingOff() {
         ArrayList<CookDto> cookDtos = findAllCook();
         ArrayList<CustomerDto> customerDtos = findAllCustomer();
-        for(CookDto cookDto: cookDtos){
+        for (CookDto cookDto : cookDtos) {
             setCook(cookDto.getCook_id(), false);
         }
-        for(CustomerDto customerDto: customerDtos){
+        for (CustomerDto customerDto : customerDtos) {
             setLeft(customerDto.getCustomer_no());
         }
         return;
     }
 
-    public void changeGameState(){
+    public void changeGameState() {
+        gd.changeGameState();
 
     }
 
-    public void minusGold(){
-        
+    public void minusGold() {
+        gd.minusGold();
     }
 }
-
-// public class CallCenterMain {
-
-// public static void main(String[] args) {
-
-// System.out.println("=== 고객센터 시스템 시작 ===");
-
-// // [1] 상담원 3명 스레드 풀 생성 및 대기 상태 초기화
-
-// ThreadPoolExecutor agentPool = (ThreadPoolExecutor)
-// Executors.newFixedThreadPool(3);
-
-// // [2] 전화 인입 스레드 생성 (익명 구현체)
-
-// Runnable customerProducer = new Runnable() {
-
-// @Override
-
-// public void run() {
-
-// for (int customerId = 1; customerId <= 20; customerId++) {
-
-// try {
-
-// Thread.sleep(3000); // 3초 간격 전화 인입
-
-// } catch (InterruptedException e) {}
-
-// // [3] CallTask 구현체 객체 생성 및 스레드풀에 배정
-
-// CallTask task = new CallTask(customerId);
-
-// agentPool.submit(task);
-
-// // [4] 현재 풀 상태 계산
-
-// int activeAgents = agentPool.getActiveCount();
-
-// int idleAgents = agentPool.getCorePoolSize() - activeAgents;
-
-// int waitingCustomers = agentPool.getQueue().size();
-
-// System.out.println("\n==[현황] 고객 " + customerId + "번 인입 , [대기 상담원]: " +
-// idleAgents + "명 , [통화
-// 중]: " + activeAgents + "명 , [대기 고객]: " + waitingCustomers + "명\n");
-
-// } // for end
-
-// // 100건 인입 완료 후 스레드 풀 종료 예약
-
-// agentPool.shutdown();
-
-// } // run end
-
-// }; // 익명구현체 end
-
-// // [5] 전화 인입 스레드 시작
-
-// Thread producerThread = new Thread(customerProducer);
-
-// producerThread.start();
-
-// }
-
-// }
-
-// class CallTask implements Runnable {
-
-// private Random random = new Random();
-
-// private int customerId;
-
-// public CallTask( int customerId ){ this.customerId = customerId; }
-
-// @Override
-
-// public void run() {
-
-// String agentName = Thread.currentThread().getName() ;
-
-// System.out.println(agentName+"-상담원 고객통화 시작-" + customerId);
-
-// try {
-
-// Thread.sleep(6000 + random.nextInt(6001)); // 6000ms ~ 12000ms (6초 ~ 12초)
-
-// } catch (InterruptedException e) {}
-
-// System.out.println(agentName+"-상담원 고객통화 종료-" + customerId);
-
-// }
-
-// }
