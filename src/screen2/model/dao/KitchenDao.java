@@ -33,11 +33,11 @@ public class KitchenDao extends IBaseDao{
     }
 
     // 완성된 요리 'ready' 상태로 추가 메소드
-    public void addCookTable(int productChoice, String state) {
+    public void addCookTable(int menuChoice, String state) {
         String sql = "Insert into cook (menu_id, cook_state) values (?, ?)";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, productChoice);
+            ps.setInt(1, menuChoice);
             ps.setString(2, state);
             int result = ps.executeUpdate();
             if(result != 1){

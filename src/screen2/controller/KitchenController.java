@@ -32,8 +32,8 @@ public class KitchenController {
         kd.addCookTable(menuChoice, state);
     }
 
-    public void addProductLogUsed(int productChoice) {
-        kd.addProductLogUsed(productChoice);
+    public void addProductLogUsed(int menuChoice) {
+        kd.addProductLogUsed(menuChoice);
     }
 
     public Map<String, ArrayList<String>> findAllRecipes() {
@@ -42,5 +42,9 @@ public class KitchenController {
 
     public boolean checkProductQty(int productChoice) {
         return kd.checkProductQty(productChoice);
+    }
+
+    public boolean checkRestaurantState() {
+        return kd.checkRestaurantState();
     }
 }

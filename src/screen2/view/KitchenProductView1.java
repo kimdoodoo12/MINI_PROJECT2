@@ -58,12 +58,15 @@ public class KitchenProductView1 {
 
     private void cook() {
         while (true){
-            System.out.println("어떤메뉴를 만드시겠습니까?");
+            System.out.println("어떤메뉴를 만드시겠습니까? (0 입력시 메인메뉴)");
             System.out.println("1.치즈버거 2.불고기버거 3.더블불고기버거 4.새우버거 5.베이컨치즈버거");
             System.out.println("6.클래식버거 7.더블치즈버거 8.스파이시버거 9.치킨버거 10.프리미엄버거");
             System.out.print(">> 선택 : ");
             int menuChoice = sc.nextInt();
             System.out.println("=================================================================");
+            if (menuChoice == 0){
+                return;
+            }
             if (menuChoice >= 1 && menuChoice <= 10){
                 // 만들 메뉴 입력시 sql조회해서 영업중인 확인
                 boolean isOpen1 = kc.checkRestaurantState();
@@ -100,10 +103,11 @@ public class KitchenProductView1 {
                         if(result){
                             System.out.println("** 요리가 완성되었습니다 **");
                             kc.addCookTable(menuChoice, "READY");
+                            return;
                         } else {
                             System.out.println("** 재료가 맞지 않습니다 **");
+                            return;
                         }
-                        break;
                     }
 
                     // 재료번호 1~12 입력시
