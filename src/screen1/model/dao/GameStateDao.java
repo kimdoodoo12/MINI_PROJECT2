@@ -30,7 +30,7 @@ public class GameStateDao extends IBaseDao {
 
     public boolean minusGold() {
         try {
-            String sql = "UPDATE gamestate SET current_gold = current_gold - 20000 WHERER gameState_id = 1;";
+            String sql = "UPDATE gamestate SET current_gold = current_gold - 20000 WHERE gameState_id = 1;";
             PreparedStatement ps = conn.prepareStatement(sql);
             int result = ps.executeUpdate();
             if (result == 1) {

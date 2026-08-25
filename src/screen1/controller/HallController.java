@@ -29,11 +29,114 @@ public class HallController {
     private MenuDao md = MenuDao.getInstance();
     private GameStateDao gd = GameStateDao.getInstance();
 
-    public static boolean isChange;
+    public static volatile boolean isChange;
+    public static volatile boolean isOpen;
 
-    // 쓰레드 풀 자리 5개 생성
-    ThreadPoolExecutor customerPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(5);
+    // 쓰레드 풀 생성
+    ThreadPoolExecutor customerPool;
 
+    public void gameStart() {
+        Runnable gamerunnable = new Runnable() {
+            // 게임시간 쓰레드를 40번 1초씩 sleep
+            private int time = 40;
+
+            @Override
+            public void run() {
+                while (time >= 0) {
+                    try {
+                        Thread.sleep(1000);
+                        time--;
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    }
+                }
+                // 게임시간이 다 되면 정산시간
+                changeGameState();
+                minusGold();
+                setEverythingOff();
+            };
+        };
+
+        // 게임 쓰레드 시작
+        new Thread(gamerunnable).start();
+    }
+    
+    // 서비스가 시작됐을 때 손님이 들어오는 함수
+    public void startService() {
+        // 쓰레드 풀 자리를 5개로 초기화
+        customerPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(5);
+
+        // 완성된 요리를 손님과 매칭해 서빙하는 쓰레드 (1초마다 반복)
+        Runnable serveRunnable = new Runnable() {
+            @Override
+            public void run() {
+                while (isOpen) {
+
+                    boolean result2 = cookServe();
+                    if (result2) {
+                        /* 서빙 완료 메시지 */
+                        System.out.println("서빙 완료");
+                    } else {
+                        /* 요리없음 메시지 */
+                    }
+
+                    try {
+                        // 1초 대기
+                        Thread.sleep(1000);
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    }
+                }
+            }
+        };
+
+        // 독립적으로 손님들을 생성하는 쓰레드 생성 (서빙 체크와는 별개로 랜덤 시간마다 생성)
+        Runnable customerRunnable = new Runnable() {
+            @Override
+            public void run() {
+                Random random = new Random();
+
+                // 손님들을 무한으로 생성시키는 반복문 start
+                while (isOpen) {
+                    // 사용중인 쓰레드가 최대 쓰레드풀보다 작은 경우에만 실행
+                    if (customerPool.getActiveCount() < 5) {
+                        try {
+                            // 랜덤으로 대기시간 (2초부터 10초 사이)
+                            Thread.sleep((2 + random.nextInt(9)) * 1000);
+                        } catch (Exception e) {
+                            System.out.println(e);
+                        }
+                        // 손님 쓰레드 생성
+                        CustomerTask customer = new CustomerTask(new CustomerDto(getRandomMenu()));
+                        // 손님 생성 DB에 적용이 됐는지 확인
+                        boolean result3 = cd.createCustomer(customer.getCustomer());
+                        if (result3) {
+                            // 성공하면 쓰레드풀에 등록
+                            customerPool.submit(customer);
+                            // 손님의 변화를 감지한 캐시변수 true로 변경
+                            isChange = true;
+                        }
+                    } else {
+                        // 풀이 꽉 찼을 때도 쉬지 않고 도는 대시시간없이 도는 것을 막기 위한 sleep
+                        try {
+                            Thread.sleep(1000);
+                        } catch (Exception e) {
+                            System.out.println(e);
+                        }
+                    }
+                }
+                // 식당이 영업중이 아니여서 반복문을 탈출했을 때 쓰레드풀 종료
+                customerPool.shutdown();
+            }
+        };
+
+        // 두 쓰레드 각각 시작
+        new Thread(serveRunnable).start();
+        new Thread(customerRunnable).start();
+    }
+
+
+    
     public boolean cookServe() {
         ArrayList<CustomerDto> customerDtos = findAllCustomer();
         ArrayList<CookDto> cookDtos = findAllCook();
@@ -63,6 +166,28 @@ public class HallController {
         }
 
         return false;
+    }
+    
+    public void setEverythingOff() {
+        ArrayList<CookDto> cookDtos = findAllCook();
+        ArrayList<CustomerDto> customerDtos = findAllCustomer();
+        for (CookDto cookDto : cookDtos) {
+            setCook(cookDto.getCook_id(), false);
+        }
+        for (CustomerDto customerDto : customerDtos) {
+            setLeft(customerDto.getCustomer_no());
+        }
+        return;
+    }
+
+    public void changeGameState() {
+        gd.changeGameState();
+        // 캐시변수 또한 false로 변경
+        isOpen = false;
+    }
+
+    public void minusGold() {
+        gd.minusGold();
     }
 
     public boolean checkBill(int customer_no, int price) {
@@ -123,122 +248,7 @@ public class HallController {
         return result;
     }
 
-    // 서비스가 시작됐을 때 손님이 들어오는 함수
-    public void startService() {
 
-        // 완성된 요리를 손님과 매칭해 서빙하는 쓰레드 (1초마다 반복)
-        Runnable serveRunnable = new Runnable() {
-            @Override
-            public void run() {
-                while (isOpen()) {
 
-                    boolean result2 = cookServe();
 
-                    if (result2) {
-                        /* 서빙 완료 메시지 */
-                        System.out.println("서빙 완료");
-                    } else {
-                        /* 요리없음 메시지 */
-                    }
-
-                    try {
-                        Thread.sleep(1000);
-                    } catch (Exception e) {
-                        System.out.println(e);
-                    }
-                }
-            }
-        };
-
-        // 독립적으로 손님들을 생성하는 쓰레드 생성 (서빙 체크와는 별개로 랜덤 시간마다 생성)
-        Runnable customerRunnable = new Runnable() {
-            @Override
-            public void run() {
-                Random random = new Random();
-
-                // 손님들을 무한으로 생성시키는 반복문 start
-                while (isOpen()) {
-                    // 사용중인 쓰레드가 최대 쓰레드풀보다 작은 경우에만 실행
-                    if (customerPool.getActiveCount() < 5) {
-                        try {
-                            // 랜덤으로 대기시간 (2초부터 10초 사이)
-                            Thread.sleep((2 + random.nextInt(9)) * 1000);
-                        } catch (Exception e) {
-                            System.out.println(e);
-                        }
-                        // 손님 쓰레드 생성
-                        CustomerTask customer = new CustomerTask(new CustomerDto(getRandomMenu()));
-                        // 손님 생성 DB에 적용이 됐는지 확인
-                        boolean result3 = cd.createCustomer(customer.getCustomer());
-                        if (result3) {
-                            // 성공하면 쓰레드풀에 등록
-                            customerPool.submit(customer);
-                            isChange = true;
-                        }
-                    } else {
-                        // 풀이 꽉 찼을 때도 쉬지 않고 도는 대시시간없이 도는 것을 막기 위한 sleep
-                        try {
-                            Thread.sleep(1000);
-                        } catch (Exception e) {
-                            System.out.println(e);
-                        }
-                    }
-                }
-                // 식당이 영업중이 아니여서 반복문을 탈출했을 때 쓰레드풀 종료
-                customerPool.shutdown();
-            }
-        };
-
-        // 두 쓰레드 각각 시작
-        new Thread(serveRunnable).start();
-        new Thread(customerRunnable).start();
-    }
-
-    public void gameStart() {
-        Runnable gamerunnable = new Runnable() {
-            private int time = 40;
-
-            @Override
-            public void run() {
-                while (time >= 0) {
-                    try {
-                        Thread.sleep(1000);
-                        time--;
-                    } catch (Exception e) {
-                        System.out.println(e);
-                    }
-                }
-                // 게임시간이 다 되면 정산시간
-                changeGameState();
-                // false
-                minusGold();
-                setEverythingOff();
-            };
-        };
-        // 쓰레드가 끝나면 요리테이블 및 손님테이블 모두 폐기처리 및 left처리
-        // *** 그러나 게임 Controller가 HallController을 불러야한다. 단일책임 원칙 위반 ***
-
-        new Thread(gamerunnable).start();
-    }
-
-    public void setEverythingOff() {
-        ArrayList<CookDto> cookDtos = findAllCook();
-        ArrayList<CustomerDto> customerDtos = findAllCustomer();
-        for (CookDto cookDto : cookDtos) {
-            setCook(cookDto.getCook_id(), false);
-        }
-        for (CustomerDto customerDto : customerDtos) {
-            setLeft(customerDto.getCustomer_no());
-        }
-        return;
-    }
-
-    public void changeGameState() {
-        gd.changeGameState();
-
-    }
-
-    public void minusGold() {
-        gd.minusGold();
-    }
 }

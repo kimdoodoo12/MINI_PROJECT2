@@ -19,13 +19,14 @@ public class CustomerTask implements Runnable{
             while(time > 0){
                 // DB에 들어간 customer 상태를 직접 조회 (로컬 customer 객체는 갱신되지 않음)
                 String state = hc.getState(customer.getCustomer_no());
+
+                // 조회한 결과 served인 경우 쓰레드 종료
                 if ("served".equals(state)){
+                    // 손님의 변화를 감지하는 캐시변수 true로 변경
                     HallController.isChange = true;
                     break;                    
                 }
                 Thread.sleep(1000);
-
-                    
                 time--;
 
             }
@@ -33,6 +34,7 @@ public class CustomerTask implements Runnable{
             // 시간이 다 됐을 때
             if (time <= 0){
                 hc.setLeft(customer.getCustomer_no());
+                // 손님의 변화를 감지하는 캐시변수 true로 변경
                 HallController.isChange = true;
             }
 

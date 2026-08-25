@@ -28,12 +28,12 @@ public class HallGameView2 {
             hc.startService(); // 서빙 + 손님생성 기동
             HallController.isChange = true;
 
-            while (hc.isOpen()) { // ─ while ③ 영업중 화면 (기존 while이 여기로)
+            while (HallController.isOpen) { // ─ while ③ 영업중 화면
                 if (HallController.isChange) {
                     showCustomer();
                     HallController.isChange = false;
                 }
-                Thread.sleep(500); // ← 지금 없는 것. 넣어야 CPU 안 탐
+                Thread.sleep(1000); //
             }
 
             // while ③ 탈출 = 40초 끝나서 DB가 OFF 됨

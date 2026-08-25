@@ -49,6 +49,7 @@ public class CustomerDao extends IBaseDao{
                 }
                 // 로컬 객체에도 설정
                 customerDto.setCustomer_log_day(gameDay);
+                customerDto.setMenu_id(menuId);
                 return true;
             }
         }catch(SQLException e){System.out.println(e);}
