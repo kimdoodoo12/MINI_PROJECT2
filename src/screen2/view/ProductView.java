@@ -35,7 +35,7 @@ public class ProductView {
             String ch = scan.next();
 
             if(ch == "1"){addProductLog_order();}
-            else if(ch == "2"){}
+            else if(ch == "2"){countProductLog();}
             else if(ch == "3"){startDay();}
             else if(ch == "4"){}
             else{break;}
@@ -144,7 +144,7 @@ public class ProductView {
         for(CountProductDTO countProductDTO : result){
             System.out.printf("%d %s %d", countProductDTO.getProduct_id(), countProductDTO.getProduct_name(), countProductDTO.getProduct_totalQty());
         }
-        
+
     }
 
 
