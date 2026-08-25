@@ -2,9 +2,7 @@
 
 // import java.util.ArrayList;
 
-// import screen1.controller.GameController;
-// import screen1.controller.HallController;
-// import screen1.controller.TotalProductStatusController;
+// import screen1.controller.HallService;
 // import screen1.model.dto.CustomerDto;
 
 // public class HallGameView2 {
@@ -17,40 +15,20 @@
 // return instance;
 // } // 3.
 
-// private HallController hc = HallController.getInstance();
+// private HallService hc = HallService.getInstance();
 
 // public void run() {
 
-// // hc.startService();
-// // while (hc.isOpen()){
-// // showCustomer();
-// // try{
-// // Thread.sleep(1000);
-// // }catch(InterruptedException e){
-// // System.out.println(e);
-// // }
-// // }
-
-// boolean isOpen = true; // 매개변수
-// gc.gameStart(); // 40초동안 시간 1초마다 차감되고 0이되면 db OFF + 골드차감
-
-// while (true) {
-// boolean db = hallc.isOpen(); // db 조회
-
-// if (isOpen != db) { // db boolean이랑 main bolean 값이 다르면
-// isOpen = db; // db 값으로 업데이트 하고
-
-// if (isOpen == false) { // 영업 종료일떄
-// // 현재 골드가 음수다 -> 전체통계 양수다 -> 일일통계
-// if()
-// statusv.printDailySatus();
-// }
-// if (isOpen == true) { // 영업 열었을떄
+// hc.startService();
+// while (hc.isOpen()) {
 // showCustomer();
-// // 손님 무한 출력 view 실행
+// try {
+// Thread.sleep(1000);
+// } catch (InterruptedException e) {
+// System.out.println(e);
 // }
 // }
-// }
+
 // }
 
 // public void showCustomer() {
