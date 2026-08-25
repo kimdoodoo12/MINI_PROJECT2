@@ -39,4 +39,8 @@ public class KitchenController {
     public Map<String, ArrayList<String>> findAllRecipes() {
         return kd.findAllRecipes();
     }
+
+    public boolean checkProductQty(int productChoice) {
+        return kd.checkProductQty(productChoice);
+    }
 }

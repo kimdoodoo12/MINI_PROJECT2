@@ -73,6 +73,7 @@ public class KitchenProductView1 {
                 while (true){
                     System.out.print(">> 순서대로 번호 입력(0 입력시 완료) : ");
                     int productChoice = sc.nextInt();
+                    boolean result = kc.checkProductQty(productChoice); // 입력받을때마다 재고 확인
                     if (productChoice < 0 || productChoice > 12){
                         System.out.println("잘못된 재료 선택(0~12)");
                         continue;

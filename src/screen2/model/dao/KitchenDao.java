@@ -15,6 +15,7 @@ public class KitchenDao extends IBaseDao{
         return instance;
     }
 
+    // 해당 menuChoice 레시피 가져오는 메소드
     public ArrayList<Integer> takeRecipe(int menuChoice) {
         ArrayList<Integer> recipeList = new ArrayList<>();
         String sql = "Select product_no from recipe where menu_no = ? order by recipe_order"; // menuChoice로 재료번호 오름차순으로 가져오기
@@ -31,6 +32,7 @@ public class KitchenDao extends IBaseDao{
         return recipeList;
     }
 
+    // 완성된 요리 'ready' 상태로 추가 메소드
     public void addCookTable(int productChoice, String state) {
         String sql = "Insert into cook (menu_id, cook_state) values (?, ?)";
         try {
@@ -46,6 +48,7 @@ public class KitchenDao extends IBaseDao{
         }
     }
 
+    // 재료 로그 'used' 추가 메소드
     public void addProductLogUsed(int menuChoice) {
         String sql = "insert into productLog (product_id, product_qty, product_condition, productLog_price, customerLog_day) values (?,-1,'used',0,(select current_day from GameState where gameState_id = 1))";
         try {
@@ -60,6 +63,7 @@ public class KitchenDao extends IBaseDao{
         }
     }
 
+    // 모든 레시피 보여주는 함수
     public Map<String, ArrayList<String >> findAllRecipes() {
         Map<String, ArrayList<String>> map = new LinkedHashMap<>(); // 그냥 HashMap은 순서를 보장하지않는다!!!
         String sql = "select m.menu_name , p.product_name from recipe r join menu m on r.menu_no = m.menu_id " +
@@ -82,5 +86,23 @@ public class KitchenDao extends IBaseDao{
             System.out.println("예외 발생 : " + e);
         }
         return map;
+    }
+
+    // 재료 재고 확인 메소드
+    public boolean checkProductQty(int productChoice) {
+        String sql = "select sum(product_qty) stock from productlog where product_id = ?";
+        int result = 1;
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1,productChoice);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                int stock = rs.getInt("stock");
+                return stock >= result; // 해당 재료의 갯수가 1 이상이면 true
+            }
+        } catch (SQLException e) {
+            System.out.println("예외 발생 : " + e);
+        }
+        return false;
     }
 }
