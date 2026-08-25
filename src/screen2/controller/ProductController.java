@@ -6,7 +6,6 @@ import screen2.model.dao.ProductDAO;
 import screen2.model.dto.CountProductDTO;
 import screen2.model.dto.ProductDTO;
 import screen2.model.dto.ProductLogDTO;
-import screen2.view.ProductView;
 
 public class ProductController{
     
@@ -127,7 +126,5 @@ public class ProductController{
         
         return result;
     }
-
-
 
 }

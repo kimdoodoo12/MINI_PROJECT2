@@ -47,4 +47,8 @@ public class KitchenController {
     public boolean checkRestaurantState() {
         return kd.checkRestaurantState();
     }
+
+    public void clearProductList(ArrayList<Integer> productList) {
+        productList.clear();
+    }
 }

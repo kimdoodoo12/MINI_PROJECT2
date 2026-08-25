@@ -5,6 +5,7 @@ import screen2.view.KitchenView;
 import screen2.view.ProductView;
 
 public class AppStart {
+
     public static void main(String[] args) {
 
         while(true){
