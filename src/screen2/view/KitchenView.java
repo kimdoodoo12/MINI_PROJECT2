@@ -1,6 +1,7 @@
 package screen2.view;
 
 import screen2.controller.KitchenController;
+import screen2.controller.ProductController;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -14,17 +15,25 @@ public class KitchenView {
     }
     private KitchenController kc = KitchenController.getInstance();
 
+    private ProductController pd = ProductController.getInstance();
+
     Scanner sc = new Scanner(System.in);
     public void run(){
+        int currentDay = pd.currentDay();
+        int currentGold = pd.currentGold();
+        System.out.println("======================================================================");
+        System.out.printf("        [ DAY %d - 영업 시작  ]  | 자금 : %,d 원                 \n", currentDay-1 , currentGold);
+        System.out.println("======================================================================");
         while (true){
-                System.out.println("1.음식 조리 2.레시피 확인 3.종료");
-                System.out.print(">> 선택 : ");
-                String ch = sc.next();
-                System.out.println("=================================================================");
-                boolean isOpen = kc.checkRestaurantState();
-                if (!isOpen){
-                    return;
-                }
+            boolean isOpen = kc.checkRestaurantState();
+            if (!isOpen){
+                System.out.println("** 영업이 종료되어 발주 화면으로 이동합니다 **");
+                return;
+            }
+            System.out.println("1.음식 조리 2.레시피 확인 3.종료");
+            System.out.print(">> 선택 : ");
+            String ch = sc.next();
+            System.out.println("=================================================================");
             switch (ch){
                 case "1":
                     cook(); // 음식 조리
@@ -75,8 +84,7 @@ public class KitchenView {
                 // 만들 메뉴 입력시 sql조회해서 영업중인 확인
                 boolean isOpen1 = kc.checkRestaurantState();
                 if (!isOpen1){
-                    System.out.println("** 영업이 종료 되었습니다 **");
-                    // 재고 발주 파트로 넘어가는 메소드 추가!!
+                    return;
                 }
 
                 ArrayList<Integer> productList = new ArrayList<>();
@@ -99,7 +107,6 @@ public class KitchenView {
                         // 만들 메뉴 입력시 sql조회해서 영업중인 확인
                         boolean isOpen2 = kc.checkRestaurantState();
                         if (!isOpen2){
-                            System.out.println("** 영업이 종료 되었습니다 **");
                             return;
                         }
                         ArrayList<Integer> recipeList = kc.takeRecipe(menuChoice);// db에서 해당 메뉴번호 레시피 가져오기
@@ -107,9 +114,11 @@ public class KitchenView {
                         if(result){
                             System.out.println("** 요리가 완성되었습니다 **");
                             kc.addCookTable(menuChoice, "READY");
+                            kc.clearProductList(productList);
                             return;
                         } else {
                             System.out.println("** 재료가 맞지 않습니다 **");
+                            kc.clearProductList(productList);
                             return;
                         }
                     }
