@@ -3,6 +3,7 @@ package screen2.controller;
 import screen2.model.dao.KitchenDao;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class KitchenController {
     private static final KitchenController instance = new KitchenController();
@@ -31,7 +32,19 @@ public class KitchenController {
         kd.addCookTable(menuChoice, state);
     }
 
-    public void addProductLogUsed(int productChoice) {
-        kd.addProductLogUsed(productChoice);
+    public void addProductLogUsed(int menuChoice) {
+        kd.addProductLogUsed(menuChoice);
+    }
+
+    public Map<String, ArrayList<String>> findAllRecipes() {
+        return kd.findAllRecipes();
+    }
+
+    public boolean checkProductQty(int productChoice) {
+        return kd.checkProductQty(productChoice);
+    }
+
+    public boolean checkRestaurantState() {
+        return kd.checkRestaurantState();
     }
 }
