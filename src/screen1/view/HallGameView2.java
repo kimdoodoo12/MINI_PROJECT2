@@ -27,6 +27,7 @@ public class HallGameView2 {
             hc.gameStart(); // 40초 타이머 기동
             hc.startService(); // 서빙 + 손님생성 기동
             HallController.isChange = true;
+            HallController.isOpen = true;
 
             while (HallController.isOpen) { // ─ while ③ 영업중 화면
                 if (HallController.isChange) {
