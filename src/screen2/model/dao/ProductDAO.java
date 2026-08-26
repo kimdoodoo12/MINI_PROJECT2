@@ -3,6 +3,9 @@ package screen2.model.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import screen2.model.dto.CountProductDTO;
@@ -416,6 +419,76 @@ public class ProductDAO extends IBaseDao {
         return false;
 
     }
+
+
+    // 초기 자금 설정 함수
+    public boolean setGold(int current_gold){
+
+        try{
+            // 1-1. SQL 작성  ,  값에 와일드카드(?) 이용한 매개변수 대입
+            String sql = "update GameState set current_gold = ? , current_day = 0 , restaurant_state = false , gameState_date = NOW();";
+
+            // 1-2. 연동된  데이터베이스에 SQL 기재
+            // conn 멤버변수는 BaseDao 에게 물려받음
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            // 1-3. 기재된 SQL 문법 안에 ?(와일드카드) 매개변수 값 대입  ==>>  ps.set타입( ?번호 , 값 )
+            ps.setInt(1, current_gold);  // 1(첫번째 ?)에 currentDay+1 대입
+//          ps.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
+            
+
+            // 1-4. 기재된 SQL 실행 ,   .executeUpdate()  insert/update/delete  에서 사용
+            int result = ps.executeUpdate();  // 실행 후 처리된 레코드 수 반환
+
+            // 1-5. SQL 결과
+            if (result == 1) {
+                return true;
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return false;
+
+    }
+
+
+    // 게임 초기화 설정 함수
+    public boolean reset(){
+        
+        try{
+            
+            String sql = "truncate table Cook;";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.execute();
+
+            String sql1 = "truncate table productLog;";
+
+            PreparedStatement ps1 = conn.prepareStatement(sql1);
+
+            ps1.execute();
+
+            String sql2 = "truncate table CustomerLog;";
+
+            PreparedStatement ps2 = conn.prepareStatement(sql2);
+
+            ps2.execute();
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return false;
+        
+    }
+
+
+
+
+
 
 
 
