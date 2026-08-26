@@ -238,6 +238,11 @@ public class HallController {
         return result;
     }
 
+    public String getMenu(int menu_id){
+        String result = md.getMenu(menu_id);
+        return result;
+    }
+
     public boolean createCustomer(CustomerDto customerDto) {
         boolean result = cd.createCustomer(customerDto);
         return result;

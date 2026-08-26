@@ -65,14 +65,9 @@ public class KitchenProductView1 {
                         ArrayList<Integer> recipeList = kc.takeRecipe(menuChoice);// db에서 해당 메뉴번호 레시피 가져오기
                         boolean result = kc.checkRecipe(productList, recipeList);
                         if(result){
-<<<<<<< Updated upstream
-                            System.out.println("요리가 완성되었습니다.");
-                            kc.addCookTable(menuChoice, "READY"); // <- 이거 DAO에서 구현해야됨
-=======
                             System.out.println("** 요리가 완성되었습니다 **");
 
                             kc.addCookTable(menuChoice, "READY");
->>>>>>> Stashed changes
                         } else {
                             System.out.println("** 재료가 맞지 않습니다 **");
                         }

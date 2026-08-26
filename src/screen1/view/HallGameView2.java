@@ -52,6 +52,7 @@ public class HallGameView2 {
 
     public void showCustomer() {
         ArrayList<CustomerDto> customers = hc.findAllCustomer();
+        
 
         System.out.println("========================================");
         System.out.println("        [ 홀 현황 - 대기 손님 목록 ]");
@@ -60,13 +61,14 @@ public class HallGameView2 {
         if (customers.isEmpty()) {
             System.out.println("현재 대기 중인 손님이 없습니다.");
         } else {
-            System.out.printf("%-8s %-8s %-10s %-6s%n", "손님번호", "메뉴ID", "예상금액", "일차");
+            System.out.printf("%-8s %-8s %-10s %-6s%n", "손님번호", "메뉴이름", "예상금액", "일차");
             System.out.println("----------------------------------------");
             for (CustomerDto customer : customers) {
                 int price = hc.getPrice(customer.getMenu_id());
+                String menu = hc.getMenu(customer.getMenu_id());
                 System.out.printf("%-8d %-8d %-10d %-6d%n",
                         customer.getCustomer_no(),
-                        customer.getMenu_id(),
+                        menu,
                         price,
                         customer.getCustomer_log_day());
             }

@@ -20,11 +20,15 @@ public class CustomerTask implements Runnable{
                 // DB에 들어간 customer 상태를 직접 조회 (로컬 customer 객체는 갱신되지 않음)
                 String state = hc.getState(customer.getCustomer_no());
 
+                // 게임 중간에 영업중이 아닐때 안전하게 손님 쓰레드를 종료
+                if (!HallController.isOpen){
+                    break;
+                }
                 // 조회한 결과 served인 경우 쓰레드 종료
                 if ("served".equals(state)){
                     // 손님의 변화를 감지하는 캐시변수 true로 변경
                     HallController.isChange = true;
-                    break;                    
+                    break;
                 }
                 Thread.sleep(1000);
                 time--;
