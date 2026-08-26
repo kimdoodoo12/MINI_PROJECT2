@@ -30,20 +30,12 @@ public class StatusDto {
         return productExpense;
     }
 
-    public int getNetProfit() {
-        return sales - productExpense;
-    }
-
     public int getTotalCustomer() {
         return totalCustomer;
     }
 
     public int getServedCustomer() {
         return servedCustomer;
-    }
-
-    public int getLeftCustomer() {
-        return totalCustomer - servedCustomer;
     }
 
 }

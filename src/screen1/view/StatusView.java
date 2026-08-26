@@ -1,7 +1,7 @@
 package screen1.view;
 
+import java.security.PublicKey;
 import java.util.ArrayList;
-
 
 import screen1.controller.StatusController;
 import screen1.model.dto.MenuStatusDto;
@@ -19,7 +19,6 @@ public class StatusView {
     }
 
     private StatusController stac = StatusController.getInstance();
-
 
     public static int day = 0;
 
@@ -48,21 +47,23 @@ public class StatusView {
     }
 
     public void printDailySatus() {
-        StatusDto stadto = stac.clacDailyStatus();
-        int day = stadto.getDay();
+
+        int day = stac.getDay();
+
         printline();
         System.out.printf("\t\t [ DAY %1d - DAILY REPORT & STATS  ]\n", day);
         printline();
         System.out.println();
         System.out.println(" ■ [ 영업 총평 및 매출 요약 ]");
         printline2();
-        System.out.printf(" - 총 매출액\t\t :  + %,7d 원\n", stadto.getSales());
-        System.out.printf("- 재고 지출\t\t :  + %,7d 원\n", stadto.getExpense());
-        System.out.printf("- 일일 순이익\t\t :  + %,7d 원\n", stadto.getNetProfit());
+        System.out.printf(" - 총 매출액\t\t :  + %,7d 원\n", stac.getSales(day));
+        System.out.printf("- 재고 지출\t\t :  + %,7d 원\n", stac.getExpense(day));
+        stac.getNetProfit(stac.getSales(day), stac.getExpense(day));
         printline2();
-        System.out.printf(" - 총 방문손님\t\t : %10d 명\n", stadto.getTotalCustomer());
-        System.out.printf(" - 식사 완료 손님\t : %10d 명\n", stadto.getServedCustomer());
-        System.out.printf(" - 놓친 손님\t\t : %10d 명\n", stadto.getLeftCustomer());
+        System.out.printf(" - 총 방문손님\t\t : %10d 명\n", stac.getTotalCustomer(day));
+        System.out.printf(" - 식사 완료 손님\t : %10d 명\n", stac.getServedCustomer(day));
+        System.out.printf(" - 놓친 손님\t\t : %10d 명\n",
+                stac.getLeftCustomer(stac.getTotalCustomer(day), stac.getServedCustomer(day)));
         System.out.println();
         System.out.println(" ■ [ 인기 메뉴 및 재고 소모 현황 ]");
         printline2();

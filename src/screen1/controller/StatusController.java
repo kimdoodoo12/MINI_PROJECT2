@@ -46,6 +46,15 @@ public class StatusController {
         return result;
     }
 
+    // 순이익 계산
+    public void getNetProfit(int sales, int productExpense) {
+        int result = (sales - productExpense);
+        if (result < 0) {
+            System.out.printf("- 일일 순이익\t\t :  - %,7d 원\n", -result);
+        }
+        System.out.printf("- 일일 순이익\t\t :  + %,7d 원\n", result);
+    }
+
     // [2] 손님 로직
 
     // 총 방문 손님 가져오기
@@ -62,15 +71,9 @@ public class StatusController {
         return result;
     }
 
-    // 컨트롤러에서 전부 모아서 뷰에게 전달.
-    public StatusDto clacDailyStatus() {
-        int day = getDay();
-        int sales = getSales(day);
-        int expense = getExpense(day);
-        int totalCustomer = getTotalCustomer(day);
-        int servedCustomer = getServedCustomer(day);
-
-        return new StatusDto(day, sales, expense, totalCustomer, servedCustomer);
+    // 떠난 손님 계산
+    public int getLeftCustomer(int totalCustomer, int servedCustomer) {
+        return totalCustomer - servedCustomer;
     }
 
     // 재고명 + 사용량 + 잔여량 가져오기 및 병합
