@@ -32,7 +32,7 @@ public class MenuDao extends IBaseDao{
 
     public String getMenu(int menu_id){
         try{
-            String sql = "SELECT menu_name WHERE menu_id = ? ";
+            String sql = "SELECT menu_name FROM menu WHERE menu_id = ? ";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, menu_id);
 

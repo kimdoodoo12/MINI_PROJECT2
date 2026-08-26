@@ -102,7 +102,7 @@ public class HallController {
                     if (customerPool.getActiveCount() < 5) {
                         try {
                             // 랜덤으로 대기시간 (2초부터 10초 사이)
-                            Thread.sleep((2 + random.nextInt(9)) * 1000);
+                            Thread.sleep((2000 + (random.nextInt(9)) * 1000));
                         } catch (Exception e) {
                             System.out.println(e);
                         }

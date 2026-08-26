@@ -22,6 +22,7 @@ public class CustomerTask implements Runnable{
 
                 // 게임 중간에 영업중이 아닐때 안전하게 손님 쓰레드를 종료
                 if (!HallController.isOpen){
+                    hc.setLeft(customer.getCustomer_no());
                     break;
                 }
                 // 조회한 결과 served인 경우 쓰레드 종료

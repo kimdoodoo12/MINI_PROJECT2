@@ -66,7 +66,7 @@ public class HallGameView2 {
             for (CustomerDto customer : customers) {
                 int price = hc.getPrice(customer.getMenu_id());
                 String menu = hc.getMenu(customer.getMenu_id());
-                System.out.printf("%-8d %-8d %-10d %-6d%n",
+                System.out.printf("%-8d %-8s %-10d %-6d%n",
                         customer.getCustomer_no(),
                         menu,
                         price,
