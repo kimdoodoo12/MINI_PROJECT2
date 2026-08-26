@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import screen2.controller.ProductController;
-import screen2.model.dto.ProductDTO;
+import screen2.model.dto.CountProductDTO;
+
 import screen2.model.dto.ProductLogDTO;
 
 public class ProductView {
@@ -17,104 +18,114 @@ public class ProductView {
 
     Scanner scan = new Scanner(System.in);
 
+    // Product 메인 run 함수
     public void run(){
+
+        // 일차 증가 
+        pc.addDay();
 
         while(true){
 
+            // 현재 일차 조회
+            int currentDay = pc.currentDay();
+
+            // 현재 자금 조회
+            int currentGold = pc.currentGold();
+
+            // 터미널에 보일 화면 출력
             System.out.println("======================================================================");
-            System.out.println("        [ DAY 1 - 종료 재고 보충  ]  | 자금 : 150,000 원                 ");
+            System.out.printf("              [ DAY %d - 재고 보충  ]  | 자금 : %,d 원                 \n", currentDay , currentGold);
             System.out.println("======================================================================");
 
-            System.out.println("1. 재고보충  2. 재고 확인  3. 2일차 영업 시작하기  4. 종료");
+            System.out.printf("1. 재고보충  2. 재고확인  3. %d일차 영업 시작하기  4. 종료\n", currentDay);
 
-            String ch = scan.next();
+            int ch = scan.nextInt();
 
-            if(ch == "1"){addProductLog_order();}
-            else if(ch == "2"){}
-            else if(ch == "3"){}
-            else if(ch == "4"){}
+            // 1번 선택 시 재고보충 함수 실행
+            if(ch == 1){addProductLog_order();}
+
+            // 2번 선택 시 재고확인 함수 실행
+            else if(ch == 2){countProductLog();}
+
+            // 3번 선택 시 영업시작 함수 실행
+            // 영업시작함수 = GameState 를 true 로 변환 후 무한반복문 탈출  
+            // ==>>  main 함수로 이동
+            else if(ch == 3){startDay(); return;}
+
+            // 4번 선택 시 아직 미정
+            else if(ch == 4){}
+
+            // 이외의 번호 입력 시 다시 반복문 무한루프 실행
             else{break;}
 
         }
 
-    /* 
-        ===== [ DAY 01 ]  [ RESTAURANT Kitchen ]  |  자금 : 150,000 원 ====
-
-        [ 재고 현황 ]  
-
-        번호  재료명      수량    상태 
-        1    김치        6개 
-        2    돼지고기     4개 
-        3    두부        5개 
-        ... 
-        6    대파        0개   [소진] 
-        
-        * 소진 재료: 대파  (보충은 영업 종료 후 가능합니다)
-        ======================================================================
-                [ DAY 1 - 종료 재고 보충  ]  | 자금 : 150,000 원                   
-        ======================================================================
-        재고보충 2. 재고 확인 3. 2일차 영업 시작하기 4. 종료
-        선택> 1
-        보충할 재료:
-        선택> 1
-        보충할 수량 : 
-        선택> 6
-        보충 완료
-        소지금액 130,000원
-        ======================================================================
-                [ DAY 1 - 종료 재고 보충  ]  | 자금 : 130,000 원                   
-        ======================================================================
-        재고보충 2. 재고 확인 3. 2일차 영업 시작하기 4. 종료
-        선택>
-
-    */
-
     }
+
 
     // 재고 발주 로그 추가 함수
     public void addProductLog_order(){
 
-        System.out.println("1. 햄버거빵  2. 소고기패티  3. 불고기패티  4. 치즈  5. 양상추  6. 토마토");
-        System.out.println("7. 피클  8. 베이컨  9. 새우패티  10. 치킨패티  11. 양파  12. 스파이시소스");
+        System.out.println("---------------------------------------------------------------------------------------------------");
+        System.out.println("1. 햄버거빵 : 500원  ,  2. 소고기패티 : 1200원 ,  3. 불고기패티 : 1000원 ,  4. 치즈 : 300원");
+        System.out.println("5. 양상추 : 200원    ,  6. 토마토 : 300원     ,  7. 피클 : 100원       ,  8. 베이컨 : 500원");
+        System.out.println("9. 새우패티 : 1300원 ,  10. 치킨패티 : 1100원  ,  11. 양파 : 150원      ,  12. 스파이시소스 : 200원");
+        System.out.println("0. 메뉴로 돌아가기");
+        System.out.println("---------------------------------------------------------------------------------------------------");
 
-        System.out.println("발주할 재료의 번호를 입력하세요");
-        int productNumber = scan.nextInt();
+        while(true){
 
-        System.out.println("발주할 재료의 수량을 입력하세요");
-        int productCount = scan.nextInt();
+            System.out.println("발주할 재료의 번호를 입력하세요");
+            int productNumber = scan.nextInt();
 
-        ProductLogDTO productLogDTO = new ProductLogDTO(productNumber, productCount);
+            if (productNumber == 0) { return;}
+            else{
 
-        boolean result = pc.addProductLog_order(productLogDTO);
+                System.out.println("발주할 재료의 수량을 입력하세요");
+                int productCount = scan.nextInt();
 
-        if (result) {System.out.println("발주 성공");}
-        else {System.out.println("발주 실패");}
+                ProductLogDTO productLogDTO = new ProductLogDTO(productNumber, productCount);
+
+                boolean result = pc.addProductLog_order(productLogDTO);
+
+                if (result) {
+                    System.out.println("발주 성공"); 
+                    System.out.println("-------------------------------");
+                    System.out.println("구매 후 남은 자금 : " + pc.currentGold());
+                    System.out.println("-------------------------------");
+                }
+                else {System.out.println("발주 실패");}
+
+            }
+
+        }
 
     }
 
-    // 재고 가격 조회 함수
-    public ArrayList<ProductDTO> findProductLog(){
 
-        ArrayList<ProductDTO> result = pc.findProductLog();
-        
-        return result;
+    // 영업 시작하기 함수
+    public void startDay(){
+
+        boolean result = pc.startDay();
+
+        if(result == false){System.out.println("영업 시작 실패");}
+
     }
 
-    // 자본 금액 조회 함수
-    public int currentGold(){
 
-        int result = pc.currentGold();
+    // 재고 수량 확인 함수
+    public void countProductLog(){
 
-        return result;
-    }
+        ArrayList<CountProductDTO> result = pc.countProductLog();
 
-    // 재료 발주 금액 자본 차감 함수
-    public void buyProductLog(){
+        System.out.println("|no | name    | qty    ");
 
-        Boolean result = pc.buyProductLog();
+        for(CountProductDTO countProductDTO : result){
 
+            System.out.printf("%-3d %s %d\n", countProductDTO.getProduct_id(), countProductDTO.getProduct_name(), countProductDTO.getProduct_totalQty());
         
-        
+        }
+
     }
 
 

@@ -3,9 +3,9 @@ package screen2.controller;
 import java.util.ArrayList;
 
 import screen2.model.dao.ProductDAO;
+import screen2.model.dto.CountProductDTO;
 import screen2.model.dto.ProductDTO;
 import screen2.model.dto.ProductLogDTO;
-import screen2.view.ProductView;
 
 public class ProductController{
     
@@ -19,13 +19,37 @@ public class ProductController{
     // 재고 발주 로그 추가 함수
     public boolean addProductLog_order(ProductLogDTO productLogDTO){
         
+        // 현재 자금 불러오기
+        int currentGold = pd.currentGold();
+
+        // 현재 productlog 불러오기
+        ArrayList<ProductDTO> productDTO = pd.findProductLog();
+
+        // 유효성 검사 : 재료 주문금액이 자본을 초과하지 않는지.
+        for(int i = 0 ; i <= productDTO.size()-1 ; i++){
+
+            if (productDTO.get(i).getProduct_no() == productLogDTO.getProduct_id()) {
+
+                if (currentGold < productDTO.get(i).getProduct_price()*productLogDTO.getProduct_qty()) {
+
+                    System.out.println("해당 재료를 수량에 맞게 주문하기에 자금이 부족합니다.");
+
+                    return false;
+
+                }
+
+            }
+
+        }
+
         boolean result = pd.addProductLog_order(productLogDTO);
 
-        return true;
+        return result;
 
     }
 
-    // 재고 가격 조회 함수
+
+    // 재료 가격 조회 함수
     public ArrayList<ProductDTO> findProductLog(){
 
         ArrayList<ProductDTO> result = pd.findProductLog();
@@ -34,22 +58,74 @@ public class ProductController{
 
     }
 
+
     // 자본 금액 조회 함수
     public int currentGold(){
 
         int result = pd.currentGold();
 
         return result;
+
     }
+
 
     // 재료 발주 금액 자본 차감 함수
     public boolean buyProductLog(){
 
         Boolean result = pd.buyProductLog();
 
-        
         return result;
 
     }
 
+
+    // 일차 조회 함수
+    public int currentDay(){
+
+        int result = pd.currentDay();
+
+        return result;        
+
+    }
+
+
+    // 영업 시작하기 함수
+    public boolean startDay(){
+
+        boolean result = pd.startDay();
+
+        return result;
+
+    }
+
+
+    // 재고 확인 함수
+    public ArrayList<CountProductDTO> countProductLog(){
+
+        ArrayList<CountProductDTO> result = pd.countProductLog();
+
+        return result;
+
+    }
+
+
+    // 영업 상태 확인 함수
+    public boolean checkState(){
+
+        boolean result = pd.checkState();
+
+        return result;
+
+    }
+
+
+    // 영업 일차 증가 함수
+    public boolean addDay(){
+
+        boolean result = pd.addDay();
+        
+        return result;
+    }
+
+    
 }

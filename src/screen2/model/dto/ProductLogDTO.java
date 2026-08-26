@@ -2,7 +2,6 @@ package screen2.model.dto;
 
 public class ProductLogDTO {
 
-
     int product_id;
     int product_qty;
     String product_condition;
