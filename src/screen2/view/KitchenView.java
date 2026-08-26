@@ -20,9 +20,8 @@ public class KitchenView {
     Scanner sc = new Scanner(System.in);
     public void run(){
         int currentDay = pd.currentDay();
-        int currentGold = pd.currentGold();
         System.out.println("======================================================================");
-        System.out.printf("        [ DAY %d - 영업 시작  ]  | 자금 : %,d 원                 \n", currentDay , currentGold);
+        System.out.printf("        [ DAY %d - 영업 시작  ]                   \n", currentDay);
         System.out.println("======================================================================");
         while (true){
             boolean isOpen = kc.checkRestaurantState();
@@ -33,6 +32,11 @@ public class KitchenView {
             System.out.println("1.음식 조리 2.레시피 확인 3.종료");
             System.out.print(">> 선택 : ");
             String ch = sc.next();
+            if (!isOpen){
+                System.out.println("** 영업이 종료되어 발주 화면으로 이동합니다 **");
+                return;
+            }
+
             System.out.println("=================================================================");
             switch (ch){
                 case "1":
