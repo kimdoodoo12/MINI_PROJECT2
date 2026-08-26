@@ -2,7 +2,6 @@ package screen1.view;
 
 import java.util.ArrayList;
 
-
 import screen1.controller.TotalStatusController;
 import screen1.model.dto.TotalMenuStatusDto;
 import screen1.model.dto.TotalStatusDto;
@@ -18,7 +17,6 @@ public class TotalStatusView {
     }
 
     private TotalStatusController totalstac = TotalStatusController.getInstance();
-
 
     public static int day = 0;
 

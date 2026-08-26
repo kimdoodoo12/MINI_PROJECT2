@@ -3,6 +3,7 @@ package screen1.view;
 import java.util.ArrayList;
 
 import screen1.controller.HallController;
+import screen1.controller.TotalStatusController;
 import screen1.model.dto.CustomerDto;
 
 public class HallGameView2 {
@@ -16,6 +17,7 @@ public class HallGameView2 {
     } // 3.
 
     private HallController hc = HallController.getInstance();
+    private TotalStatusController tc = TotalStatusController.getInstance();
 
     public void run() throws InterruptedException {
         while (true) { // ─ while ① 하루를 반복 (게임 전체)
@@ -39,10 +41,10 @@ public class HallGameView2 {
 
             // while ③ 탈출 = 40초 끝나서 DB가 OFF 됨
 
-            // if (골드 < 0) {
-            // TotalStatusView.getinstance().printFinalSatus();
-            // break; // ← while ① 탈출 = 게임 종료
-            // }
+            if (tc.getGold() < 0) {
+                TotalStatusView.getinstance().printFinalSatus();
+                break; // ← while ① 탈출 = 게임 종료
+            }
             StatusView.getinstance().printDailySatus();
 
             // 다시 while ② 로 → 다른 프로세스가 ON 해줄 때까지 대기
