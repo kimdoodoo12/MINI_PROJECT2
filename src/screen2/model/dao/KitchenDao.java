@@ -66,7 +66,7 @@ public class KitchenDao extends IBaseDao{
     // 모든 레시피 보여주는 함수
     public Map<String, ArrayList<String >> findAllRecipes() {
         Map<String, ArrayList<String>> map = new LinkedHashMap<>(); // 그냥 HashMap은 순서를 보장하지않는다!!!
-        String sql = "select m.menu_name , p.product_name from recipe r join menu m on r.menu_no = m.menu_id " +
+        String sql = "select m.menu_name , p.product_name , r.product_no from recipe r join menu m on r.menu_no = m.menu_id " +
                 "join product p on r.product_no = p.product_no order by r.menu_no , r.recipe_order";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -74,12 +74,13 @@ public class KitchenDao extends IBaseDao{
             while (rs.next()){
                 String menuName = rs.getString("menu_name");
                 String productName = rs.getString("product_name");
+                int productNo = rs.getInt("product_no");
                 if (!map.containsKey(menuName)){ // map에 키가 꺼내온 메뉴 이름이 없으면 키 추가하고 재료 담을 ArrayList 추가
                     map.put(menuName, new ArrayList<String>());
                 }
                 // 키가 존재하면 메뉴이름 키에 해당하는 값꺼내와서 ArrayList.add 통해 맨뒤에 재료 이름 추가
                 ArrayList<String> list = map.get(menuName);
-                list.add(productName);
+                list.add(productNo+"." + productName);
             }
 
         } catch (SQLException e) {
