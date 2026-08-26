@@ -42,9 +42,9 @@ public class ProductDAO extends IBaseDao {
             PreparedStatement ps = conn.prepareStatement(sql);
 
             // 1-3. 기재된 SQL 문법 안에 ?(와일드카드) 매개변수 값 대입  ==>>  ps.set타입( ?번호 , 값 )
-            ps.setInt(1, productLogDTO.getProduct_id());  // 1(첫번째 ?)에 Dto content 대입
-            ps.setInt(2, productLogDTO.getProduct_qty());   // 2(두번째 ?)에 Dto writer 대입
-            ps.setInt(3, product_price * productLogDTO.getProduct_qty());
+            ps.setInt(1, productLogDTO.getProduct_id());  // 1(첫번째 ?)에 Dto Product_id 대입
+            ps.setInt(2, productLogDTO.getProduct_qty());   // 2(두번째 ?)에 Dto Product_qty 대입
+            ps.setInt(3, product_price * productLogDTO.getProduct_qty());  // 3(세번째 ?)에 Dto product_price * Product_qty 대입
             
 
 
@@ -53,7 +53,6 @@ public class ProductDAO extends IBaseDao {
 
             // 재료 발주 금액 자본 차감 함수
                       
-
             // 1-5. SQL 결과
             if(result == 1){
                 boolean a = buyProductLog();
@@ -184,7 +183,7 @@ public class ProductDAO extends IBaseDao {
             PreparedStatement ps = conn.prepareStatement(sql);
 
             // 1-3. 기재된 SQL 문법 안에 ?(와일드카드) 매개변수 값 대입  ==>>  ps.set타입( ?번호 , 값 )
-            ps.setInt(1, currentGold - productLogDTO.getProductLog_price());  // 1(첫번째 ?)에 Dto content 대입
+            ps.setInt(1, currentGold - productLogDTO.getProductLog_price());  // 1(첫번째 ?)에 Dto ProductLog_price 대입
             
 
             // 1-4. 기재된 SQL 실행 ,   .executeUpdate()  insert/update/delete  에서 사용
@@ -257,7 +256,7 @@ public class ProductDAO extends IBaseDao {
             PreparedStatement ps = conn.prepareStatement(sql);
 
             // 1-3. 기재된 SQL 문법 안에 ?(와일드카드) 매개변수 값 대입  ==>>  ps.set타입( ?번호 , 값 )
-            ps.setBoolean(1, true);  // 1(첫번째 ?)에 Dto content 대입
+            ps.setBoolean(1, true);  // 1(첫번째 ?)에 true 대입
             
 
             // 1-4. 기재된 SQL 실행 ,   .executeUpdate()  insert/update/delete  에서 사용
@@ -400,7 +399,7 @@ public class ProductDAO extends IBaseDao {
             PreparedStatement ps = conn.prepareStatement(sql);
 
             // 1-3. 기재된 SQL 문법 안에 ?(와일드카드) 매개변수 값 대입  ==>>  ps.set타입( ?번호 , 값 )
-            ps.setInt(1, currentDay+1);  // 1(첫번째 ?)에 Dto content 대입
+            ps.setInt(1, currentDay+1);  // 1(첫번째 ?)에 currentDay+1 대입
             
 
             // 1-4. 기재된 SQL 실행 ,   .executeUpdate()  insert/update/delete  에서 사용

@@ -95,7 +95,7 @@ public class ProductView {
     }
 
 
-    // 재고 확인 함수
+    // 재고 수량 확인 함수
     public void countProductLog(){
 
         ArrayList<CountProductDTO> result = pc.countProductLog();
