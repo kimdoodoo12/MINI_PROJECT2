@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 import screen2.controller.ProductController;
 import screen2.model.dto.CountProductDTO;
-import screen2.model.dto.ProductDTO;
+
 import screen2.model.dto.ProductLogDTO;
 
 public class ProductView {
@@ -66,21 +66,39 @@ public class ProductView {
     // 재고 발주 로그 추가 함수
     public void addProductLog_order(){
 
-        System.out.println("1. 햄버거빵  2. 소고기패티  3. 불고기패티  4. 치즈  5. 양상추  6. 토마토");
-        System.out.println("7. 피클  8. 베이컨  9. 새우패티  10. 치킨패티  11. 양파  12. 스파이시소스");
+        System.out.println("---------------------------------------------------------------------------------------------------");
+        System.out.println("1. 햄버거빵 : 500원  ,  2. 소고기패티 : 1200원 ,  3. 불고기패티 : 1000원 ,  4. 치즈 : 300원");
+        System.out.println("5. 양상추 : 200원    ,  6. 토마토 : 300원     ,  7. 피클 : 100원       ,  8. 베이컨 : 500원");
+        System.out.println("9. 새우패티 : 1300원 ,  10. 치킨패티 : 1100원  ,  11. 양파 : 150원      ,  12. 스파이시소스 : 200원");
+        System.out.println("0. 메뉴로 돌아가기");
+        System.out.println("---------------------------------------------------------------------------------------------------");
 
-        System.out.println("발주할 재료의 번호를 입력하세요");
-        int productNumber = scan.nextInt();
+        while(true){
 
-        System.out.println("발주할 재료의 수량을 입력하세요");
-        int productCount = scan.nextInt();
+            System.out.println("발주할 재료의 번호를 입력하세요");
+            int productNumber = scan.nextInt();
 
-        ProductLogDTO productLogDTO = new ProductLogDTO(productNumber, productCount);
+            if (productNumber == 0) { return;}
+            else{
 
-        boolean result = pc.addProductLog_order(productLogDTO);
+                System.out.println("발주할 재료의 수량을 입력하세요");
+                int productCount = scan.nextInt();
 
-        if (result) {System.out.println("발주 성공");}
-        else {System.out.println("발주 실패");}
+                ProductLogDTO productLogDTO = new ProductLogDTO(productNumber, productCount);
+
+                boolean result = pc.addProductLog_order(productLogDTO);
+
+                if (result) {
+                    System.out.println("발주 성공"); 
+                    System.out.println("-------------------------------");
+                    System.out.println("구매 후 남은 자금 : " + pc.currentGold());
+                    System.out.println("-------------------------------");
+                }
+                else {System.out.println("발주 실패");}
+
+            }
+
+        }
 
     }
 

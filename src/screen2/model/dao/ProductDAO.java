@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import screen2.controller.ProductController;
 import screen2.model.dto.CountProductDTO;
 import screen2.model.dto.GameStateDTO;
 import screen2.model.dto.ProductDTO;
