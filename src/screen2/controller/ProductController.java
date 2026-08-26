@@ -127,5 +127,23 @@ public class ProductController{
         return result;
     }
 
+
+    // 초기 자금 설정 함수
+    public boolean setGold(int current_gold){ 
+
+        boolean result = pd.setGold(current_gold);
+
+        return result;
+    }
     
+
+    // 게임 초기화 설정 함수
+    public boolean reset(){
+
+        boolean result = pd.reset();
+
+        return result;
+    }
+
+
 }

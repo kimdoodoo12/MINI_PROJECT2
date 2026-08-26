@@ -118,12 +118,16 @@ public class ProductView {
 
         ArrayList<CountProductDTO> result = pc.countProductLog();
 
-        System.out.println("|no | name    | qty    ");
+        System.out.println("no | name             | qty    ");
 
-        for(CountProductDTO countProductDTO : result){
+        for(int i = 0 ; i <= result.size()-1 ; i++){
 
-            System.out.printf("%-3d %s %d\n", countProductDTO.getProduct_id(), countProductDTO.getProduct_name(), countProductDTO.getProduct_totalQty());
-        
+            if (i == result.size()-1) {
+                System.out.printf("%-4d %s\t%d\n", result.get(i).getProduct_id(), result.get(i).getProduct_name(), result.get(i).getProduct_totalQty());
+            }
+            else{System.out.printf("%-4d %s\t\t%d\n", result.get(i).getProduct_id(), result.get(i).getProduct_name(), result.get(i).getProduct_totalQty());
+            }
+
         }
 
     }
