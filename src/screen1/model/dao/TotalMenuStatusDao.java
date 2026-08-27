@@ -21,7 +21,7 @@ public class TotalMenuStatusDao extends IBaseDao {
     public ArrayList<TotalMenuStatusDto> getTotalMenuSales() {
         ArrayList<TotalMenuStatusDto> list = new ArrayList<>();
         String sql = "SELECT MENU_NAME, COUNT(*) CNT"
-                + " FROM CustomerLog C1 JOIN MENU M1 ON C1.MENU_ID = M1.MENU_ID"
+                + " FROM CustomerLog C1 JOIN menu M1 ON C1.MENU_ID = M1.MENU_ID"
                 + " WHERE C1.CUSTOMER_STATE = 'SERVED'"
                 + " GROUP BY M1.MENU_ID, M1.MENU_NAME"
                 + " ORDER BY CNT DESC LIMIT 3";
