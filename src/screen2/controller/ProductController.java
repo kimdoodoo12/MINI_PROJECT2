@@ -146,4 +146,48 @@ public class ProductController{
     }
 
 
+    // 자동 발주 묻기 함수 
+    public ArrayList<CountProductDTO> autoOrderAsk(){
+
+        ArrayList<CountProductDTO> list = pd.countProductLog();
+
+        // 재고 체크 = 0 개인 거 확인
+
+        for(int i = list.size()-1 ; i >= 0 ; i--){
+
+            if (list.get(i).getProduct_totalQty() != 0) {
+
+                list.remove(i);
+                
+            }
+
+        }
+
+        // 자동구매여부에 따라 출금 or 다음 화면으로 넘어가기
+
+        return list;
+    }
+
+    // 자동 발주 함수 
+    public boolean autoOrder(){
+    
+        boolean result = false;
+
+        ArrayList<CountProductDTO> list = autoOrderAsk();
+
+        for(int i = 0 ; i <= list.size()-1 ; i++){ 
+
+            ProductLogDTO productLogDTO = new ProductLogDTO();
+
+            productLogDTO.setProduct_id(list.get(i).getProduct_id());
+            productLogDTO.setProduct_qty(2);
+
+            result = addProductLog_order(productLogDTO);
+
+        }
+
+        return result;
+
+    }
+
 }

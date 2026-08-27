@@ -14,6 +14,8 @@ public class AppStart {
 
         System.out.println("초기 자금을 설정해 주세요");
 
+        System.out.print(">> 입력 : ");
+
         int current_gold = scan.nextInt();
 
         ProductController.getInstance().setGold(current_gold);
