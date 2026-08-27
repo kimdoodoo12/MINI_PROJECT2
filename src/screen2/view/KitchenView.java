@@ -29,7 +29,7 @@ public class KitchenView {
                 System.out.println("** 영업이 종료되어 발주 화면으로 이동합니다 **");
                 return;
             }
-            System.out.println("1.음식 조리 2.레시피 확인 3.종료");
+            System.out.println("1.음식 조리 2.레시피 확인");
             System.out.print(">> 선택 : ");
             String ch = sc.next();
             if (!isOpen){
@@ -45,11 +45,8 @@ public class KitchenView {
                 case "2":
                     findAllRecipes(); // 레시피 확인
                     break;
-                case "3":
-                    System.out.println("종료합니다.");
-                    return;
                 default:
-                    System.out.println("잘못된 입력(1~3)");
+                    System.out.println("잘못된 입력(1~2)");
             }
 
         }

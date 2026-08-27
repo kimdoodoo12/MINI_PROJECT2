@@ -39,7 +39,7 @@ public class GameOverDao extends IBaseDao {
     public ArrayList<RankDto> gameRankList() {
         ArrayList<RankDto> list = new ArrayList<>();
         try {
-            String sql = "SELECT USER_NAME, CURRENT_GOLD, MAX_DATE FROM GAMELOG "
+            String sql = "SELECT USER_NAME, CURRENT_GOLD, MAX_DATE FROM GameLog "
                     + "ORDER BY MAX_DATE DESC, CURRENT_GOLD DESC, gameLog_no ASC LIMIT 10";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();

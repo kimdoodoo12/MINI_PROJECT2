@@ -1,3 +1,5 @@
 **/bin/
 
 error.md
+
+src/db/db.properties
