@@ -35,7 +35,7 @@ public class ProductView {
         // 일차 증가
         pc.addDay();
 
-        int i = 0;
+        boolean i = true;
 
         while (true) {
 
@@ -51,8 +51,7 @@ public class ProductView {
                         currentGold);
                 System.out.println("======================================================================");
 
-                if(i == 0){autoOrderAsk(); i++;}
-                else{i++;}
+                if(i){autoOrderAsk(); i=false; continue;}
 
                 System.out.printf("1. 재고보충  2. 재고확인  3. %d일차 영업 시작하기\n", currentDay);
 
