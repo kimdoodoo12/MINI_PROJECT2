@@ -9,7 +9,7 @@ import java.util.Scanner;
 import screen2.controller.GameOverController;
 import screen2.controller.ProductController;
 import screen2.model.dto.CountProductDTO;
-
+import screen2.model.dto.ProductDTO;
 import screen2.model.dto.ProductLogDTO;
 import screen2.model.dto.RankDto;
 
@@ -35,6 +35,8 @@ public class ProductView {
         // 일차 증가
         pc.addDay();
 
+        int i = 0;
+
         while (true) {
 
             // 현재 일차 조회
@@ -49,7 +51,10 @@ public class ProductView {
                         currentGold);
                 System.out.println("======================================================================");
 
-                System.out.printf("1. 재고보충  2. 재고확인  3. %d일차 영업 시작하기  4. 종료\n", currentDay);
+                if(i == 0){autoOrderAsk(); i++;}
+                else{i++;}
+
+                System.out.printf("1. 재고보충  2. 재고확인  3. %d일차 영업 시작하기\n", currentDay);
 
                 int ch = scan.nextInt();
 
@@ -71,13 +76,9 @@ public class ProductView {
                     return;
                 }
 
-                // 4번 선택 시 아직 미정
-                else if (ch == 4) {
-                }
-
                 // 이외의 번호 입력 시 다시 반복문 무한루프 실행
                 else {
-                    break;
+                    System.out.println("번호를 다시 제대로 입력해 주세요");
                 }
             } else {
                 System.out.println("이름을 입력해주세요:");
@@ -105,6 +106,7 @@ public class ProductView {
         while (true) {
 
             System.out.println("발주할 재료의 번호를 입력하세요");
+            System.out.print(">> 선택 : ");
             int productNumber = scan.nextInt();
 
             if (productNumber == 0) {
@@ -112,6 +114,7 @@ public class ProductView {
             } else {
 
                 System.out.println("발주할 재료의 수량을 입력하세요");
+                System.out.print(">> 입력 : ");
                 int productCount = scan.nextInt();
 
                 ProductLogDTO productLogDTO = new ProductLogDTO(productNumber, productCount);
@@ -180,5 +183,66 @@ public class ProductView {
                     rank++, list2.getUserName(), list2.getCurrentGold(), list2.getMaxDate());
         }
     }
+
+    // 자동 발주 묻기 함수 
+    public void autoOrderAsk(){
+
+        ArrayList<CountProductDTO> result = pc.autoOrderAsk();
+
+        System.out.println("--------------- 주의 ---------------");
+
+        for (int i = 0; i <= result.size() - 1; i++) {
+
+            if (result.get(i).getProduct_id()==12) {
+                System.out.printf("%s 수량이\t %d 입니다.\n",
+                        result.get(i).getProduct_name(),
+                        result.get(i).getProduct_totalQty());
+            } else {
+                System.out.printf("%s 수량이 %d 입니다.\n",
+                        result.get(i).getProduct_name(),
+                        result.get(i).getProduct_totalQty());
+            }
+
+        }
+
+        // 재고 0개인 품목들 2개씩 자동구매여부 묻기
+
+        System.out.println("해당 재료들을 2개씩 자동 구매 하시겠습니까?  ( Y/N )");
+
+        while(true){
+
+            System.out.print(">> 입력 : ");
+
+            String ch = scan.next();
+            if (ch.equals("Y")||ch.equals("y")) {
+                pc.autoOrder();
+                System.out.println("자동 구매가 완료되었습니다.");
+                countProductLog();
+                return;
+            }else if (ch.equals("N")||ch.equals("n")) {
+                return;
+            }else{ System.out.println("자동구매 여부를 먼저 선택해 주세요.");}
+
+        }
+
+    }
+
+
+    public void autoOrder(){
+
+        boolean result = pc.autoOrder();
+
+        if (result) {
+            System.out.println("발주 성공");
+            System.out.println("-------------------------------");
+            System.out.println("구매 후 남은 자금 : " + pc.currentGold());
+            System.out.println("-------------------------------");
+        } else {
+            System.out.println("발주 실패");
+        }
+
+    }
+
+
 
 } // class END

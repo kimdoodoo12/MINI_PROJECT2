@@ -144,7 +144,6 @@ VALUES (1, 1, 1),
 
 
 
-
 CREATE TABLE GameLog (
     gameLog_no INT AUTO_INCREMENT PRIMARY KEY,
     user_name VARCHAR(20) NOT NULL,
