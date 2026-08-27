@@ -18,7 +18,7 @@ public class TotalStatusDao extends IBaseDao {
     public int getDay() {
         int result = 0;
         try {
-            String sql = "SELECT CURRENT_DAY FROM GAMESTATE WHERE GAMESTATE_ID = 1;";
+            String sql = "SELECT CURRENT_DAY FROM GameState WHERE GAMESTATE_ID = 1;";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -35,7 +35,7 @@ public class TotalStatusDao extends IBaseDao {
     public int getGold() {
         int result = 0;
         try {
-            String sql = "SELECT CURRENT_GOLD FROM GAMESTATE WHERE GAMESTATE_ID = 1;";
+            String sql = "SELECT CURRENT_GOLD FROM GameState WHERE GAMESTATE_ID = 1;";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -51,7 +51,7 @@ public class TotalStatusDao extends IBaseDao {
     public int getTotalSales() {
         int result = 0;
         try {
-            String sql = "SELECT SUM(CURRENT_GOLD) TOTAL_GOLD FROM CUSTOMERLOG WHERE CUSTOMER_STATE = 'SERVED'";
+            String sql = "SELECT SUM(CURRENT_GOLD) TOTAL_GOLD FROM CustomerLog WHERE CUSTOMER_STATE = 'SERVED'";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -66,7 +66,7 @@ public class TotalStatusDao extends IBaseDao {
     // 전체 지출
     public int getTotalExpense() {
         int result = 0;
-        String sql = "SELECT SUM(PRODUCTLOG_PRICE) FROM PRODUCTLOG WHERE PRODUCT_CONDITION = 'ORDER'";
+        String sql = "SELECT SUM(PRODUCTLOG_PRICE) FROM productLog WHERE PRODUCT_CONDITION = 'ORDER'";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -82,7 +82,7 @@ public class TotalStatusDao extends IBaseDao {
     // 전체 방문 손님
     public int getTotalCustomer() {
         int result = 0;
-        String sql = "SELECT COUNT(*) TOTAL_CUSTOMER FROM CUSTOMERLOG WHERE CUSTOMER_STATE = 'SERVED' OR CUSTOMER_STATE = 'LEFT'";
+        String sql = "SELECT COUNT(*) TOTAL_CUSTOMER FROM CustomerLog WHERE CUSTOMER_STATE = 'SERVED' OR CUSTOMER_STATE = 'LEFT'";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -99,7 +99,7 @@ public class TotalStatusDao extends IBaseDao {
     // 전체 식사완료 손님
     public int getTotalServed() {
         int result = 0;
-        String sql = "SELECT COUNT(*) TOTAL_SERVED FROM CUSTOMERLOG WHERE CUSTOMER_STATE = 'SERVED'";
+        String sql = "SELECT COUNT(*) TOTAL_SERVED FROM CustomerLog WHERE CUSTOMER_STATE = 'SERVED'";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();

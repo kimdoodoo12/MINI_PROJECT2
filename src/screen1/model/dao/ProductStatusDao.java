@@ -23,7 +23,7 @@ public class ProductStatusDao extends IBaseDao {
 
         try {
             String sql = "SELECT PRODUCT_NAME, SUM(-PRODUCT_QTY) AS USED"
-                    + " FROM PRODUCTLOG PL1 JOIN PRODUCT P1 ON PL1.PRODUCT_ID = P1.PRODUCT_NO"
+                    + " FROM productLog PL1 JOIN PRODUCT P1 ON PL1.PRODUCT_ID = P1.PRODUCT_NO"
                     + " WHERE PL1.CUSTOMERLOG_DAY = ? AND PL1.PRODUCT_CONDITION = 'USED'"
                     + " GROUP BY P1.PRODUCT_NAME";
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -49,7 +49,7 @@ public class ProductStatusDao extends IBaseDao {
         // System.out.println("컨트롤러 실행");
         try {
             String sql = "SELECT PRODUCT_NAME, SUM(PRODUCT_QTY) AS REMAIN "
-                    + "FROM PRODUCTLOG PL1 JOIN PRODUCT P1 ON PL1.PRODUCT_ID = P1.PRODUCT_NO "
+                    + "FROM productLog PL1 JOIN PRODUCT P1 ON PL1.PRODUCT_ID = P1.PRODUCT_NO "
                     + "GROUP BY P1.PRODUCT_NAME;";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();

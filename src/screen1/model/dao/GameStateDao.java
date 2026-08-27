@@ -16,7 +16,7 @@ public class GameStateDao extends IBaseDao {
     // 게임 영업 OFF
     public boolean changeGameState() {
         try {
-            String sql = "UPDATE gamestate SET restaurant_state = FALSE WHERE gameState_id = 1;";
+            String sql = "UPDATE GameState SET restaurant_state = FALSE WHERE gameState_id = 1;";
             PreparedStatement ps = conn.prepareStatement(sql);
             int result = ps.executeUpdate();
             if (result == 1) {
@@ -30,7 +30,7 @@ public class GameStateDao extends IBaseDao {
 
     public boolean minusGold() {
         try {
-            String sql = "UPDATE gamestate SET current_gold = current_gold - 20000 WHERE gameState_id = 1;";
+            String sql = "UPDATE GameState SET current_gold = current_gold - 20000 WHERE gameState_id = 1;";
             PreparedStatement ps = conn.prepareStatement(sql);
             int result = ps.executeUpdate();
             if (result == 1) {

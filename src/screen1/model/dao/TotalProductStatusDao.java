@@ -17,7 +17,7 @@ public class TotalProductStatusDao extends IBaseDao {
     // 총 발주량
     public int getTotalOrder() {
         int result = 0;
-        String sql = "SELECT SUM(PRODUCT_QTY) Total FROM PRODUCTLOG"
+        String sql = "SELECT SUM(PRODUCT_QTY) Total FROM productLog"
                 + " WHERE PRODUCT_CONDITION = 'ORDER'";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -33,7 +33,7 @@ public class TotalProductStatusDao extends IBaseDao {
     // 총 소모 수량
     public int getTotalUsed() {
         int result = 0;
-        String sql = "SELECT SUM(-PRODUCT_QTY) Total FROM PRODUCTLOG"
+        String sql = "SELECT SUM(-PRODUCT_QTY) Total FROM productLog"
                 + " WHERE PRODUCT_CONDITION = 'USED'";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -49,7 +49,7 @@ public class TotalProductStatusDao extends IBaseDao {
     // 총 잔여 수량
     public int getTotalRemain() {
         int result = 0;
-        String sql = "SELECT SUM(PRODUCT_QTY) Total FROM PRODUCTLOG";
+        String sql = "SELECT SUM(PRODUCT_QTY) Total FROM productLog";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();

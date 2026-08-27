@@ -34,7 +34,7 @@ public class KitchenDao extends IBaseDao{
 
     // 완성된 요리 'ready' 상태로 추가 메소드
     public void addCookTable(int menuChoice, String state) {
-        String sql = "Insert into cook (menu_id, cook_state) values (?, ?)";
+        String sql = "Insert into Cook (menu_id, cook_state) values (?, ?)";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, menuChoice);
@@ -91,7 +91,7 @@ public class KitchenDao extends IBaseDao{
 
     // 재료 재고 확인 메소드
     public boolean checkProductQty(int productChoice) {
-        String sql = "select sum(product_qty) stock from productlog where product_id = ?";
+        String sql = "select sum(product_qty) stock from productLog where product_id = ?";
         int result = 1;
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -109,7 +109,7 @@ public class KitchenDao extends IBaseDao{
 
     // 영업 중인지 확인 메소드
     public boolean checkRestaurantState() {
-        String sql = "select restaurant_state from gamestate where gamestate_id = 1";
+        String sql = "select restaurant_state from GameState where gamestate_id = 1";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();

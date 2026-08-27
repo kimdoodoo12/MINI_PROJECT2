@@ -17,7 +17,7 @@ public class StatusDao extends IBaseDao {
     // 현재 일차 가져오기 * GameStateDTO 로 이전 예정
     public int getDay() {
         int result = 0;
-        String sql = "SELECT CURRENT_DAY FROM GAMESTATE WHERE GAMESTATE_ID = 1;";
+        String sql = "SELECT CURRENT_DAY FROM GameState WHERE GAMESTATE_ID = 1;";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -34,7 +34,7 @@ public class StatusDao extends IBaseDao {
     // 총 매출(손님이 계산한 돈)
     public int getSales(int day) {
         int result = 0;
-        String sql = "SELECT SUM(CURRENT_GOLD) TOTALGOLD FROM CUSTOMERLOG WHERE CUSTOMERLOG_DAY = ? AND CUSTOMER_STATE = 'SERVED'";
+        String sql = "SELECT SUM(CURRENT_GOLD) TOTALGOLD FROM CustomerLog WHERE CUSTOMERLOG_DAY = ? AND CUSTOMER_STATE = 'SERVED'";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, day);
@@ -53,7 +53,7 @@ public class StatusDao extends IBaseDao {
     // 전날 지출 (재고 지출)
     public int getExpense(int day) {
         int result = 0;
-        String sql = "SELECT SUM(PRODUCTLOG_PRICE) FROM PRODUCTLOG WHERE CUSTOMERLOG_DAY = ? AND PRODUCT_CONDITION = 'ORDER'";
+        String sql = "SELECT SUM(PRODUCTLOG_PRICE) FROM productLog WHERE CUSTOMERLOG_DAY = ? AND PRODUCT_CONDITION = 'ORDER'";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, day);
@@ -70,7 +70,7 @@ public class StatusDao extends IBaseDao {
     // 총 방문 손님
     public int getTotalCustomer(int day) {
         int result = 0;
-        String sql = "SELECT COUNT(*) TOTAL_CUSTOMER FROM CUSTOMERLOG WHERE CUSTOMERLOG_DAY = ? AND CUSTOMER_STATE IN ('served','left')";
+        String sql = "SELECT COUNT(*) TOTAL_CUSTOMER FROM CustomerLog WHERE CUSTOMERLOG_DAY = ? AND CUSTOMER_STATE IN ('served','left')";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, day);
@@ -88,7 +88,7 @@ public class StatusDao extends IBaseDao {
     // 식사완료 손님
     public int getServed(int day) {
         int result = 0;
-        String sql = "SELECT COUNT(*) TOTAL_SERVED FROM CUSTOMERLOG WHERE CUSTOMERLOG_DAY = ? AND CUSTOMER_STATE = 'SERVED'";
+        String sql = "SELECT COUNT(*) TOTAL_SERVED FROM CustomerLog WHERE CUSTOMERLOG_DAY = ? AND CUSTOMER_STATE = 'SERVED'";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, day);
