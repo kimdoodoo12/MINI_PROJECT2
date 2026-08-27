@@ -168,7 +168,7 @@ public class ProductController{
         return list;
     }
 
-    // 자동 발주 묻기 함수 
+    // 자동 발주 함수 
     public boolean autoOrder(){
     
         boolean result = false;

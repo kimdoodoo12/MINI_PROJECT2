@@ -227,7 +227,7 @@ public class ProductView {
 
     }
 
-
+    // 자동 발주 함수
     public void autoOrder(){
 
         boolean result = pc.autoOrder();
