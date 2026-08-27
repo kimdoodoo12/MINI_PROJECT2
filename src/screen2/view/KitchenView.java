@@ -32,9 +32,8 @@ public class KitchenView {
             System.out.println("1.음식 조리 2.레시피 확인");
             System.out.print(">> 선택 : ");
             String ch = sc.next();
-            if (!isOpen){
-                System.out.println("** 영업이 종료되어 발주 화면으로 이동합니다 **");
-                return;
+            if (!kc.checkRestaurantState()){
+                continue;
             }
 
             System.out.println("=================================================================");
