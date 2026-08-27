@@ -120,10 +120,13 @@ public class KitchenView {
                             // 재료 맞지 않는 인덱스 반환
                             int missMatch = kc.findMissmatch(productList, recipeList);
                             // 레시피는 맞는데 재료가 부족할 경우
-                            if (missMatch == productList.size()) {
+                            if (missMatch == productList.size() && productList.size() < recipeList.size()) {
                                 System.out.println("** 재료가 맞지 않습니다 (재료가 " + recipeList.size() + "개 필요한데 " + productList.size() + "개만 넣었습니다) **");
-                                // 틀린 인덱스+1
+                                // 레시피보다 재료를 더 넣을 경우
+                            } else if (missMatch == recipeList.size() && productList.size() > recipeList.size()) {
+                                System.out.println("** 재료가 맞지 않습니다 (재료가 " + recipeList.size() + "개 필요한데 " + productList.size() + "개나 넣었습니다) **");
                             } else {
+                                // 틀린 인덱스+1
                                 System.out.println("** 재료가 맞지 않습니다 (" + (missMatch + 1) + "번째 순서가 틀렸습니다) **");
                             }
                             kc.clearProductList(productList);
