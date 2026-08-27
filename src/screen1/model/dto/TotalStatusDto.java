@@ -45,12 +45,4 @@ public class TotalStatusDto {
         return totalServed;
     }
 
-    public int getTotalNetProfit() {
-        return totalSales - totalExpense;
-    }
-
-    public int getTotalLeftCustomer() {
-        return totalCustomer - totalServed;
-    }
-
 }

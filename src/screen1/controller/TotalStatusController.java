@@ -33,7 +33,6 @@ public class TotalStatusController {
     // 최종 자금 가져오기
     public int getGold() {
         int result = totalStad.getGold();
-        System.out.println(result);
         return result;
     }
 
@@ -51,13 +50,17 @@ public class TotalStatusController {
         return result;
     }
 
+    // 전체 순이익
+    public int getTotalNetProfit(int totalSales, int totalExpense) {
+        return totalSales - totalExpense;
+    }
+
     // [2] 손님 로직
 
     // 전체 총 방문 손님 가져오기
     public int getTotalCustomer() {
         int result = totalStad.getTotalCustomer();
         // System.out.println("컨트롤러 총 방문손님 :" + result);
-        System.out.println(result);
         return result;
     }
 
@@ -66,6 +69,10 @@ public class TotalStatusController {
         int result = totalStad.getTotalServed();
         // System.out.println("컨트롤러 서빙손님 :" + result);
         return result;
+    }
+
+    public int getTotalLeftCustomer(int totalCustomer, int totalServed) {
+        return totalCustomer - totalServed;
     }
 
     // 컨트롤러에서 전부 모아서 뷰에게 전달.

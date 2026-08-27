@@ -45,31 +45,52 @@ public class TotalStatusView {
     }
 
     public void printFinalSatus() {
+
         TotalStatusDto stadto = totalstac.clacFianlStatus();
         int day = stadto.getTotalDays();
+        int totalGold = totalstac.getGold();
+        int totalSales = totalstac.getSales();
+        int totalExpense = totalstac.getExpense();
+        int totalNetProfit = totalstac.getTotalNetProfit(totalSales, totalExpense);
+        int totalCustomer = totalstac.getTotalCustomer();
+        int totalServed = totalstac.getServedCustomer();
+        int totalLeft = totalstac.getTotalLeftCustomer(totalCustomer, totalServed);
+        int totalOrder = totalstac.getTotalOrder();
+        int totalUsed = totalstac.getTotalUsed();
+        int totalRemain = totalstac.getTotalRemain();
+
         printline();
         System.out.printf("\t\t [ DAY %1d GAME OVER - FINAL SCORE ]  ]\n", day);
         printline();
         System.out.println();
         System.out.println(" ■ [ 경영 성적 ]");
         printline2();
-        System.out.printf(" - 총 자금\t\t :  + %,7d 원\n", stadto.getFinalGold());
-        System.out.printf(" - 총 매출액\t\t :  - %,7d 원\n", stadto.getTotalSales());
-        System.out.printf(" - 총 재고 지출\t\t :  + %,7d 원\n", stadto.getTotalExpense());
-        System.out.printf(" - 총 순이익\t\t :   %,7d 원\n", stadto.getTotalNetProfit());
+        if (totalGold < 0) {
+            System.out.printf(" - 총 자금\t\t :  - %,7d 원\n", -totalGold);
+        } else {
+            System.out.printf(" - 총 자금\t\t :  + %,7d 원\n", totalGold);
+        }
+        System.out.printf(" - 총 매출액\t\t :  + %,7d 원\n", totalSales);
+        System.out.printf(" - 총 재고 지출\t\t :  - %,7d 원\n", totalExpense);
+        if (totalNetProfit < 0) {
+            System.out.printf(" - 총 순이익\t\t :  - %,7d 원\n", -totalNetProfit);
+        } else {
+            System.out.printf(" - 총 순이익\t\t :  + %,7d 원\n", totalNetProfit);
+        }
+
         System.out.println();
         System.out.println(" ■ [ 서비스 성적 ]");
         printline2();
-        System.out.printf(" - 총 방문손님\t\t : %10d 명\n", stadto.getTotalCustomer());
-        System.out.printf(" - 식사 완료 손님\t : %10d 명 (성공률 %.1f %%)\n", stadto.getTotalServed(),
-                (stadto.getTotalServed() / (double) stadto.getTotalCustomer()) * 100);
-        System.out.printf(" - 놓친 손님\t\t : %10d 명\n", stadto.getTotalLeftCustomer());
+        System.out.printf(" - 총 방문손님\t\t : %10d 명\n", totalCustomer);
+        System.out.printf(" - 식사 완료 손님\t : %10d 명 (성공률 %.1f %%)\n", totalServed,
+                (totalServed / (double) totalCustomer) * 100);
+        System.out.printf(" - 놓친 손님\t\t : %10d 명\n", totalLeft);
         System.out.println();
         System.out.println(" ■ [ 재고 총계 ]");
         printline2();
-        System.out.printf(" - 총 발주 수량\t\t :  %,7d 개\n", totalstac.getTotalOrder());
-        System.out.printf(" - 총 소모 수량\t\t :  %,7d 개\n", totalstac.getTotalUsed());
-        System.out.printf(" - 총 잔여 수량\t\t :  %,7d 개\n", totalstac.getTotalRemain());
+        System.out.printf(" - 총 발주 수량\t\t :  %,7d 개\n", totalOrder);
+        System.out.printf(" - 총 소모 수량\t\t :  %,7d 개\n", totalUsed);
+        System.out.printf(" - 총 잔여 수량\t\t :  %,7d 개\n", totalRemain);
         System.out.println();
         System.out.println(" ■ [ 누적 인기 메뉴 ]");
         printline2();

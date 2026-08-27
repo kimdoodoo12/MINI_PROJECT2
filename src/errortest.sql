@@ -43,3 +43,9 @@ insert into productLog (product_id, product_qty, product_condition, productLog_p
             WHERE PRODUCT_CONDITION = 'USED';
 
     UPDATE gamestate SET restaurant_state = TRUE WHERE gameState_id = 1;
+
+    INSERT INTO GameLog (user_name, current_gold, max_date) 
+        SELECT 'test1', current_gold, current_day 
+        FROM GameState WHERE gameState_id = 1;
+
+    DELETE FROM gamelog;

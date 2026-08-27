@@ -70,7 +70,7 @@ public class StatusDao extends IBaseDao {
     // 총 방문 손님
     public int getTotalCustomer(int day) {
         int result = 0;
-        String sql = "SELECT COUNT(*) TOTAL_CUSTOMER FROM CUSTOMERLOG WHERE CUSTOMERLOG_DAY = ? AND CUSTOMER_STATE = 'SERVED' OR CUSTOMER_STATE = 'LEFT'";
+        String sql = "SELECT COUNT(*) TOTAL_CUSTOMER FROM CUSTOMERLOG WHERE CUSTOMERLOG_DAY = ? AND CUSTOMER_STATE IN ('served','left')";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, day);

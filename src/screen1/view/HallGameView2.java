@@ -54,7 +54,6 @@ public class HallGameView2 {
 
     public void showCustomer() {
         ArrayList<CustomerDto> customers = hc.findAllCustomer();
-        
 
         System.out.println("========================================");
         System.out.println("        [ 홀 현황 - 대기 손님 목록 ]");

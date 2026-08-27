@@ -47,12 +47,9 @@ public class StatusController {
     }
 
     // 순이익 계산
-    public void getNetProfit(int sales, int productExpense) {
-        int result = (sales - productExpense);
-        if (result < 0) {
-            System.out.printf("- 일일 순이익\t\t :  - %,7d 원\n", -result);
-        }
-        System.out.printf("- 일일 순이익\t\t :  + %,7d 원\n", result);
+    public int getNetProfit(int sales, int productExpense) {
+        int result = sales - productExpense;
+        return result;
     }
 
     // [2] 손님 로직
