@@ -117,7 +117,15 @@ public class KitchenView {
                             kc.clearProductList(productList);
                             return;
                         } else {
-                            System.out.println("** 재료가 맞지 않습니다 **");
+                            // 재료 맞지 않는 인덱스 반환
+                            int missMatch = kc.findMissmatch(productList, recipeList);
+                            // 레시피는 맞는데 재료가 부족할 경우
+                            if (missMatch == productList.size()) {
+                                System.out.println("** 재료가 맞지 않습니다 (재료가 " + recipeList.size() + "개 필요한데 " + productList.size() + "개만 넣었습니다) **");
+                                // 틀린 인덱스+1
+                            } else {
+                                System.out.println("** 재료가 맞지 않습니다 (" + (missMatch + 1) + "번째 순서가 틀렸습니다) **");
+                            }
                             kc.clearProductList(productList);
                             return;
                         }
