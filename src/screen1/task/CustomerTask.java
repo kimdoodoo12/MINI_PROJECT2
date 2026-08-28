@@ -4,9 +4,9 @@ import screen1.controller.HallController;
 import screen1.model.dto.CustomerDto;
 
 public class CustomerTask implements Runnable{
-    private CustomerDto customer;
 
-   private HallController hc = HallController.getInstance();
+    private CustomerDto customer;
+    private HallController hc = HallController.getInstance();
 
     public CustomerTask(CustomerDto customer){
         this.customer = customer;
@@ -33,7 +33,6 @@ public class CustomerTask implements Runnable{
                 }
                 Thread.sleep(1000);
                 time--;
-
             }
 
             // 시간이 다 됐을 때
@@ -43,10 +42,7 @@ public class CustomerTask implements Runnable{
                 HallController.isChange = true;
             }
 
-        }catch(Exception e){
-            System.out.println(e);
-        }
-
+        }catch(Exception e){System.out.println(e);}
     }
 
     public CustomerDto getCustomer() {
