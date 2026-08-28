@@ -79,26 +79,16 @@ public class StatusController {
         ArrayList<ProductStatusDto> remainList = productd.getRemain(day);
         ArrayList<ProductStatusDto> result = new ArrayList<>();
 
-        for (ProductStatusDto used2 : usedList) {
-            int remain = 0;
-            String pName = used2.getProductName();
-            int used = used2.getUsed();
-            for (ProductStatusDto remain2 : remainList) {
-                if (used2.getProductName().equals(remain2.getProductName())) {
-                    // System.out.println("조건 걸림");
-                    remain = remain2.getRemain();
+        for (ProductStatusDto r : remainList) {
+            int used = 0;
+            for (ProductStatusDto u : usedList) {
+                if (r.getProductName().equals(u.getProductName())) {
+                    used = u.getUsed();
+                    break;
                 }
-
             }
-            ProductStatusDto productStatusDto = new ProductStatusDto(pName, used, remain);
-            // System.out.println("컨트롤러 출력");
-            // System.out.println(pName);
-            // System.out.println(used);
-            // System.out.println(remain);
-            // System.out.println(productStatusDto);
-            result.add(productStatusDto);
+            result.add(new ProductStatusDto(r.getProductName(), used, r.getRemain()));
         }
-        // System.out.println("컨트롤러 객체 " + result);
         return result;
     }
 
@@ -110,7 +100,7 @@ public class StatusController {
             return "위험";
         }
         if (remain < used * 2) {
-            return "여유";
+            return "보통";
         }
         return "여유";
     }

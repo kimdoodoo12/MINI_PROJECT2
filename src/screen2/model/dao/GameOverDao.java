@@ -21,7 +21,9 @@ public class GameOverDao extends IBaseDao {
     public boolean gameRankInsert(String userName) {
         try {
             String sql = "INSERT INTO GameLog (user_name, current_gold, max_date) "
-                    + "SELECT ?, current_gold, current_day FROM GameState WHERE gameState_id = 1";
+                    + "SELECT ?, "
+                    + "(SELECT SUM(current_gold)) FROM CustomerLog "
+                    + "current_day FROM GameState WHERE gameState_id = 1";
 
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, userName);
