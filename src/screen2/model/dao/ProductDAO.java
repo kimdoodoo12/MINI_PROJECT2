@@ -37,16 +37,23 @@ public class ProductDAO extends IBaseDao {
 
         try{
             // 1-1. SQL 작성  ,  값에 와일드카드(?) 이용한 매개변수 대입
-            String sql = "insert into productLog( product_id , product_qty , product_condition , productLog_price , customerLog_day ) values( ? , ? , 'order' , ? , (select current_day from GameState where gameState_id = 1) )";
+            String sql = "insert into productLog" +
+                         "(product_id, product_qty, product_condition, productLog_price, customerLog_day)" +
+                         "values" +
+                         "( ? , ? , 'order' , ? , (select current_day from GameState where gameState_id = 1) )";
 
             // 1-2. 연동된 데이터베이스에 SQL 기재
             // conn 멤버변수는 BaseDao 에게 물려받음
             PreparedStatement ps = conn.prepareStatement(sql);
 
             // 1-3. 기재된 SQL 문법 안에 ?(와일드카드) 매개변수 값 대입  ==>>  ps.set타입( ?번호 , 값 )
-            ps.setInt(1, productLogDTO.getProduct_id());  // 1(첫번째 ?)에 Dto Product_id 대입
-            ps.setInt(2, productLogDTO.getProduct_qty());   // 2(두번째 ?)에 Dto Product_qty 대입
-            ps.setInt(3, product_price * productLogDTO.getProduct_qty());  // 3(세번째 ?)에 Dto product_price * Product_qty 대입
+            
+            // 1(첫번째 ?)에 Dto Product_id 대입
+            ps.setInt(1, productLogDTO.getProduct_id());  
+            // 2(두번째 ?)에 Dto Product_qty 대입
+            ps.setInt(2, productLogDTO.getProduct_qty());   
+            // 3(세번째 ?)에 Dto product_price * Product_qty 대입
+            ps.setInt(3, product_price * productLogDTO.getProduct_qty());  
             
 
 

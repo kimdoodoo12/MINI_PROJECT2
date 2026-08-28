@@ -90,7 +90,8 @@ public class ProductView {
                 if (productNumber == 0) {
                     return;
                 } else if(productNumber<1 && productNumber>12){
-
+                    System.out.println("발주할 재료의 번호를 다시 입력하세요.");
+                }else{
                     System.out.println("발주할 재료의 수량을 입력하세요");
                     System.out.print(">> 입력 : ");
                     int productCount = scan.nextInt();
@@ -107,8 +108,7 @@ public class ProductView {
                     } else {
                         System.out.println("발주 실패");
                     }
-
-                }else{System.out.println("발주할 재료의 번호를 다시 입력하세요.");}
+                }
 
             }catch(Exception e){}
             
