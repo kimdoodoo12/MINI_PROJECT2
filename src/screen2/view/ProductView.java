@@ -55,22 +55,22 @@ public class ProductView {
 
                 System.out.printf("1. 재고보충  2. 재고확인  3. %d일차 영업 시작하기\n", currentDay);
 
-                int ch = scan.nextInt();
+                String ch = scan.next();
 
                 // 1번 선택 시 재고보충 함수 실행
-                if (ch == 1) {
+                if (ch.equals("1")) {
                     addProductLog_order();
                 }
 
                 // 2번 선택 시 재고확인 함수 실행
-                else if (ch == 2) {
+                else if (ch.equals("2")) {
                     countProductLog();
                 }
 
                 // 3번 선택 시 영업시작 함수 실행
                 // 영업시작함수 = GameState 를 true 로 변환 후 무한반복문 탈출
                 // ==>> main 함수로 이동
-                else if (ch == 3) {
+                else if (ch.equals("3")) {
                     startDay();
                     return;
                 }
@@ -98,19 +98,18 @@ public class ProductView {
         System.out.println("1. 햄버거빵 : 500원  ,  2. 소고기패티 : 1200원 ,  3. 불고기패티 : 1000원 ,  4. 치즈 : 300원");
         System.out.println("5. 양상추 : 200원    ,  6. 토마토 : 300원     ,  7. 피클 : 100원       ,  8. 베이컨 : 500원");
         System.out.println("9. 새우패티 : 1300원 ,  10. 치킨패티 : 1100원  ,  11. 양파 : 150원      ,  12. 스파이시소스 : 200원");
-        System.out.println("0. 메뉴로 돌아가기");
         System.out.println(
                 "---------------------------------------------------------------------------------------------------");
 
         while (true) {
 
-            System.out.println("발주할 재료의 번호를 입력하세요");
+            System.out.println("발주할 재료의 번호를 입력하세요.   0. 메뉴로 돌아가기");
             System.out.print(">> 선택 : ");
             int productNumber = scan.nextInt();
 
             if (productNumber == 0) {
                 return;
-            } else {
+            } else if(productNumber<1 && productNumber>12){
 
                 System.out.println("발주할 재료의 수량을 입력하세요");
                 System.out.print(">> 입력 : ");
@@ -129,7 +128,7 @@ public class ProductView {
                     System.out.println("발주 실패");
                 }
 
-            }
+            }else{System.out.println("발주할 재료의 번호를 다시 입력하세요.");}
 
         }
 
@@ -187,6 +186,8 @@ public class ProductView {
     public void autoOrderAsk(){
 
         ArrayList<CountProductDTO> result = pc.autoOrderAsk();
+
+        if(result == null){return;}
 
         System.out.println("--------------- 주의 ---------------");
 
