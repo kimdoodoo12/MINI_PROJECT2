@@ -30,7 +30,7 @@ public class ProductView {
     Scanner scan = new Scanner(System.in);
 
     // Product 메인 run 함수
-    public void run() {
+    public boolean run() {
 
         // 일차 증가
         pc.addDay();
@@ -76,7 +76,7 @@ public class ProductView {
                 // ==>> main 함수로 이동
                 else if (ch == 3) {
                     startDay();
-                    return;
+                    return true;
                 }
 
                 // 이외의 번호 입력 시 다시 반복문 무한루프 실행
@@ -89,7 +89,7 @@ public class ProductView {
                 String name = scan.next();
                 gameRankInsert(name);
                 gameRankList();
-                System.exit(0);
+                return false;
             }
         }
 

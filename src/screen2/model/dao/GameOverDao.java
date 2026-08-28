@@ -22,7 +22,7 @@ public class GameOverDao extends IBaseDao {
         try {
             String sql = "INSERT INTO GameLog (user_name, current_gold, max_date) "
                     + "SELECT ?, "
-                    + "SELECT SUM(current_gold) FROM CustomerLog "
+                    + "(SELECT SUM(current_gold)) FROM CustomerLog "
                     + "current_day FROM GameState WHERE gameState_id = 1";
 
             PreparedStatement ps = conn.prepareStatement(sql);

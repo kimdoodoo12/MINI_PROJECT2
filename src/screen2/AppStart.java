@@ -31,7 +31,10 @@ public class AppStart {
 
             // GameState 게임상태가 flase(OFF) 이면 product 프로그램 실행.
             else {
-                ProductView.getInstance().run();
+                if (!ProductView.getInstance().run()) {
+                    break;
+                }
+
             }
 
         }
