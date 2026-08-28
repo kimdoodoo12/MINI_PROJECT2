@@ -51,7 +51,11 @@ public class ProductView {
                         currentGold);
                 System.out.println("======================================================================");
 
-                if(i){autoOrderAsk(); i=false; continue;}
+                if (i) {
+                    autoOrderAsk();
+                    i = false;
+                    continue;
+                }
 
                 System.out.printf("1. 재고보충  2. 재고확인  3. %d일차 영업 시작하기\n", currentDay);
 
@@ -80,6 +84,7 @@ public class ProductView {
                     System.out.println("번호를 다시 제대로 입력해 주세요");
                 }
             } else {
+                System.out.println("====== Game Over ======");
                 System.out.println("이름을 입력해주세요:");
                 String name = scan.next();
                 gameRankInsert(name);
@@ -183,8 +188,8 @@ public class ProductView {
         }
     }
 
-    // 자동 발주 묻기 함수 
-    public void autoOrderAsk(){
+    // 자동 발주 묻기 함수
+    public void autoOrderAsk() {
 
         ArrayList<CountProductDTO> result = pc.autoOrderAsk();
 
@@ -192,7 +197,7 @@ public class ProductView {
 
         for (int i = 0; i <= result.size() - 1; i++) {
 
-            if (result.get(i).getProduct_id()==12) {
+            if (result.get(i).getProduct_id() == 12) {
                 System.out.printf("%s 수량이\t %d 입니다.\n",
                         result.get(i).getProduct_name(),
                         result.get(i).getProduct_totalQty());
@@ -208,26 +213,28 @@ public class ProductView {
 
         System.out.println("해당 재료들을 2개씩 자동 구매 하시겠습니까?  ( Y/N )");
 
-        while(true){
+        while (true) {
 
             System.out.print(">> 입력 : ");
 
             String ch = scan.next();
-            if (ch.equals("Y")||ch.equals("y")) {
+            if (ch.equals("Y") || ch.equals("y")) {
                 pc.autoOrder();
                 System.out.println("자동 구매가 완료되었습니다.");
                 countProductLog();
                 return;
-            }else if (ch.equals("N")||ch.equals("n")) {
+            } else if (ch.equals("N") || ch.equals("n")) {
                 return;
-            }else{ System.out.println("자동구매 여부를 먼저 선택해 주세요.");}
+            } else {
+                System.out.println("자동구매 여부를 먼저 선택해 주세요.");
+            }
 
         }
 
     }
 
     // 자동 발주 함수
-    public void autoOrder(){
+    public void autoOrder() {
 
         boolean result = pc.autoOrder();
 
@@ -241,7 +248,5 @@ public class ProductView {
         }
 
     }
-
-
 
 } // class END
