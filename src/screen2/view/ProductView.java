@@ -89,6 +89,9 @@ public class ProductView {
                 String name = scan.next();
                 gameRankInsert(name);
                 gameRankList();
+                System.out.println("Enter를 누르면 종료합니다");
+                scan.nextLine();
+                scan.nextLine();
                 return false;
             }
         }
