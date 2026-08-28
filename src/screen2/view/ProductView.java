@@ -27,6 +27,12 @@ public class ProductView {
     private ProductController pc = ProductController.getInstance();
     private GameOverController gc = GameOverController.getInstance();
 
+    // throws Exception
+
+    // try{
+ 
+    // }catch(Exception e){}
+
     Scanner scan = new Scanner(System.in);
 
     // Product 메인 run 함수
@@ -55,36 +61,48 @@ public class ProductView {
 
                 System.out.printf("1. 재고보충  2. 재고확인  3. %d일차 영업 시작하기\n", currentDay);
 
-                String ch = scan.next();
+                try{
 
-                // 1번 선택 시 재고보충 함수 실행
-                if (ch.equals("1")) {
-                    addProductLog_order();
-                }
+                    String ch = scan.next();
 
-                // 2번 선택 시 재고확인 함수 실행
-                else if (ch.equals("2")) {
-                    countProductLog();
-                }
+                    // 1번 선택 시 재고보충 함수 실행
+                    if (ch.equals("1")) {
+                        addProductLog_order();
+                    }
 
-                // 3번 선택 시 영업시작 함수 실행
-                // 영업시작함수 = GameState 를 true 로 변환 후 무한반복문 탈출
-                // ==>> main 함수로 이동
-                else if (ch.equals("3")) {
-                    startDay();
-                    return;
-                }
+                    // 2번 선택 시 재고확인 함수 실행
+                    else if (ch.equals("2")) {
+                        countProductLog();
+                    }
 
-                // 이외의 번호 입력 시 다시 반복문 무한루프 실행
-                else {
-                    System.out.println("번호를 다시 제대로 입력해 주세요");
-                }
+                    // 3번 선택 시 영업시작 함수 실행
+                    // 영업시작함수 = GameState 를 true 로 변환 후 무한반복문 탈출
+                    // ==>> main 함수로 이동
+                    else if (ch.equals("3")) {
+                        startDay();
+                        return;
+                    }
+
+                    // 이외의 번호 입력 시 다시 반복문 무한루프 실행
+                    else {
+                        System.out.println("번호를 다시 제대로 입력해 주세요");
+                    }
+
+                    }catch(Exception e){}
+                
             } else {
-                System.out.println("이름을 입력해주세요:");
-                String name = scan.next();
-                gameRankInsert(name);
-                gameRankList();
-                System.exit(0);
+
+                try{
+
+                    System.out.println("이름을 입력해주세요:");
+                    String name = scan.next();
+                    gameRankInsert(name);
+                    gameRankList();
+
+                }catch(Exception e){}
+                
+                //System.exit(0);
+                break;
             }
         }
 
@@ -103,33 +121,37 @@ public class ProductView {
 
         while (true) {
 
-            System.out.println("발주할 재료의 번호를 입력하세요.   0. 메뉴로 돌아가기");
-            System.out.print(">> 선택 : ");
-            int productNumber = scan.nextInt();
+            try{
 
-            if (productNumber == 0) {
-                return;
-            } else if(productNumber<1 && productNumber>12){
+                System.out.println("발주할 재료의 번호를 입력하세요.   0. 메뉴로 돌아가기");
+                System.out.print(">> 선택 : ");
+                int productNumber = scan.nextInt();
 
-                System.out.println("발주할 재료의 수량을 입력하세요");
-                System.out.print(">> 입력 : ");
-                int productCount = scan.nextInt();
+                if (productNumber == 0) {
+                    return;
+                } else if(productNumber<1 && productNumber>12){
 
-                ProductLogDTO productLogDTO = new ProductLogDTO(productNumber, productCount);
+                    System.out.println("발주할 재료의 수량을 입력하세요");
+                    System.out.print(">> 입력 : ");
+                    int productCount = scan.nextInt();
 
-                boolean result = pc.addProductLog_order(productLogDTO);
+                    ProductLogDTO productLogDTO = new ProductLogDTO(productNumber, productCount);
 
-                if (result) {
-                    System.out.println("발주 성공");
-                    System.out.println("-------------------------------");
-                    System.out.println("구매 후 남은 자금 : " + pc.currentGold());
-                    System.out.println("-------------------------------");
-                } else {
-                    System.out.println("발주 실패");
-                }
+                    boolean result = pc.addProductLog_order(productLogDTO);
 
-            }else{System.out.println("발주할 재료의 번호를 다시 입력하세요.");}
+                    if (result) {
+                        System.out.println("발주 성공");
+                        System.out.println("-------------------------------");
+                        System.out.println("구매 후 남은 자금 : " + pc.currentGold());
+                        System.out.println("-------------------------------");
+                    } else {
+                        System.out.println("발주 실패");
+                    }
 
+                }else{System.out.println("발주할 재료의 번호를 다시 입력하세요.");}
+
+            }catch(Exception e){}
+            
         }
 
     }
@@ -167,7 +189,7 @@ public class ProductView {
     }
 
     // 게임 기록(랭킹) 추가
-    public void gameRankInsert(String userName) {
+    public void gameRankInsert(String userName) throws Exception{
         gc.gameRankInsert(userName);
     }
 
@@ -211,24 +233,28 @@ public class ProductView {
 
         while(true){
 
-            System.out.print(">> 입력 : ");
+            try{
 
-            String ch = scan.next();
-            if (ch.equals("Y")||ch.equals("y")) {
-                pc.autoOrder();
-                System.out.println("자동 구매가 완료되었습니다.");
-                countProductLog();
-                return;
-            }else if (ch.equals("N")||ch.equals("n")) {
-                return;
-            }else{ System.out.println("자동구매 여부를 먼저 선택해 주세요.");}
+                System.out.print(">> 입력 : ");
+
+                String ch = scan.next();
+                if (ch.equals("Y")||ch.equals("y")) {
+                    pc.autoOrder();
+                    System.out.println("자동 구매가 완료되었습니다.");
+                    countProductLog();
+                    return;
+                }else if (ch.equals("N")||ch.equals("n")) {
+                    return;
+                }else{ System.out.println("자동구매 여부를 먼저 선택해 주세요.");}
+
+            }catch(Exception e){}
 
         }
 
     }
 
     // 자동 발주 함수
-    public void autoOrder(){
+    public void autoOrder()throws Exception{
 
         boolean result = pc.autoOrder();
 

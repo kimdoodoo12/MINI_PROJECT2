@@ -17,7 +17,7 @@ public class ProductController{
 
     
     // 재고 발주 로그 추가 함수
-    public boolean addProductLog_order(ProductLogDTO productLogDTO){
+    public boolean addProductLog_order(ProductLogDTO productLogDTO) throws Exception{
         
         // 현재 자금 불러오기
         int currentGold = pd.currentGold();
@@ -50,7 +50,7 @@ public class ProductController{
 
 
     // 재료 가격 조회 함수
-    public ArrayList<ProductDTO> findProductLog(){
+    public ArrayList<ProductDTO> findProductLog (){
 
         ArrayList<ProductDTO> result = pd.findProductLog();
         
@@ -70,7 +70,7 @@ public class ProductController{
 
 
     // 재료 발주 금액 자본 차감 함수
-    public boolean buyProductLog(){
+    public boolean buyProductLog() {
 
         Boolean result = pd.buyProductLog();
 
@@ -169,7 +169,7 @@ public class ProductController{
     }
 
     // 자동 발주 함수 
-    public boolean autoOrder(){
+    public boolean autoOrder()throws Exception{
     
         boolean result = false;
 
